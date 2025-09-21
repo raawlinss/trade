@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TraderPro - Win Rate Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .gradient-bg-dark { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+        .card-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .dark-mode .bg-white\/95 { background: rgba(31, 41, 55, 0.95) !important; }
+        .dark-mode .bg-gray-50 { background: rgb(55, 65, 81) !important; }
+        .dark-mode .bg-white { background: rgb(75, 85, 99) !important; }
+        .dark-mode .text-gray-800 { color: rgb(229, 231, 235) !important; }
+        .dark-mode .text-gray-700 { color: rgb(209, 213, 219) !important; }
+        .dark-mode .text-gray-600 { color: rgb(156, 163, 175) !important; }
+        .dark-mode .border-gray-200 { border-color: rgb(75, 85, 99) !important; }
+        .dark-mode input, .dark-mode select { background: rgb(55, 65, 81) !important; color: white !important; border-color: rgb(75, 85, 99) !important; }
+        .dark-mode input::placeholder { color: rgb(156, 163, 175) !important; }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12 relative">
+            <button id="darkModeToggle" class="absolute left-4 top-0 bg-white/10 backdrop-blur-lg rounded-full p-3 text-white hover:bg-white/20 transition-all duration-300">
+                🌙
+            </button>
+            <h1 class="text-4xl font-bold text-white mb-2">Trader Tool</h1>
+            <p class="text-2xl text-white/90 font-light mb-4">Rawlins</p>
+            <p class="text-lg text-white/70">Profesyonel Trading Araçları</p>
+        </div>
+
+        <!-- Navigation -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-white/10 backdrop-blur-lg rounded-full p-1">
+                <button id="winRateTab" class="px-6 py-3 rounded-full text-white bg-white/20 font-medium transition-all duration-300">
+                    Win Rate Calculator
+                </button>
+                <button id="leverageTab" class="px-6 py-3 rounded-full text-white/70 hover:text-white font-medium transition-all duration-300">
+                    Leverage Calculator
+                </button>
+            </div>
+        </div>
+
+        <!-- Win Rate Calculator -->
+        <div id="winRateSection" class="max-w-4xl mx-auto">
+            <div class="bg-white/95 backdrop-blur-lg rounded-2xl card-shadow p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-8 text-center">Win Rate Calculator</h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Input Form -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Starting Balance (USD)</label>
+                            <input type="number" id="startingBalance" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" placeholder="10000" value="10000">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Take Profit (%)</label>
+                            <input type="number" id="takeProfit" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" placeholder="2" value="2" step="0.1">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Stop Loss (%)</label>
+                            <input type="number" id="stopLoss" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" placeholder="1" value="1" step="0.1">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Win Rate (%)</label>
+                            <input type="number" id="winRate" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" placeholder="65" value="65" min="0" max="100" step="0.1">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Number of Trades</label>
+                            <input type="number" id="numberOfTrades" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all" placeholder="100" value="100">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Leverage</label>
+                            <select id="leverage" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                                <option value="1">1x</option>
+                                <option value="2">2x</option>
+                                <option value="5">5x</option>
+                                <option value="10" selected>10x</option>
+                                <option value="20">20x</option>
+                                <option value="50">50x</option>
+                                <option value="100">100x</option>
+                            </select>
+                        </div>
+                        
+                        <button id="runStrategy" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            🚀 Run Strategy
+                        </button>
+                    </div>
+                    
+                    <!-- Results -->
+                    <div id="results" class="bg-gray-50 rounded-xl p-6 hidden">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Sonuçlar</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Risk/Reward Oranı:</span>
+                                <span id="riskReward" class="font-semibold text-blue-600">-</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Toplam Kar/Zarar:</span>
+                                <span id="totalProfitLoss" class="font-semibold">-</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Kazanan İşlemler:</span>
+                                <span id="winningTrades" class="font-semibold text-green-600">-</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Kaybeden İşlemler:</span>
+                                <span id="losingTrades" class="font-semibold text-red-600">-</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Net Kar Oranı:</span>
+                                <span id="netProfitRate" class="font-semibold text-purple-600">-</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-white rounded-lg">
+                                <span class="text-gray-600">Final Balance:</span>
+                                <span id="finalBalance" class="font-semibold text-indigo-600">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trade History -->
+                <div id="tradeList" class="mt-8 hidden">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-gray-800 flex items-center">
+                            <span class="w-1 h-6 bg-gradient-to-b from-purple-600 to-blue-600 rounded-full mr-3"></span>
+                            Trade History
+                        </h3>
+                        <div class="text-sm text-gray-500 bg-white px-3 py-1 rounded-full">
+                            Compound Interest Applied
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-xl p-4 max-h-96 overflow-y-auto">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr class="border-b border-gray-200">
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">Trade #</th>
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">Type</th>
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">Entry Balance</th>
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">Exit Balance</th>
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">P&L</th>
+                                        <th class="text-left py-2 px-3 font-semibold text-gray-700">P&L %</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tradesContainer">
+                                    <!-- Trades will be generated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leverage Calculator (Hidden) -->
+        <div id="leverageSection" class="max-w-4xl mx-auto hidden">
+            <div class="bg-white/95 backdrop-blur-lg rounded-2xl card-shadow p-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-8 text-center">Leverage Calculator</h2>
+                <div class="text-center text-gray-500">
+                    <p>Leverage calculator yakında eklenecek...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                document.body.classList.remove('gradient-bg');
+                document.body.classList.add('gradient-bg-dark');
+                this.textContent = '☀️';
+            } else {
+                document.body.classList.remove('gradient-bg-dark');
+                document.body.classList.add('gradient-bg');
+                this.textContent = '🌙';
+            }
+        });
+
+        // Tab switching
+        document.getElementById('winRateTab').addEventListener('click', function() {
+            document.getElementById('winRateSection').classList.remove('hidden');
+            document.getElementById('leverageSection').classList.add('hidden');
+            this.classList.add('bg-white/20');
+            this.classList.remove('text-white/70');
+            document.getElementById('leverageTab').classList.remove('bg-white/20');
+            document.getElementById('leverageTab').classList.add('text-white/70');
+        });
+
+        document.getElementById('leverageTab').addEventListener('click', function() {
+            document.getElementById('leverageSection').classList.remove('hidden');
+            document.getElementById('winRateSection').classList.add('hidden');
+            this.classList.add('bg-white/20');
+            this.classList.remove('text-white/70');
+            document.getElementById('winRateTab').classList.remove('bg-white/20');
+            document.getElementById('winRateTab').classList.add('text-white/70');
+        });
+
+        // Win Rate Calculator
+        document.getElementById('runStrategy').addEventListener('click', function() {
+            const startingBalance = parseFloat(document.getElementById('startingBalance').value);
+            const takeProfit = parseFloat(document.getElementById('takeProfit').value);
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+            const winRate = parseFloat(document.getElementById('winRate').value);
+            const numberOfTrades = parseInt(document.getElementById('numberOfTrades').value);
+            const leverage = parseFloat(document.getElementById('leverage').value);
+
+            if (!startingBalance || !takeProfit || !stopLoss || !winRate || !numberOfTrades || !leverage) {
+                alert('Lütfen tüm alanları doldurun!');
+                return;
+            }
+
+            // Mathematical calculations using improved formula
+            // Risk/Reward Ratio = Take Profit % / Stop Loss %
+            const riskRewardRatio = takeProfit / stopLoss;
+            
+            // Win Rate Decimal = Win Rate % / 100
+            const winRateDecimal = winRate / 100;
+            const lossRateDecimal = 1 - winRateDecimal;
+            
+            // Number of winning and losing trades
+            const winTrades = Math.floor(numberOfTrades * winRateDecimal);
+            const lossTrades = numberOfTrades - winTrades;
+            
+            // Net Kar/İşlem = (WinRate × TP) - ((1 - WinRate) × SL)
+            // This gives us the expected return per trade as percentage
+            const netProfitPerTrade = (winRateDecimal * takeProfit) - (lossRateDecimal * stopLoss);
+            
+            // Apply leverage to the net profit per trade
+            const leveragedNetProfitPerTrade = netProfitPerTrade * leverage;
+            
+            // Total net profit/loss = Net profit per trade × Number of trades × Starting balance / 100
+            const netProfitLoss = (leveragedNetProfitPerTrade / 100) * startingBalance * numberOfTrades;
+            
+            // Individual trade amounts for history
+            const profitPerWin = (startingBalance * takeProfit * leverage) / 100;
+            const lossPerTrade = (startingBalance * stopLoss * leverage) / 100;
+            
+            // Net Profit Rate = (Net Profit / Starting Balance) × 100
+            const netProfitRate = (netProfitLoss / startingBalance) * 100;
+            
+            // Final Balance = Starting Balance + Net Profit/Loss
+            const finalBalance = startingBalance + netProfitLoss;
+
+            // Generate trade sequence and get actual results
+            const actualResults = generateTradeSequence(numberOfTrades, winRate);
+
+            // Display results using actual compound calculations
+            document.getElementById('riskReward').textContent = '1:' + riskRewardRatio.toFixed(2);
+            document.getElementById('totalProfitLoss').textContent = '$' + actualResults.totalPnL.toLocaleString('tr-TR', {maximumFractionDigits: 2});
+            document.getElementById('totalProfitLoss').className = actualResults.totalPnL >= 0 ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+            document.getElementById('winningTrades').textContent = actualResults.actualWins + ' (' + ((actualResults.actualWins / numberOfTrades) * 100).toFixed(1) + '%)';
+            document.getElementById('losingTrades').textContent = actualResults.actualLosses + ' (' + ((actualResults.actualLosses / numberOfTrades) * 100).toFixed(1) + '%)';
+            document.getElementById('netProfitRate').textContent = actualResults.netProfitRate.toFixed(2) + '%';
+            document.getElementById('netProfitRate').className = actualResults.netProfitRate >= 0 ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+            document.getElementById('finalBalance').textContent = '$' + actualResults.finalBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2});
+            document.getElementById('finalBalance').className = actualResults.finalBalance >= startingBalance ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+
+            // Show results and trade list
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('tradeList').classList.remove('hidden');
+            
+            // Smooth scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Generate trade history table with compound interest
+        function generateTradeSequence(totalTrades, winRate) {
+            const container = document.getElementById('tradesContainer');
+            container.innerHTML = '';
+            
+            // Get current values for calculations
+            const startingBalance = parseFloat(document.getElementById('startingBalance').value);
+            const takeProfit = parseFloat(document.getElementById('takeProfit').value);
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+            const leverage = parseFloat(document.getElementById('leverage').value);
+            
+            // Calculate number of wins and losses
+            const wins = Math.floor(totalTrades * (winRate / 100));
+            const losses = totalTrades - wins;
+            
+            // Create array of trades (1 = win, 0 = loss)
+            let trades = [];
+            for (let i = 0; i < wins; i++) trades.push(1);
+            for (let i = 0; i < losses; i++) trades.push(0);
+            
+            // Shuffle the array to distribute wins and losses randomly
+            for (let i = trades.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [trades[i], trades[j]] = [trades[j], trades[i]];
+            }
+            
+            // Generate table rows with compound interest
+            let currentBalance = startingBalance;
+            let actualWins = 0;
+            let actualLosses = 0;
+            
+            trades.forEach((trade, index) => {
+                const isWin = trade === 1;
+                const entryBalance = currentBalance;
+                
+                // Count actual wins and losses
+                if (isWin) {
+                    actualWins++;
+                } else {
+                    actualLosses++;
+                }
+                
+                // Calculate P&L based on current balance (compound interest)
+                const pnl = isWin ? 
+                    (currentBalance * takeProfit * leverage) / 100 : 
+                    -(currentBalance * stopLoss * leverage) / 100;
+                
+                const pnlPercent = isWin ? takeProfit * leverage : -stopLoss * leverage;
+                currentBalance += pnl;
+                
+                const row = document.createElement('tr');
+                row.className = 'border-b border-gray-100 hover:bg-gray-50 transition-colors';
+                row.innerHTML = `
+                    <td class="py-3 px-4 text-gray-700 font-medium">#${index + 1}</td>
+                    <td class="py-3 px-4">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold ${isWin ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                            ${isWin ? 'WIN' : 'LOSS'}
+                        </span>
+                    </td>
+                    <td class="py-3 px-4 text-gray-700 font-mono">$${entryBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
+                    <td class="py-3 px-4 text-gray-700 font-mono font-semibold">$${currentBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
+                    <td class="py-3 px-4 ${isWin ? 'text-green-600' : 'text-red-600'} font-bold font-mono">
+                        ${isWin ? '+' : ''}$${pnl.toLocaleString('tr-TR', {maximumFractionDigits: 2})}
+                    </td>
+                    <td class="py-3 px-4 ${isWin ? 'text-green-600' : 'text-red-600'} font-bold">
+                        ${isWin ? '+' : ''}${pnlPercent.toFixed(2)}%
+                    </td>
+                `;
+                container.appendChild(row);
+            });
+            
+            // Calculate actual results from compound calculations
+            const totalCompoundPnL = currentBalance - startingBalance;
+            const compoundNetProfitRate = ((currentBalance - startingBalance) / startingBalance) * 100;
+            
+            // Return actual results for use in results section
+            return {
+                finalBalance: currentBalance,
+                totalPnL: totalCompoundPnL,
+                netProfitRate: compoundNetProfitRate,
+                actualWins: actualWins,
+                actualLosses: actualLosses
+            };
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982aef519592da45',t:'MTc1ODQ3MjA5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
