@@ -5,211 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TraderPro - Win Rate Calculator</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         body { 
-            font-family: 'Inter', sans-serif; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background-attachment: fixed;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
+            transition: all 0.3s ease;
         }
-        .gradient-bg { 
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
-            position: relative;
+        
+        /* Light Mode */
+        .light-mode {
+            background: #f8fafc;
+            color: #1e293b;
         }
-        .gradient-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+        
+        /* Dark Mode */
+        .dark-mode {
+            background: #0f172a;
+            color: #f1f5f9;
         }
-        .gradient-bg-dark { 
-            background: linear-gradient(135deg, #000000 0%, #0a0a0a 25%, #1a1a1a 50%, #2d2d2d 75%, #1a1a2e 100%);
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
         }
-        .gradient-bg-dark::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 70%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
-            pointer-events: none;
+        
+        .dark-mode .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
         }
-        .card-shadow { 
-            box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.25), 
-                        0 20px 25px -5px rgba(0, 0, 0, 0.1), 
-                        0 0 0 1px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
+        
+        /* Input Styles */
+        .input {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #374151;
         }
-        .premium-glass {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        
+        .input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-        .gold-accent { color: #FFD700; }
-        .platinum-text { color: #E5E4E2; }
-        .diamond-border { border: 1px solid rgba(185, 242, 255, 0.3); }
-        .luxury-hover:hover { 
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 40px 80px -12px rgba(0, 0, 0, 0.4);
+        
+        .dark-mode .input {
+            background: #374151;
+            border: 1px solid #4b5563;
+            color: #f9fafb;
         }
-        .dark-mode .bg-white\/95 { 
-            background: rgba(15, 15, 35, 0.95) !important; 
-            border: 1px solid rgba(255, 215, 0, 0.1) !important;
+        
+        .dark-mode .input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
         }
-        .dark-mode .bg-gray-50, .dark-mode .bg-gradient-to-br { 
-            background: rgba(20, 20, 40, 0.8) !important; 
-            border: 1px solid rgba(255, 215, 0, 0.05) !important;
+        
+        /* Button Styles */
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border: none;
         }
-        .dark-mode .bg-white, .dark-mode .bg-gradient-to-r { 
-            background: rgba(25, 25, 45, 0.9) !important; 
-            border: 1px solid rgba(255, 215, 0, 0.1) !important;
+        
+        .btn-primary:hover {
+            background: #2563eb;
         }
-        .dark-mode .bg-blue-50 { 
-            background: rgba(30, 30, 60, 0.8) !important; 
-            border-color: rgba(100, 150, 255, 0.3) !important;
-        }
-        .dark-mode .bg-yellow-50 { 
-            background: rgba(60, 50, 20, 0.8) !important; 
-            border-color: rgba(255, 215, 0, 0.3) !important;
-        }
-        .dark-mode .bg-orange-50 { 
-            background: rgba(60, 40, 20, 0.8) !important; 
-            border-color: rgba(255, 165, 0, 0.3) !important;
-        }
-        .dark-mode .bg-red-50 { 
-            background: rgba(60, 20, 20, 0.8) !important; 
-            border-color: rgba(255, 100, 100, 0.3) !important;
-        }
-        .dark-mode .bg-green-100 { 
-            background: rgba(20, 60, 20, 0.8) !important; 
-            color: rgb(100, 255, 100) !important;
-        }
-        .dark-mode .bg-red-100 { 
-            background: rgba(60, 20, 20, 0.8) !important; 
-            color: rgb(255, 150, 150) !important;
-        }
-        .dark-mode .text-gray-800 { color: rgb(255, 215, 0) !important; }
-        .dark-mode .text-gray-700 { color: rgb(245, 245, 245) !important; }
-        .dark-mode .text-gray-600 { color: rgb(200, 200, 200) !important; }
-        .dark-mode .text-gray-500 { color: rgb(160, 160, 160) !important; }
-        .dark-mode .border-gray-100, .dark-mode .border-gray-200, .dark-mode .border-gray-300 { 
-            border-color: rgba(255, 215, 0, 0.2) !important; 
-        }
-        .dark-mode .border-blue-200 { border-color: rgba(100, 150, 255, 0.3) !important; }
-        .dark-mode .border-yellow-200, .dark-mode .border-yellow-300 { border-color: rgba(255, 215, 0, 0.3) !important; }
-        .dark-mode .border-orange-200 { border-color: rgba(255, 165, 0, 0.3) !important; }
-        .dark-mode .border-red-200 { border-color: rgba(255, 100, 100, 0.3) !important; }
-        .dark-mode .hover\:bg-gray-50:hover, .dark-mode .hover\:bg-gradient-to-r:hover { 
-            background: rgba(255, 215, 0, 0.1) !important; 
-        }
-        .dark-mode input, .dark-mode select { 
-            background: rgba(20, 20, 40, 0.9) !important; 
-            color: white !important; 
-            border: 1px solid rgba(255, 215, 0, 0.3) !important;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        .dark-mode input:focus, .dark-mode select:focus {
-            border-color: rgba(255, 215, 0, 0.6) !important;
-            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
-        }
-        .dark-mode input::placeholder { color: rgba(255, 215, 0, 0.4) !important; }
-        .premium-button {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
-            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
-        .premium-button:hover {
-            background: linear-gradient(135deg, #FFED4E 0%, #FFB84D 50%, #FF9500 100%);
-            box-shadow: 0 12px 40px rgba(255, 215, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-        .nav-glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        .dark-mode .nav-glass {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-        }
+        
+        /* Text Colors */
+        .text-primary { color: #1e293b; }
+        .text-secondary { color: #64748b; }
+        
+        .dark-mode .text-primary { color: #f1f5f9; }
+        .dark-mode .text-secondary { color: #94a3b8; }
+        
+        /* Results Colors */
+        .text-success { color: #059669; }
+        .text-danger { color: #dc2626; }
+        .text-info { color: #0284c7; }
+        
+        .dark-mode .text-success { color: #10b981; }
+        .dark-mode .text-danger { color: #ef4444; }
+        .dark-mode .text-info { color: #06b6d4; }
+        
+        /* Background Colors */
+        .bg-success-light { background: #f0fdf4; border-color: #bbf7d0; }
+        .bg-danger-light { background: #fef2f2; border-color: #fecaca; }
+        .bg-info-light { background: #f0f9ff; border-color: #bae6fd; }
+        
+        .dark-mode .bg-success-light { background: #064e3b; border-color: #065f46; }
+        .dark-mode .bg-danger-light { background: #7f1d1d; border-color: #991b1b; }
+        .dark-mode .bg-info-light { background: #0c4a6e; border-color: #0369a1; }
     </style>
 </head>
-<body class="min-h-screen gradient-bg">
-    <div class="container mx-auto px-4 py-8">
+<body class="min-h-screen light-mode">
+    <div class="container mx-auto px-6 py-12">
         <!-- Header -->
-        <div class="text-center mb-16 relative">
-            <button id="darkModeToggle" class="absolute left-4 top-0 premium-glass rounded-full p-4 text-white hover:scale-110 transition-all duration-500 luxury-hover">
+        <div class="text-center mb-12 relative">
+            <button id="darkModeToggle" class="absolute left-0 top-0 card rounded-lg p-3 text-secondary hover:text-primary transition-all duration-200">
                 🌙
             </button>
-            <div class="mb-6">
-                <h1 class="text-6xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent mb-3 tracking-tight">
-                    
+            <div>
+                <h1 class="text-3xl font-semibold text-primary mb-2">
+                    RAWLINS
                 </h1>
-                <div class="flex items-center justify-center mb-4">
-                    <div class="w-12 h-px bg-gradient-to-r from-transparent via-gold-accent to-transparent"></div>
-                    <p class="text-3xl gold-accent font-light mx-6 tracking-widest">RAWLINS</p>
-                    <div class="w-12 h-px bg-gradient-to-r from-transparent via-gold-accent to-transparent"></div>
-                </div>
-                <p class="text-xl platinum-text font-light tracking-wide">Elite Trading Analytics Suite</p>
+                <p class="text-secondary">Professional Trading Analytics</p>
             </div>
         </div>
 
         <!-- Navigation -->
-        <div class="flex justify-center mb-12">
-            <div class="nav-glass rounded-full p-2 shadow-2xl">
-                <button id="winRateTab" class="px-8 py-4 rounded-full text-white bg-gradient-to-r from-white/20 to-white/10 font-semibold transition-all duration-500 luxury-hover diamond-border">
-                    💎 Win Rate Calculator
+        <div class="flex justify-center mb-8">
+            <div class="card rounded-lg p-1">
+                <button id="winRateTab" class="px-6 py-2 rounded-md text-white btn-primary font-medium transition-all duration-200">
+                    Win Rate Calculator
                 </button>
-                <button id="leverageTab" class="px-8 py-4 rounded-full text-white/70 hover:text-white font-semibold transition-all duration-500 hover:bg-white/10">
-                    ⚡ Leverage Calculator
+                <button id="leverageTab" class="px-6 py-2 rounded-md text-secondary hover:text-primary font-medium transition-all duration-200">
+                    Leverage Calculator
                 </button>
             </div>
         </div>
 
         <!-- Win Rate Calculator -->
         <div id="winRateSection" class="max-w-4xl mx-auto">
-            <div class="bg-white/95 backdrop-blur-lg rounded-3xl card-shadow p-12 luxury-hover relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-accent to-transparent"></div>
-                <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center tracking-wide">💎 Win Rate Calculator</h2>
+            <div class="card rounded-lg p-6">
+                <h2 class="text-lg font-medium text-primary mb-6 text-center">Win Rate Calculator</h2>
                 
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 gap-6">
                     <!-- Input Form -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">💰 Starting Balance (USD)</label>
-                            <input type="number" id="startingBalance" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="10000" value="10000">
+                            <label class="block text-sm font-medium text-primary mb-2">Starting Balance (USD)</label>
+                            <input type="number" id="startingBalance" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="10000" value="10000">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">📈 Take Profit (%)</label>
-                            <input type="number" id="takeProfit" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="2" value="2" step="0.1">
+                            <label class="block text-sm font-medium text-primary mb-2">Take Profit (%)</label>
+                            <input type="number" id="takeProfit" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="2" value="2" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">📉 Stop Loss (%)</label>
-                            <input type="number" id="stopLoss" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="1" value="1" step="0.1">
+                            <label class="block text-sm font-medium text-primary mb-2">Stop Loss (%)</label>
+                            <input type="number" id="stopLoss" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="1" value="1" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">🎯 Win Rate (%)</label>
-                            <input type="number" id="winRate" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="65" value="65" min="0" max="100" step="0.1">
+                            <label class="block text-sm font-medium text-primary mb-2">Win Rate (%)</label>
+                            <input type="number" id="winRate" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="65" value="65" min="0" max="100" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">🔢 Number of Trades</label>
-                            <input type="number" id="numberOfTrades" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="100" value="100">
+                            <label class="block text-sm font-medium text-primary mb-2">Number of Trades</label>
+                            <input type="number" id="numberOfTrades" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="100" value="100">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">⚡ Leverage</label>
-                            <select id="leverage" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner">
+                            <label class="block text-sm font-medium text-primary mb-2">Leverage</label>
+                            <select id="leverage" class="w-full px-3 py-2 input rounded-lg transition-all duration-200">
                                 <option value="1">1x</option>
                                 <option value="2">2x</option>
                                 <option value="5">5x</option>
@@ -220,65 +170,64 @@
                             </select>
                         </div>
                         
-                        <button id="runStrategy" class="w-full premium-button text-black py-6 rounded-xl font-bold text-xl tracking-wide transform hover:scale-105 transition-all duration-500 shadow-2xl luxury-hover">
-                            🚀 EXECUTE STRATEGY
+                        <button id="runStrategy" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200">
+                            Calculate Strategy
                         </button>
                     </div>
                     
                     <!-- Results -->
-                    <div id="results" class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hidden shadow-inner border border-gray-200">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-wide">📊 ANALYTICS RESULTS</h3>
-                        <div class="space-y-5">
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">⚖️ Risk/Reward Ratio:</span>
-                                <span id="riskReward" class="font-bold text-blue-600 text-lg">-</span>
+                    <div id="results" class="card rounded-lg p-4 hidden">
+                        <h3 class="text-base font-medium text-primary mb-4 text-center">Results</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Risk/Reward Ratio:</span>
+                                <span id="riskReward" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">💎 Total P&L:</span>
-                                <span id="totalProfitLoss" class="font-bold text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Total P&L:</span>
+                                <span id="totalProfitLoss" class="font-medium">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">✅ Winning Trades:</span>
-                                <span id="winningTrades" class="font-bold text-green-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Winning Trades:</span>
+                                <span id="winningTrades" class="font-medium text-success">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">❌ Losing Trades:</span>
-                                <span id="losingTrades" class="font-bold text-red-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Losing Trades:</span>
+                                <span id="losingTrades" class="font-medium text-danger">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">📈 Net Profit Rate:</span>
-                                <span id="netProfitRate" class="font-bold text-purple-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Net Profit Rate:</span>
+                                <span id="netProfitRate" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl shadow-sm border-2 border-indigo-200 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-800 font-bold">🏆 Final Balance:</span>
-                                <span id="finalBalance" class="font-bold text-indigo-600 text-xl">-</span>
+                            <div class="flex justify-between items-center p-2 bg-info-light rounded border">
+                                <span class="text-primary font-medium text-sm">Final Balance:</span>
+                                <span id="finalBalance" class="font-medium text-info">-</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Trade History -->
-                <div id="tradeList" class="mt-12 hidden">
-                    <div class="flex items-center justify-between mb-8">
-                        <h3 class="text-2xl font-bold text-gray-800 flex items-center">
-                            <span class="w-2 h-8 bg-gradient-to-b from-purple-600 to-blue-600 rounded-full mr-4 shadow-lg"></span>
-                            📊 Trade History
+                <div id="tradeList" class="mt-6 hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-base font-medium text-primary">
+                            Trade History
                         </h3>
-                        <div class="text-sm font-semibold text-gray-600 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
-                            💰 Compound Interest Applied
+                        <div class="text-xs text-secondary card px-2 py-1 rounded">
+                            Compound Interest Applied
                         </div>
                     </div>
-                    <div class="bg-gray-50 rounded-2xl p-6 max-h-96 overflow-y-auto shadow-inner border border-gray-200">
+                    <div class="card rounded-lg p-3 max-h-80 overflow-y-auto">
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="border-b-2 border-gray-300">
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">Trade #</th>
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">Type</th>
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">Entry Balance</th>
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">Exit Balance</th>
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">P&L</th>
-                                        <th class="text-left py-4 px-4 font-bold text-gray-800 tracking-wide">P&L %</th>
+                                    <tr class="border-b border-gray-200">
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Trade #</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Type</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Entry Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Exit Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">P&L</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">P&L %</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tradesContainer">
@@ -294,34 +243,33 @@
 
         <!-- Leverage Calculator (Hidden) -->
         <div id="leverageSection" class="max-w-4xl mx-auto hidden">
-            <div class="bg-white/95 backdrop-blur-lg rounded-3xl card-shadow p-12 luxury-hover relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-accent to-transparent"></div>
-                <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center tracking-wide">⚡ Leverage Calculator</h2>
+            <div class="card rounded-lg p-6">
+                <h2 class="text-lg font-medium text-primary mb-6 text-center">Leverage Calculator</h2>
                 
-                <div class="grid md:grid-cols-2 gap-8">
+                <div class="grid md:grid-cols-2 gap-6">
                     <!-- Input Form -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <!-- Position Type -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">📊 Position Type</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button id="longBtn" class="px-6 py-4 bg-green-500 text-white rounded-xl font-bold transition-all duration-300 hover:bg-green-600 shadow-lg">
-                                    📈 LONG
+                            <label class="block text-sm font-medium text-primary mb-2">Position Type</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button id="longBtn" class="px-3 py-2 bg-green-500 text-white rounded-lg font-medium transition-all duration-200 hover:bg-green-600">
+                                    LONG
                                 </button>
-                                <button id="shortBtn" class="px-6 py-4 bg-gray-300 text-gray-600 rounded-xl font-bold transition-all duration-300 hover:bg-red-500 hover:text-white shadow-lg">
-                                    📉 SHORT
+                                <button id="shortBtn" class="px-3 py-2 bg-gray-300 text-gray-600 rounded-lg font-medium transition-all duration-200 hover:bg-red-500 hover:text-white">
+                                    SHORT
                                 </button>
                             </div>
                         </div>
                         
                         <!-- Leverage -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">⚡ Leverage</label>
+                            <label class="block text-sm font-medium text-primary mb-2">Leverage</label>
                             <div class="relative">
-                                <input type="range" id="leverageSlider" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider" min="1" max="100" value="10" step="1">
-                                <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                <input type="range" id="leverageSlider" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
+                                <div class="flex justify-between text-xs text-secondary mt-1">
                                     <span>1x</span>
-                                    <span id="leverageDisplay" class="font-bold text-orange-600">10x</span>
+                                    <span id="leverageDisplay" class="font-medium text-info">10x</span>
                                     <span>100x</span>
                                 </div>
                             </div>
@@ -329,85 +277,83 @@
                         
                         <!-- Entry Price -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">💰 Entry Price (USD)</label>
-                            <input type="number" id="entryPrice" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="50000" value="50000" step="0.01">
+                            <label class="block text-sm font-medium text-primary mb-2">Entry Price (USD)</label>
+                            <input type="number" id="entryPrice" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="50000" value="50000" step="0.01">
                         </div>
                         
                         <!-- Quantity -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">📊 Quantity</label>
-                            <input type="number" id="quantity" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="0.1" value="0.1" step="0.00000001">
+                            <label class="block text-sm font-medium text-primary mb-2">Quantity</label>
+                            <input type="number" id="quantity" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="0.1" value="0.1" step="0.00000001">
                         </div>
                         
                         <!-- Balance -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">💳 Balance (USD)</label>
-                            <input type="number" id="balance" class="w-full px-6 py-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 bg-gray-50/50 font-semibold text-lg shadow-inner" placeholder="10000" value="10000">
+                            <label class="block text-sm font-medium text-primary mb-2">Balance (USD)</label>
+                            <input type="number" id="balance" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="10000" value="10000">
                         </div>
-                        
-
                         
                         <!-- Balance Percentage -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-3 tracking-wide">📊 Balance Usage (%)</label>
+                            <label class="block text-sm font-medium text-primary mb-2">Balance Usage (%)</label>
                             <div class="relative">
-                                <input type="range" id="balancePercentage" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer slider" min="1" max="100" value="10" step="1">
-                                <div class="flex justify-between text-xs text-gray-500 mt-2">
+                                <input type="range" id="balancePercentage" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
+                                <div class="flex justify-between text-xs text-secondary mt-1">
                                     <span>1%</span>
-                                    <span id="percentageDisplay" class="font-bold text-blue-600">10%</span>
+                                    <span id="percentageDisplay" class="font-medium text-info">10%</span>
                                     <span>100%</span>
                                 </div>
                             </div>
-                            <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                                <div class="text-sm text-gray-700 font-semibold">Position Size: <span id="positionSize" class="text-blue-600">$1,000.00</span></div>
+                            <div class="mt-2 p-2 bg-info-light rounded border">
+                                <div class="text-sm text-primary font-medium">Position Size: <span id="positionSize" class="text-info font-medium">$1,000.00</span></div>
                             </div>
                         </div>
                         
-                        <button id="calculateLeverage" class="w-full premium-button text-black py-6 rounded-xl font-bold text-xl tracking-wide transform hover:scale-105 transition-all duration-500 shadow-2xl luxury-hover">
-                            🚀 CALCULATE POSITION
+                        <button id="calculateLeverage" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200">
+                            Calculate Position
                         </button>
                     </div>
                     
                     <!-- Results -->
-                    <div id="leverageResults" class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 hidden shadow-inner border border-gray-200">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center tracking-wide">📊 POSITION ANALYSIS</h3>
-                        <div class="space-y-5">
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">📊 Position Type:</span>
-                                <span id="positionTypeResult" class="font-bold text-lg">-</span>
+                    <div id="leverageResults" class="card rounded-lg p-4 hidden">
+                        <h3 class="text-base font-medium text-primary mb-4 text-center">Position Analysis</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Position Type:</span>
+                                <span id="positionTypeResult" class="font-medium">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">⚡ Leverage:</span>
-                                <span id="leverageResult" class="font-bold text-orange-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Leverage:</span>
+                                <span id="leverageResult" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">💰 Position Size:</span>
-                                <span id="positionSizeResult" class="font-bold text-blue-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Position Size:</span>
+                                <span id="positionSizeResult" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">📈 Quantity:</span>
-                                <span id="quantityResult" class="font-bold text-purple-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 card rounded border">
+                                <span class="text-secondary text-sm">Quantity:</span>
+                                <span id="quantityResult" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-blue-50 rounded-xl shadow-sm border border-blue-200 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-700 font-semibold">💰 Used Balance:</span>
-                                <span id="usedBalanceResult" class="font-bold text-blue-600 text-lg">-</span>
+                            <div class="flex justify-between items-center p-2 bg-info-light rounded border">
+                                <span class="text-primary text-sm">Used Balance:</span>
+                                <span id="usedBalanceResult" class="font-medium text-info">-</span>
                             </div>
-                            <div class="p-4 bg-yellow-50 rounded-xl shadow-sm border border-yellow-200 hover:shadow-md transition-all duration-300">
-                                <div class="flex justify-between items-center mb-3">
-                                    <span class="text-gray-700 font-semibold">🛑 Stop Price (USD):</span>
+                            <div class="p-2 bg-info-light rounded border">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-primary text-sm font-medium">Stop Price (USD):</span>
                                 </div>
-                                <input type="number" id="stopPrice" class="w-full px-4 py-3 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-300 bg-white font-semibold text-lg shadow-inner" placeholder="48000" step="0.01">
-                                <div class="mt-3 p-3 bg-orange-50 rounded-lg border border-orange-200">
-                                    <div class="text-sm text-gray-700 font-semibold">🎯 Optimal Leverage: <span id="optimalLeverage" class="text-orange-600 font-bold text-lg">-</span></div>
+                                <input type="number" id="stopPrice" class="w-full px-2 py-1 input rounded transition-all duration-200" placeholder="48000" step="0.01">
+                                <div class="mt-2 p-2 bg-success-light rounded border">
+                                    <div class="text-sm text-primary font-medium">Optimal Leverage: <span id="optimalLeverage" class="text-success font-medium">-</span></div>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-red-50 rounded-xl shadow-sm border-2 border-red-200 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-800 font-bold">⚠️ Liquidation Price:</span>
-                                <span id="liquidationPrice" class="font-bold text-red-600 text-xl">-</span>
+                            <div class="flex justify-between items-center p-2 bg-danger-light rounded border">
+                                <span class="text-primary text-sm font-medium">Liquidation Price:</span>
+                                <span id="liquidationPrice" class="font-medium text-danger">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl shadow-sm border-2 border-indigo-200 hover:shadow-md transition-all duration-300">
-                                <span class="text-gray-800 font-bold">💳 Total Balance:</span>
-                                <span id="finalBalanceResult" class="font-bold text-indigo-600 text-xl">-</span>
+                            <div class="flex justify-between items-center p-2 bg-info-light rounded border">
+                                <span class="text-primary text-sm font-medium">Total Balance:</span>
+                                <span id="finalBalanceResult" class="font-medium text-info">-</span>
                             </div>
                         </div>
                     </div>
@@ -423,13 +369,11 @@
         // Dark mode toggle
         document.getElementById('darkModeToggle').addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            
             if (document.body.classList.contains('dark-mode')) {
-                document.body.classList.remove('gradient-bg');
-                document.body.classList.add('gradient-bg-dark');
                 this.textContent = '☀️';
             } else {
-                document.body.classList.remove('gradient-bg-dark');
-                document.body.classList.add('gradient-bg');
                 this.textContent = '🌙';
             }
         });
@@ -576,19 +520,19 @@
         document.getElementById('winRateTab').addEventListener('click', function() {
             document.getElementById('winRateSection').classList.remove('hidden');
             document.getElementById('leverageSection').classList.add('hidden');
-            this.classList.add('bg-white/20');
-            this.classList.remove('text-white/70');
-            document.getElementById('leverageTab').classList.remove('bg-white/20');
-            document.getElementById('leverageTab').classList.add('text-white/70');
+            this.classList.add('btn-primary', 'text-white');
+            this.classList.remove('text-secondary');
+            document.getElementById('leverageTab').classList.remove('btn-primary', 'text-white');
+            document.getElementById('leverageTab').classList.add('text-secondary');
         });
 
         document.getElementById('leverageTab').addEventListener('click', function() {
             document.getElementById('leverageSection').classList.remove('hidden');
             document.getElementById('winRateSection').classList.add('hidden');
-            this.classList.add('bg-white/20');
-            this.classList.remove('text-white/70');
-            document.getElementById('winRateTab').classList.remove('bg-white/20');
-            document.getElementById('winRateTab').classList.add('text-white/70');
+            this.classList.add('btn-primary', 'text-white');
+            this.classList.remove('text-secondary');
+            document.getElementById('winRateTab').classList.remove('btn-primary', 'text-white');
+            document.getElementById('winRateTab').classList.add('text-secondary');
         });
 
         // Win Rate Calculator
@@ -643,13 +587,13 @@
             // Display results using actual compound calculations
             document.getElementById('riskReward').textContent = '1:' + riskRewardRatio.toFixed(2);
             document.getElementById('totalProfitLoss').textContent = '$' + actualResults.totalPnL.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('totalProfitLoss').className = actualResults.totalPnL >= 0 ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+            document.getElementById('totalProfitLoss').className = actualResults.totalPnL >= 0 ? 'font-medium text-success' : 'font-medium text-danger';
             document.getElementById('winningTrades').textContent = actualResults.actualWins + ' (' + ((actualResults.actualWins / numberOfTrades) * 100).toFixed(1) + '%)';
             document.getElementById('losingTrades').textContent = actualResults.actualLosses + ' (' + ((actualResults.actualLosses / numberOfTrades) * 100).toFixed(1) + '%)';
             document.getElementById('netProfitRate').textContent = actualResults.netProfitRate.toFixed(2) + '%';
-            document.getElementById('netProfitRate').className = actualResults.netProfitRate >= 0 ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+            document.getElementById('netProfitRate').className = actualResults.netProfitRate >= 0 ? 'font-medium text-success' : 'font-medium text-danger';
             document.getElementById('finalBalance').textContent = '$' + actualResults.finalBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('finalBalance').className = actualResults.finalBalance >= startingBalance ? 'font-semibold text-green-600' : 'font-semibold text-red-600';
+            document.getElementById('finalBalance').className = actualResults.finalBalance >= startingBalance ? 'font-medium text-success' : 'font-medium text-danger';
 
             // Show results and trade list
             document.getElementById('results').classList.remove('hidden');
@@ -712,18 +656,18 @@
                 const row = document.createElement('tr');
                 row.className = 'border-b border-gray-100 hover:bg-gray-50 transition-colors';
                 row.innerHTML = `
-                    <td class="py-3 px-4 text-gray-700 font-medium">#${index + 1}</td>
-                    <td class="py-3 px-4">
-                        <span class="px-3 py-1 rounded-full text-xs font-bold ${isWin ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                    <td class="py-2 px-2 text-secondary text-xs">#${index + 1}</td>
+                    <td class="py-2 px-2">
+                        <span class="px-2 py-1 rounded text-xs font-medium ${isWin ? 'bg-success-light text-success' : 'bg-danger-light text-danger'}">
                             ${isWin ? 'WIN' : 'LOSS'}
                         </span>
                     </td>
-                    <td class="py-3 px-4 text-gray-700 font-mono">$${entryBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
-                    <td class="py-3 px-4 text-gray-700 font-mono font-semibold">$${currentBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
-                    <td class="py-3 px-4 ${isWin ? 'text-green-600' : 'text-red-600'} font-bold font-mono">
+                    <td class="py-2 px-2 text-secondary text-xs font-mono">$${entryBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
+                    <td class="py-2 px-2 text-primary text-xs font-mono font-medium">$${currentBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
+                    <td class="py-2 px-2 ${isWin ? 'text-success' : 'text-danger'} text-xs font-medium font-mono">
                         ${isWin ? '+' : ''}$${pnl.toLocaleString('tr-TR', {maximumFractionDigits: 2})}
                     </td>
-                    <td class="py-3 px-4 ${isWin ? 'text-green-600' : 'text-red-600'} font-bold">
+                    <td class="py-2 px-2 ${isWin ? 'text-success' : 'text-danger'} text-xs font-medium">
                         ${isWin ? '+' : ''}${pnlPercent.toFixed(2)}%
                     </td>
                 `;
@@ -744,5 +688,5 @@
             };
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'982bd69b10b91243',t:'MTc1ODQ4MTU3MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9841d322b5cedc47',t:'MTc1ODcxMjExNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
