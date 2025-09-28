@@ -10,6 +10,7 @@
         body { 
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; 
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         
         /* Light Mode */
@@ -104,21 +105,44 @@
             <button id="darkModeToggle" class="absolute left-0 top-0 card rounded-lg p-3 text-secondary hover:text-primary transition-all duration-200">
                 🌙
             </button>
+            
+            <!-- Language Selector -->
+            <div class="absolute right-0 top-0">
+                <div class="relative">
+                    <select id="languageSelector" class="card rounded-lg p-3 text-secondary hover:text-primary transition-all duration-200 input border-0 cursor-pointer appearance-none pr-8">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="tr">🇹🇷 Türkçe</option>
+                        <option value="es">🇪🇸 Español</option>
+                        <option value="ru">🇷🇺 Русский</option>
+                        <option value="zh">🇨🇳 中文</option>
+                        <option value="az">🇦🇿 Azərbaycan</option>
+                        <option value="pt">🇵🇹 Português</option>
+                        <option value="ja">🇯🇵 日本語</option>
+                        <option value="de">🇩🇪 Deutsch</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
             <div>
                 <h1 class="text-3xl font-semibold text-primary mb-2">
                     RAWLINS
                 </h1>
-                <p class="text-secondary">Professional Trading Analytics</p>
+                <p class="text-secondary" data-translate="subtitle">Professional Trading Analytics</p>
             </div>
         </div>
 
         <!-- Navigation -->
         <div class="flex justify-center mb-8">
             <div class="card rounded-lg p-1">
-                <button id="winRateTab" class="px-6 py-2 rounded-md text-white btn-primary font-medium transition-all duration-200">
+                <button id="winRateTab" class="px-6 py-2 rounded-md text-white btn-primary font-medium transition-all duration-200" data-translate="winRateTab">
                     Win Rate Calculator
                 </button>
-                <button id="leverageTab" class="px-6 py-2 rounded-md text-secondary hover:text-primary font-medium transition-all duration-200">
+                <button id="leverageTab" class="px-6 py-2 rounded-md text-secondary hover:text-primary font-medium transition-all duration-200" data-translate="leverageTab">
                     Leverage Calculator
                 </button>
             </div>
@@ -127,80 +151,80 @@
         <!-- Win Rate Calculator -->
         <div id="winRateSection" class="max-w-4xl mx-auto">
             <div class="card rounded-lg p-6">
-                <h2 class="text-lg font-medium text-primary mb-6 text-center">Win Rate Calculator</h2>
+                <h2 class="text-lg font-medium text-primary mb-6 text-center" data-translate="winRateTitle">Win Rate Calculator</h2>
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Input Form -->
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Starting Balance (USD)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="startingBalance">Starting Balance (USD)</label>
                             <input type="number" id="startingBalance" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="10000" value="10000">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Take Profit (%)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="takeProfit">Take Profit (%)</label>
                             <input type="number" id="takeProfit" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="2" value="2" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Stop Loss (%)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="stopLoss">Stop Loss (%)</label>
                             <input type="number" id="stopLoss" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="1" value="1" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Win Rate (%)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="winRate">Win Rate (%)</label>
                             <input type="number" id="winRate" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="65" value="65" min="0" max="100" step="0.1">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Number of Trades</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="numberOfTrades">Number of Trades</label>
                             <input type="number" id="numberOfTrades" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="100" value="100">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Leverage</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="leverage">Leverage</label>
                             <select id="leverage" class="w-full px-3 py-2 input rounded-lg transition-all duration-200">
-                                <option value="1">1x</option>
+                                <option value="1" selected>1x</option>
                                 <option value="2">2x</option>
                                 <option value="5">5x</option>
-                                <option value="10" selected>10x</option>
+                                <option value="10">10x</option>
                                 <option value="20">20x</option>
                                 <option value="50">50x</option>
                                 <option value="100">100x</option>
                             </select>
                         </div>
                         
-                        <button id="runStrategy" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200">
+                        <button id="runStrategy" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200" data-translate="calculateStrategy">
                             Calculate Strategy
                         </button>
                     </div>
                     
                     <!-- Results -->
                     <div id="results" class="card rounded-lg p-4 hidden">
-                        <h3 class="text-base font-medium text-primary mb-4 text-center">Results</h3>
+                        <h3 class="text-base font-medium text-primary mb-4 text-center" data-translate="results">Results</h3>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Risk/Reward Ratio:</span>
+                                <span class="text-secondary text-sm" data-translate="riskReward">Risk/Reward Ratio:</span>
                                 <span id="riskReward" class="font-medium text-info">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Total P&L:</span>
+                                <span class="text-secondary text-sm" data-translate="totalPL">Total P&L:</span>
                                 <span id="totalProfitLoss" class="font-medium">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Winning Trades:</span>
+                                <span class="text-secondary text-sm" data-translate="winningTrades">Winning Trades:</span>
                                 <span id="winningTrades" class="font-medium text-success">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Losing Trades:</span>
+                                <span class="text-secondary text-sm" data-translate="losingTrades">Losing Trades:</span>
                                 <span id="losingTrades" class="font-medium text-danger">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Net Profit Rate:</span>
+                                <span class="text-secondary text-sm" data-translate="netProfitRate">Net Profit Rate:</span>
                                 <span id="netProfitRate" class="font-medium text-info">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-info-light rounded border">
-                                <span class="text-primary font-medium text-sm">Final Balance:</span>
+                                <span class="text-primary font-medium text-sm" data-translate="finalBalance">Final Balance:</span>
                                 <span id="finalBalance" class="font-medium text-info">-</span>
                             </div>
                         </div>
@@ -210,10 +234,10 @@
                 <!-- Trade History -->
                 <div id="tradeList" class="mt-6 hidden">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-base font-medium text-primary">
+                        <h3 class="text-base font-medium text-primary" data-translate="tradeHistory">
                             Trade History
                         </h3>
-                        <div class="text-xs text-secondary card px-2 py-1 rounded">
+                        <div class="text-xs text-secondary card px-2 py-1 rounded" data-translate="compoundInterest">
                             Compound Interest Applied
                         </div>
                     </div>
@@ -222,12 +246,12 @@
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="border-b border-gray-200">
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Trade #</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Type</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Entry Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">Exit Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">P&L</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs">P&L %</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="tradeNumber">Trade #</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="type">Type</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="entryBalance">Entry Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="exitBalance">Exit Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="pl">P&L</th>
+                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="plPercent">P&L %</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tradesContainer">
@@ -244,19 +268,19 @@
         <!-- Leverage Calculator (Hidden) -->
         <div id="leverageSection" class="max-w-4xl mx-auto hidden">
             <div class="card rounded-lg p-6">
-                <h2 class="text-lg font-medium text-primary mb-6 text-center">Leverage Calculator</h2>
+                <h2 class="text-lg font-medium text-primary mb-6 text-center" data-translate="leverageTitle">Leverage Calculator</h2>
                 
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Input Form -->
                     <div class="space-y-4">
                         <!-- Position Type -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Position Type</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="positionType">Position Type</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button id="longBtn" class="px-3 py-2 bg-green-500 text-white rounded-lg font-medium transition-all duration-200 hover:bg-green-600">
+                                <button id="longBtn" class="px-3 py-2 bg-green-500 text-white rounded-lg font-medium transition-all duration-200 hover:bg-green-600" data-translate="long">
                                     LONG
                                 </button>
-                                <button id="shortBtn" class="px-3 py-2 bg-gray-300 text-gray-600 rounded-lg font-medium transition-all duration-200 hover:bg-red-500 hover:text-white">
+                                <button id="shortBtn" class="px-3 py-2 bg-gray-300 text-gray-600 rounded-lg font-medium transition-all duration-200 hover:bg-red-500 hover:text-white" data-translate="short">
                                     SHORT
                                 </button>
                             </div>
@@ -264,7 +288,7 @@
                         
                         <!-- Leverage -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Leverage</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="leverage">Leverage</label>
                             <div class="relative">
                                 <input type="range" id="leverageSlider" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
                                 <div class="flex justify-between text-xs text-secondary mt-1">
@@ -277,25 +301,25 @@
                         
                         <!-- Entry Price -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Entry Price (USD)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="entryPrice">Entry Price (USD)</label>
                             <input type="number" id="entryPrice" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="50000" value="50000" step="0.01">
                         </div>
                         
                         <!-- Quantity -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Quantity</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="quantity">Quantity</label>
                             <input type="number" id="quantity" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="0.1" value="0.1" step="0.00000001">
                         </div>
                         
                         <!-- Balance -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Balance (USD)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="balance">Balance (USD)</label>
                             <input type="number" id="balance" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="10000" value="10000">
                         </div>
                         
                         <!-- Balance Percentage -->
                         <div>
-                            <label class="block text-sm font-medium text-primary mb-2">Balance Usage (%)</label>
+                            <label class="block text-sm font-medium text-primary mb-2" data-translate="balanceUsage">Balance Usage (%)</label>
                             <div class="relative">
                                 <input type="range" id="balancePercentage" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
                                 <div class="flex justify-between text-xs text-secondary mt-1">
@@ -305,54 +329,54 @@
                                 </div>
                             </div>
                             <div class="mt-2 p-2 bg-info-light rounded border">
-                                <div class="text-sm text-primary font-medium">Position Size: <span id="positionSize" class="text-info font-medium">$1,000.00</span></div>
+                                <div class="text-sm text-primary font-medium"><span data-translate="positionSize">Position Size:</span> <span id="positionSize" class="text-info font-medium">$1,000.00</span></div>
                             </div>
                         </div>
                         
-                        <button id="calculateLeverage" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200">
+                        <button id="calculateLeverage" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200" data-translate="calculatePosition">
                             Calculate Position
                         </button>
                     </div>
                     
                     <!-- Results -->
                     <div id="leverageResults" class="card rounded-lg p-4 hidden">
-                        <h3 class="text-base font-medium text-primary mb-4 text-center">Position Analysis</h3>
+                        <h3 class="text-base font-medium text-primary mb-4 text-center" data-translate="positionAnalysis">Position Analysis</h3>
                         <div class="space-y-2">
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Position Type:</span>
+                                <span class="text-secondary text-sm" data-translate="positionType">Position Type:</span>
                                 <span id="positionTypeResult" class="font-medium">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Leverage:</span>
+                                <span class="text-secondary text-sm" data-translate="leverage">Leverage:</span>
                                 <span id="leverageResult" class="font-medium text-info">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Position Size:</span>
+                                <span class="text-secondary text-sm" data-translate="positionSize">Position Size:</span>
                                 <span id="positionSizeResult" class="font-medium text-info">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border">
-                                <span class="text-secondary text-sm">Quantity:</span>
+                                <span class="text-secondary text-sm" data-translate="quantity">Quantity:</span>
                                 <span id="quantityResult" class="font-medium text-info">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-info-light rounded border">
-                                <span class="text-primary text-sm">Used Balance:</span>
+                                <span class="text-primary text-sm" data-translate="usedBalance">Used Balance:</span>
                                 <span id="usedBalanceResult" class="font-medium text-info">-</span>
                             </div>
                             <div class="p-2 bg-info-light rounded border">
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-primary text-sm font-medium">Stop Price (USD):</span>
+                                    <span class="text-primary text-sm font-medium" data-translate="stopPrice">Stop Price (USD):</span>
                                 </div>
                                 <input type="number" id="stopPrice" class="w-full px-2 py-1 input rounded transition-all duration-200" placeholder="48000" step="0.01">
                                 <div class="mt-2 p-2 bg-success-light rounded border">
-                                    <div class="text-sm text-primary font-medium">Optimal Leverage: <span id="optimalLeverage" class="text-success font-medium">-</span></div>
+                                    <div class="text-sm text-primary font-medium"><span data-translate="optimalLeverage">Optimal Leverage:</span> <span id="optimalLeverage" class="text-success font-medium">-</span></div>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-danger-light rounded border">
-                                <span class="text-primary text-sm font-medium">Liquidation Price:</span>
+                                <span class="text-primary text-sm font-medium" data-translate="liquidationPrice">Liquidation Price:</span>
                                 <span id="liquidationPrice" class="font-medium text-danger">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-info-light rounded border">
-                                <span class="text-primary text-sm font-medium">Total Balance:</span>
+                                <span class="text-primary text-sm font-medium" data-translate="totalBalance">Total Balance:</span>
                                 <span id="finalBalanceResult" class="font-medium text-info">-</span>
                             </div>
                         </div>
@@ -363,6 +387,451 @@
     </div>
 
     <script>
+        // Translation system
+        const translations = {
+            en: {
+                subtitle: "Professional Trading Analytics",
+                winRateTab: "Win Rate Calculator",
+                leverageTab: "Leverage Calculator",
+                winRateTitle: "Win Rate Calculator",
+                startingBalance: "Starting Balance (USD)",
+                takeProfit: "Take Profit (%)",
+                stopLoss: "Stop Loss (%)",
+                winRate: "Win Rate (%)",
+                numberOfTrades: "Number of Trades",
+                leverage: "Leverage",
+                calculateStrategy: "Calculate Strategy",
+                results: "Results",
+                riskReward: "Risk/Reward Ratio:",
+                totalPL: "Total P&L:",
+                winningTrades: "Winning Trades:",
+                losingTrades: "Losing Trades:",
+                netProfitRate: "Net Profit Rate:",
+                finalBalance: "Final Balance:",
+                tradeHistory: "Trade History",
+                compoundInterest: "Compound Interest Applied",
+                tradeNumber: "Trade #",
+                type: "Type",
+                entryBalance: "Entry Balance",
+                exitBalance: "Exit Balance",
+                pl: "P&L",
+                plPercent: "P&L %",
+                leverageTitle: "Leverage Calculator",
+                positionType: "Position Type",
+                long: "LONG",
+                short: "SHORT",
+                entryPrice: "Entry Price (USD)",
+                quantity: "Quantity",
+                balance: "Balance (USD)",
+                balanceUsage: "Balance Usage (%)",
+                positionSize: "Position Size:",
+                calculatePosition: "Calculate Position",
+                positionAnalysis: "Position Analysis",
+                usedBalance: "Used Balance:",
+                stopPrice: "Stop Price (USD):",
+                optimalLeverage: "Optimal Leverage:",
+                liquidationPrice: "Liquidation Price:",
+                totalBalance: "Total Balance:",
+                win: "WIN",
+                loss: "LOSS",
+                fillAllFields: "Please fill all fields!"
+            },
+            tr: {
+                subtitle: "Profesyonel Ticaret Analitikleri",
+                winRateTab: "Kazanma Oranı Hesaplayıcısı",
+                leverageTab: "Kaldıraç Hesaplayıcısı",
+                winRateTitle: "Kazanma Oranı Hesaplayıcısı",
+                startingBalance: "Başlangıç Bakiyesi (USD)",
+                takeProfit: "Kar Al (%)",
+                stopLoss: "Zarar Durdur (%)",
+                winRate: "Kazanma Oranı (%)",
+                numberOfTrades: "İşlem Sayısı",
+                leverage: "Kaldıraç",
+                calculateStrategy: "Stratejiyi Hesapla",
+                results: "Sonuçlar",
+                riskReward: "Risk/Ödül Oranı:",
+                totalPL: "Toplam K/Z:",
+                winningTrades: "Kazanan İşlemler:",
+                losingTrades: "Kaybeden İşlemler:",
+                netProfitRate: "Net Kar Oranı:",
+                finalBalance: "Son Bakiye:",
+                tradeHistory: "İşlem Geçmişi",
+                compoundInterest: "Bileşik Faiz Uygulandı",
+                tradeNumber: "İşlem #",
+                type: "Tür",
+                entryBalance: "Giriş Bakiyesi",
+                exitBalance: "Çıkış Bakiyesi",
+                pl: "K/Z",
+                plPercent: "K/Z %",
+                leverageTitle: "Kaldıraç Hesaplayıcısı",
+                positionType: "Pozisyon Türü",
+                long: "ALIM",
+                short: "SATIM",
+                entryPrice: "Giriş Fiyatı (USD)",
+                quantity: "Miktar",
+                balance: "Bakiye (USD)",
+                balanceUsage: "Bakiye Kullanımı (%)",
+                positionSize: "Pozisyon Büyüklüğü:",
+                calculatePosition: "Pozisyonu Hesapla",
+                positionAnalysis: "Pozisyon Analizi",
+                usedBalance: "Kullanılan Bakiye:",
+                stopPrice: "Stop Fiyatı (USD):",
+                optimalLeverage: "Optimal Kaldıraç:",
+                liquidationPrice: "Tasfiye Fiyatı:",
+                totalBalance: "Toplam Bakiye:",
+                win: "KAZANÇ",
+                loss: "KAYIP",
+                fillAllFields: "Lütfen tüm alanları doldurun!"
+            },
+            es: {
+                subtitle: "Análisis Profesional de Trading",
+                winRateTab: "Calculadora de Tasa de Ganancia",
+                leverageTab: "Calculadora de Apalancamiento",
+                winRateTitle: "Calculadora de Tasa de Ganancia",
+                startingBalance: "Balance Inicial (USD)",
+                takeProfit: "Tomar Ganancia (%)",
+                stopLoss: "Stop Loss (%)",
+                winRate: "Tasa de Ganancia (%)",
+                numberOfTrades: "Número de Operaciones",
+                leverage: "Apalancamiento",
+                calculateStrategy: "Calcular Estrategia",
+                results: "Resultados",
+                riskReward: "Ratio Riesgo/Recompensa:",
+                totalPL: "P&L Total:",
+                winningTrades: "Operaciones Ganadoras:",
+                losingTrades: "Operaciones Perdedoras:",
+                netProfitRate: "Tasa de Ganancia Neta:",
+                finalBalance: "Balance Final:",
+                tradeHistory: "Historial de Operaciones",
+                compoundInterest: "Interés Compuesto Aplicado",
+                tradeNumber: "Operación #",
+                type: "Tipo",
+                entryBalance: "Balance de Entrada",
+                exitBalance: "Balance de Salida",
+                pl: "P&L",
+                plPercent: "P&L %",
+                leverageTitle: "Calculadora de Apalancamiento",
+                positionType: "Tipo de Posición",
+                long: "LARGO",
+                short: "CORTO",
+                entryPrice: "Precio de Entrada (USD)",
+                quantity: "Cantidad",
+                balance: "Balance (USD)",
+                balanceUsage: "Uso del Balance (%)",
+                positionSize: "Tamaño de Posición:",
+                calculatePosition: "Calcular Posición",
+                positionAnalysis: "Análisis de Posición",
+                usedBalance: "Balance Utilizado:",
+                stopPrice: "Precio Stop (USD):",
+                optimalLeverage: "Apalancamiento Óptimo:",
+                liquidationPrice: "Precio de Liquidación:",
+                totalBalance: "Balance Total:",
+                win: "GANANCIA",
+                loss: "PÉRDIDA",
+                fillAllFields: "¡Por favor complete todos los campos!"
+            },
+            ru: {
+                subtitle: "Профессиональная Торговая Аналитика",
+                winRateTab: "Калькулятор Винрейта",
+                leverageTab: "Калькулятор Плеча",
+                winRateTitle: "Калькулятор Винрейта",
+                startingBalance: "Начальный Баланс (USD)",
+                takeProfit: "Тейк Профит (%)",
+                stopLoss: "Стоп Лосс (%)",
+                winRate: "Винрейт (%)",
+                numberOfTrades: "Количество Сделок",
+                leverage: "Плечо",
+                calculateStrategy: "Рассчитать Стратегию",
+                results: "Результаты",
+                riskReward: "Соотношение Риск/Доход:",
+                totalPL: "Общий P&L:",
+                winningTrades: "Прибыльные Сделки:",
+                losingTrades: "Убыточные Сделки:",
+                netProfitRate: "Чистая Прибыль:",
+                finalBalance: "Итоговый Баланс:",
+                tradeHistory: "История Сделок",
+                compoundInterest: "Сложный Процент Применен",
+                tradeNumber: "Сделка #",
+                type: "Тип",
+                entryBalance: "Входящий Баланс",
+                exitBalance: "Исходящий Баланс",
+                pl: "P&L",
+                plPercent: "P&L %",
+                leverageTitle: "Калькулятор Плеча",
+                positionType: "Тип Позиции",
+                long: "ЛОНГ",
+                short: "ШОРТ",
+                entryPrice: "Цена Входа (USD)",
+                quantity: "Количество",
+                balance: "Баланс (USD)",
+                balanceUsage: "Использование Баланса (%)",
+                positionSize: "Размер Позиции:",
+                calculatePosition: "Рассчитать Позицию",
+                positionAnalysis: "Анализ Позиции",
+                usedBalance: "Использованный Баланс:",
+                stopPrice: "Стоп Цена (USD):",
+                optimalLeverage: "Оптимальное Плечо:",
+                liquidationPrice: "Цена Ликвидации:",
+                totalBalance: "Общий Баланс:",
+                win: "ПРИБЫЛЬ",
+                loss: "УБЫТОК",
+                fillAllFields: "Пожалуйста, заполните все поля!"
+            },
+            zh: {
+                subtitle: "专业交易分析",
+                winRateTab: "胜率计算器",
+                leverageTab: "杠杆计算器",
+                winRateTitle: "胜率计算器",
+                startingBalance: "起始余额 (USD)",
+                takeProfit: "止盈 (%)",
+                stopLoss: "止损 (%)",
+                winRate: "胜率 (%)",
+                numberOfTrades: "交易次数",
+                leverage: "杠杆",
+                calculateStrategy: "计算策略",
+                results: "结果",
+                riskReward: "风险/收益比:",
+                totalPL: "总盈亏:",
+                winningTrades: "盈利交易:",
+                losingTrades: "亏损交易:",
+                netProfitRate: "净利润率:",
+                finalBalance: "最终余额:",
+                tradeHistory: "交易历史",
+                compoundInterest: "已应用复利",
+                tradeNumber: "交易 #",
+                type: "类型",
+                entryBalance: "入场余额",
+                exitBalance: "出场余额",
+                pl: "盈亏",
+                plPercent: "盈亏 %",
+                leverageTitle: "杠杆计算器",
+                positionType: "仓位类型",
+                long: "做多",
+                short: "做空",
+                entryPrice: "入场价格 (USD)",
+                quantity: "数量",
+                balance: "余额 (USD)",
+                balanceUsage: "余额使用 (%)",
+                positionSize: "仓位大小:",
+                calculatePosition: "计算仓位",
+                positionAnalysis: "仓位分析",
+                usedBalance: "已用余额:",
+                stopPrice: "止损价格 (USD):",
+                optimalLeverage: "最优杠杆:",
+                liquidationPrice: "强平价格:",
+                totalBalance: "总余额:",
+                win: "盈利",
+                loss: "亏损",
+                fillAllFields: "请填写所有字段！"
+            },
+            az: {
+                subtitle: "Peşəkar Ticarət Analitikası",
+                winRateTab: "Qazanma Nisbəti Kalkulyatoru",
+                leverageTab: "Leverage Kalkulyatoru",
+                winRateTitle: "Qazanma Nisbəti Kalkulyatoru",
+                startingBalance: "Başlanğıc Balans (USD)",
+                takeProfit: "Mənfəət Al (%)",
+                stopLoss: "Zərər Dayandır (%)",
+                winRate: "Qazanma Nisbəti (%)",
+                numberOfTrades: "Əməliyyat Sayı",
+                leverage: "Leverage",
+                calculateStrategy: "Strategiyanı Hesabla",
+                results: "Nəticələr",
+                riskReward: "Risk/Mükafat Nisbəti:",
+                totalPL: "Ümumi M/Z:",
+                winningTrades: "Qazanan Əməliyyatlar:",
+                losingTrades: "Uduzən Əməliyyatlar:",
+                netProfitRate: "Xalis Mənfəət Nisbəti:",
+                finalBalance: "Son Balans:",
+                tradeHistory: "Əməliyyat Tarixçəsi",
+                compoundInterest: "Mürəkkəb Faiz Tətbiq Edildi",
+                tradeNumber: "Əməliyyat #",
+                type: "Növ",
+                entryBalance: "Giriş Balansı",
+                exitBalance: "Çıxış Balansı",
+                pl: "M/Z",
+                plPercent: "M/Z %",
+                leverageTitle: "Leverage Kalkulyatoru",
+                positionType: "Pozisiya Növü",
+                long: "ALIM",
+                short: "SATIM",
+                entryPrice: "Giriş Qiyməti (USD)",
+                quantity: "Miqdar",
+                balance: "Balans (USD)",
+                balanceUsage: "Balans İstifadəsi (%)",
+                positionSize: "Pozisiya Ölçüsü:",
+                calculatePosition: "Poziziyanı Hesabla",
+                positionAnalysis: "Pozisiya Analizi",
+                usedBalance: "İstifadə Edilən Balans:",
+                stopPrice: "Stop Qiyməti (USD):",
+                optimalLeverage: "Optimal Leverage:",
+                liquidationPrice: "Ləğv Qiyməti:",
+                totalBalance: "Ümumi Balans:",
+                win: "QAZANC",
+                loss: "ITKI",
+                fillAllFields: "Zəhmət olmasa bütün sahələri doldurun!"
+            },
+            pt: {
+                subtitle: "Análise Profissional de Trading",
+                winRateTab: "Calculadora de Taxa de Vitória",
+                leverageTab: "Calculadora de Alavancagem",
+                winRateTitle: "Calculadora de Taxa de Vitória",
+                startingBalance: "Saldo Inicial (USD)",
+                takeProfit: "Take Profit (%)",
+                stopLoss: "Stop Loss (%)",
+                winRate: "Taxa de Vitória (%)",
+                numberOfTrades: "Número de Negociações",
+                leverage: "Alavancagem",
+                calculateStrategy: "Calcular Estratégia",
+                results: "Resultados",
+                riskReward: "Relação Risco/Recompensa:",
+                totalPL: "P&L Total:",
+                winningTrades: "Negociações Vencedoras:",
+                losingTrades: "Negociações Perdedoras:",
+                netProfitRate: "Taxa de Lucro Líquido:",
+                finalBalance: "Saldo Final:",
+                tradeHistory: "Histórico de Negociações",
+                compoundInterest: "Juros Compostos Aplicados",
+                tradeNumber: "Negociação #",
+                type: "Tipo",
+                entryBalance: "Saldo de Entrada",
+                exitBalance: "Saldo de Saída",
+                pl: "P&L",
+                plPercent: "P&L %",
+                leverageTitle: "Calculadora de Alavancagem",
+                positionType: "Tipo de Posição",
+                long: "COMPRA",
+                short: "VENDA",
+                entryPrice: "Preço de Entrada (USD)",
+                quantity: "Quantidade",
+                balance: "Saldo (USD)",
+                balanceUsage: "Uso do Saldo (%)",
+                positionSize: "Tamanho da Posição:",
+                calculatePosition: "Calcular Posição",
+                positionAnalysis: "Análise da Posição",
+                usedBalance: "Saldo Utilizado:",
+                stopPrice: "Preço Stop (USD):",
+                optimalLeverage: "Alavancagem Ótima:",
+                liquidationPrice: "Preço de Liquidação:",
+                totalBalance: "Saldo Total:",
+                win: "VITÓRIA",
+                loss: "PERDA",
+                fillAllFields: "Por favor, preencha todos os campos!"
+            },
+            ja: {
+                subtitle: "プロフェッショナル取引分析",
+                winRateTab: "勝率計算機",
+                leverageTab: "レバレッジ計算機",
+                winRateTitle: "勝率計算機",
+                startingBalance: "開始残高 (USD)",
+                takeProfit: "利確 (%)",
+                stopLoss: "損切り (%)",
+                winRate: "勝率 (%)",
+                numberOfTrades: "取引回数",
+                leverage: "レバレッジ",
+                calculateStrategy: "戦略を計算",
+                results: "結果",
+                riskReward: "リスク/リワード比:",
+                totalPL: "総損益:",
+                winningTrades: "勝ち取引:",
+                losingTrades: "負け取引:",
+                netProfitRate: "純利益率:",
+                finalBalance: "最終残高:",
+                tradeHistory: "取引履歴",
+                compoundInterest: "複利適用済み",
+                tradeNumber: "取引 #",
+                type: "タイプ",
+                entryBalance: "エントリー残高",
+                exitBalance: "エグジット残高",
+                pl: "損益",
+                plPercent: "損益 %",
+                leverageTitle: "レバレッジ計算機",
+                positionType: "ポジションタイプ",
+                long: "ロング",
+                short: "ショート",
+                entryPrice: "エントリー価格 (USD)",
+                quantity: "数量",
+                balance: "残高 (USD)",
+                balanceUsage: "残高使用率 (%)",
+                positionSize: "ポジションサイズ:",
+                calculatePosition: "ポジションを計算",
+                positionAnalysis: "ポジション分析",
+                usedBalance: "使用残高:",
+                stopPrice: "ストップ価格 (USD):",
+                optimalLeverage: "最適レバレッジ:",
+                liquidationPrice: "強制決済価格:",
+                totalBalance: "総残高:",
+                win: "勝ち",
+                loss: "負け",
+                fillAllFields: "すべてのフィールドを入力してください！"
+            },
+            de: {
+                subtitle: "Professionelle Trading-Analyse",
+                winRateTab: "Gewinnrate-Rechner",
+                leverageTab: "Hebel-Rechner",
+                winRateTitle: "Gewinnrate-Rechner",
+                startingBalance: "Startkapital (USD)",
+                takeProfit: "Take Profit (%)",
+                stopLoss: "Stop Loss (%)",
+                winRate: "Gewinnrate (%)",
+                numberOfTrades: "Anzahl Trades",
+                leverage: "Hebel",
+                calculateStrategy: "Strategie berechnen",
+                results: "Ergebnisse",
+                riskReward: "Risiko/Gewinn-Verhältnis:",
+                totalPL: "Gesamt P&L:",
+                winningTrades: "Gewinn-Trades:",
+                losingTrades: "Verlust-Trades:",
+                netProfitRate: "Netto-Gewinnrate:",
+                finalBalance: "Endkapital:",
+                tradeHistory: "Trade-Historie",
+                compoundInterest: "Zinseszins angewendet",
+                tradeNumber: "Trade #",
+                type: "Typ",
+                entryBalance: "Einstiegs-Kapital",
+                exitBalance: "Ausstiegs-Kapital",
+                pl: "P&L",
+                plPercent: "P&L %",
+                leverageTitle: "Hebel-Rechner",
+                positionType: "Positionstyp",
+                long: "LONG",
+                short: "SHORT",
+                entryPrice: "Einstiegspreis (USD)",
+                quantity: "Menge",
+                balance: "Kapital (USD)",
+                balanceUsage: "Kapitalnutzung (%)",
+                positionSize: "Positionsgröße:",
+                calculatePosition: "Position berechnen",
+                positionAnalysis: "Positions-Analyse",
+                usedBalance: "Genutztes Kapital:",
+                stopPrice: "Stop-Preis (USD):",
+                optimalLeverage: "Optimaler Hebel:",
+                liquidationPrice: "Liquidationspreis:",
+                totalBalance: "Gesamtkapital:",
+                win: "GEWINN",
+                loss: "VERLUST",
+                fillAllFields: "Bitte alle Felder ausfüllen!"
+            }
+        };
+
+        let currentLanguage = 'en';
+
+        function translatePage(lang) {
+            currentLanguage = lang;
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Language selector
+        document.getElementById('languageSelector').addEventListener('change', function() {
+            translatePage(this.value);
+        });
+
         // Global variables for leverage calculator
         let selectedPosition = 'long';
 
@@ -470,7 +939,7 @@
             const stopPrice = parseFloat(document.getElementById('stopPrice').value);
 
             if (!leverage || !entryPrice || !balance || !balancePercentage || !quantity) {
-                alert('Lütfen tüm alanları doldurun!');
+                alert(translations[currentLanguage].fillAllFields);
                 return;
             }
 
@@ -545,7 +1014,7 @@
             const leverage = parseFloat(document.getElementById('leverage').value);
 
             if (!startingBalance || !takeProfit || !stopLoss || !winRate || !numberOfTrades || !leverage) {
-                alert('Lütfen tüm alanları doldurun!');
+                alert(translations[currentLanguage].fillAllFields);
                 return;
             }
 
@@ -659,7 +1128,7 @@
                     <td class="py-2 px-2 text-secondary text-xs">#${index + 1}</td>
                     <td class="py-2 px-2">
                         <span class="px-2 py-1 rounded text-xs font-medium ${isWin ? 'bg-success-light text-success' : 'bg-danger-light text-danger'}">
-                            ${isWin ? 'WIN' : 'LOSS'}
+                            ${isWin ? translations[currentLanguage].win : translations[currentLanguage].loss}
                         </span>
                     </td>
                     <td class="py-2 px-2 text-secondary text-xs font-mono">$${entryBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
@@ -688,5 +1157,5 @@
             };
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9841d322b5cedc47',t:'MTc1ODcxMjExNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9862dbdbe5515868',t:'MTc1OTA1ODUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
