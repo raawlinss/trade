@@ -79,6 +79,15 @@
         .dark-mode .text-primary { color: #f1f5f9; }
         .dark-mode .text-secondary { color: #94a3b8; }
         
+        /* Language Menu Hover */
+        .language-option:hover {
+            background-color: #f1f5f9;
+        }
+        
+        .dark-mode .language-option:hover {
+            background-color: #374151;
+        }
+        
         /* Results Colors */
         .text-success { color: #059669; }
         .text-danger { color: #dc2626; }
@@ -109,21 +118,52 @@
             <!-- Language Selector -->
             <div class="absolute right-0 top-0">
                 <div class="relative">
-                    <select id="languageSelector" class="card rounded-lg p-3 text-secondary hover:text-primary transition-all duration-200 input border-0 cursor-pointer appearance-none pr-8">
-                        <option value="en">🇬🇧 English</option>
-                        <option value="tr">🇹🇷 Türkçe</option>
-                        <option value="es">🇪🇸 Español</option>
-                        <option value="ru">🇷🇺 Русский</option>
-                        <option value="zh">🇨🇳 中文</option>
-                        <option value="az">🇦🇿 Azərbaycan</option>
-                        <option value="pt">🇵🇹 Português</option>
-                        <option value="ja">🇯🇵 日本語</option>
-                        <option value="de">🇩🇪 Deutsch</option>
-                    </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <div id="languageDropdown" class="card rounded-lg p-3 text-secondary hover:text-primary transition-all duration-200 cursor-pointer flex items-center space-x-2">
+                        <img id="currentFlag" src="https://flagcdn.com/us.svg" alt="Flag" class="w-5 h-4 rounded-sm">
+                        <span id="currentLanguage">English</span>
                         <svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                         </svg>
+                    </div>
+                    <div id="languageMenu" class="absolute right-0 top-full mt-2 card rounded-lg shadow-lg border hidden z-50 min-w-48">
+                        <div class="py-2">
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="en" data-flag="us" data-name="English">
+                                <img src="https://flagcdn.com/us.svg" alt="US Flag" class="w-5 h-4 rounded-sm">
+                                <span>English</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="tr" data-flag="tr" data-name="Türkçe">
+                                <img src="https://flagcdn.com/tr.svg" alt="Turkey Flag" class="w-5 h-4 rounded-sm">
+                                <span>Türkçe</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="es" data-flag="es" data-name="Español">
+                                <img src="https://flagcdn.com/es.svg" alt="Spain Flag" class="w-5 h-4 rounded-sm">
+                                <span>Español</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="ru" data-flag="ru" data-name="Русский">
+                                <img src="https://flagcdn.com/ru.svg" alt="Russia Flag" class="w-5 h-4 rounded-sm">
+                                <span>Русский</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="zh" data-flag="cn" data-name="中文">
+                                <img src="https://flagcdn.com/cn.svg" alt="China Flag" class="w-5 h-4 rounded-sm">
+                                <span>中文</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="az" data-flag="az" data-name="Azərbaycan">
+                                <img src="https://flagcdn.com/az.svg" alt="Azerbaijan Flag" class="w-5 h-4 rounded-sm">
+                                <span>Azərbaycan</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="pt" data-flag="pt" data-name="Português">
+                                <img src="https://flagcdn.com/pt.svg" alt="Portugal Flag" class="w-5 h-4 rounded-sm">
+                                <span>Português</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="ja" data-flag="jp" data-name="日本語">
+                                <img src="https://flagcdn.com/jp.svg" alt="Japan Flag" class="w-5 h-4 rounded-sm">
+                                <span>日本語</span>
+                            </div>
+                            <div class="language-option px-3 py-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-3" data-lang="de" data-flag="de" data-name="Deutsch">
+                                <img src="https://flagcdn.com/de.svg" alt="Germany Flag" class="w-5 h-4 rounded-sm">
+                                <span>Deutsch</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -827,9 +867,39 @@
             });
         }
 
-        // Language selector
-        document.getElementById('languageSelector').addEventListener('change', function() {
-            translatePage(this.value);
+        // Language selector dropdown
+        document.getElementById('languageDropdown').addEventListener('click', function() {
+            const menu = document.getElementById('languageMenu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('languageDropdown');
+            const menu = document.getElementById('languageMenu');
+            
+            if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        // Language option selection
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                const flag = this.getAttribute('data-flag');
+                const name = this.getAttribute('data-name');
+                
+                // Update current display
+                document.getElementById('currentFlag').src = `https://flagcdn.com/${flag}.svg`;
+                document.getElementById('currentLanguage').textContent = name;
+                
+                // Translate page
+                translatePage(lang);
+                
+                // Close menu
+                document.getElementById('languageMenu').classList.add('hidden');
+            });
         });
 
         // Global variables for leverage calculator
@@ -1157,5 +1227,5 @@
             };
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9862dbdbe5515868',t:'MTc1OTA1ODUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'986bcd4d01b0b497',t:'MTc1OTE1MjI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
