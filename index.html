@@ -13,6 +13,174 @@
             box-sizing: border-box;
         }
         
+        /* Animasyon Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes staggerIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Sayfa yüklenme animasyonu */
+        .fade-in-page {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* Card hover efekti */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Dark mode card */
+        .dark-mode .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        /* Input animasyonları */
+        .input {
+            background: white;
+            border: 1px solid #d1d5db;
+            color: #374151;
+            transition: all 0.3s ease;
+        }
+        
+        .input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: scale(1.02);
+            animation: pulseGlow 1s infinite;
+        }
+        
+        .dark-mode .input {
+            background: #374151;
+            border: 1px solid #4b5563;
+            color: #f9fafb;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .input:focus {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+            transform: scale(1.02);
+            animation: pulseGlow 1s infinite;
+        }
+        
+        /* Button animasyonları */
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+            animation: bounceIn 0.3s ease;
+        }
+        
+        /* Tab buton animasyonları */
+        button[data-translate] {
+            transition: all 0.3s ease;
+        }
+        
+        button[data-translate]:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Results slide-in animasyonu */
+        #results, #leverageResults {
+            animation: slideInFromRight 0.5s ease-out forwards;
+            opacity: 0;
+        }
+        
+        #results.show, #leverageResults.show {
+            opacity: 1;
+        }
+        
+        /* Trade history stagger animasyonu */
+        #tradesContainer tr {
+            opacity: 0;
+            animation: staggerIn 0.3s ease-out forwards;
+        }
+        
+        #tradesContainer tr:nth-child(1) { animation-delay: 0.1s; }
+        #tradesContainer tr:nth-child(2) { animation-delay: 0.2s; }
+        #tradesContainer tr:nth-child(3) { animation-delay: 0.3s; }
+        #tradesContainer tr:nth-child(4) { animation-delay: 0.4s; }
+        #tradesContainer tr:nth-child(5) { animation-delay: 0.5s; }
+        /* Ve devamı için genel delay */
+        #tradesContainer tr { animation-delay: calc(0.1s * var(--row-index, 1)); }
+        
+        /* Slider animasyonları */
+        input[type="range"] {
+            transition: background 0.3s ease;
+        }
+        
+        input[type="range"]:hover {
+            background: linear-gradient(to right, #3b82f6, #60a5fa);
+        }
+        
+        /* Language dropdown animasyonu */
+        #languageMenu {
+            animation: slideInFromLeft 0.3s ease-out;
+        }
+        
+        /* Dark mode toggle animasyonu */
+        #darkModeToggle {
+            transition: all 0.3s ease;
+        }
+        
+        #darkModeToggle:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+        
         /* Light Mode */
         .light-mode {
             background: #f8fafc;
@@ -25,53 +193,6 @@
             color: #f1f5f9;
         }
         
-        /* Card Styles */
-        .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-        }
-        
-        .dark-mode .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Input Styles */
-        .input {
-            background: white;
-            border: 1px solid #d1d5db;
-            color: #374151;
-        }
-        
-        .input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-        
-        .dark-mode .input {
-            background: #374151;
-            border: 1px solid #4b5563;
-            color: #f9fafb;
-        }
-        
-        .dark-mode .input:focus {
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
-        }
-        
-        /* Button Styles */
-        .btn-primary {
-            background: #3b82f6;
-            color: white;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background: #2563eb;
-        }
-        
         /* Text Colors */
         .text-primary { color: #1e293b; }
         .text-secondary { color: #64748b; }
@@ -82,10 +203,14 @@
         /* Language Menu Hover */
         .language-option:hover {
             background-color: #f1f5f9;
+            transform: translateX(5px);
+            transition: all 0.2s ease;
         }
         
         .dark-mode .language-option:hover {
             background-color: #374151;
+            transform: translateX(5px);
+            transition: all 0.2s ease;
         }
         
         /* Results Colors */
@@ -105,9 +230,19 @@
         .dark-mode .bg-success-light { background: #064e3b; border-color: #065f46; }
         .dark-mode .bg-danger-light { background: #7f1d1d; border-color: #991b1b; }
         .dark-mode .bg-info-light { background: #0c4a6e; border-color: #0369a1; }
+        
+        /* Tab geçiş animasyonu */
+        .tab-transition {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .hidden {
+            opacity: 0;
+            transform: translateX(20px);
+        }
     </style>
 </head>
-<body class="min-h-screen light-mode">
+<body class="min-h-screen light-mode fade-in-page">
     <div class="container mx-auto px-6 py-12">
         <!-- Header -->
         <div class="text-center mb-12 relative">
@@ -189,7 +324,7 @@
         </div>
 
         <!-- Win Rate Calculator -->
-        <div id="winRateSection" class="max-w-4xl mx-auto">
+        <div id="winRateSection" class="max-w-4xl mx-auto tab-transition">
             <div class="card rounded-lg p-6">
                 <h2 class="text-lg font-medium text-primary mb-6 text-center" data-translate="winRateTitle">Win Rate Calculator</h2>
                 
@@ -237,7 +372,7 @@
                         <button id="runStrategy" class="w-full btn-primary py-2 rounded-lg font-medium transition-all duration-200" data-translate="calculateStrategy">
                             Calculate Strategy
                         </button>
-                    </div>
+                    </div
                     
                     <!-- Results -->
                     <div id="results" class="card rounded-lg p-4 hidden">
