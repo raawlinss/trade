@@ -240,26 +240,6 @@
             opacity: 0;
             transform: translateX(20px);
         }
-        
-        
-        /* AI Analysis Styles */
-        .ai-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .dark-mode .ai-gradient {
-            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
-        }
-        
-        .typing-effect {
-            border-right: 2px solid #667eea;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: transparent; }
-            51%, 100% { border-color: #667eea; }
-        }
     </style>
 </head>
 <body class="min-h-screen light-mode fade-in-page">
@@ -395,182 +375,36 @@
                     </div
                     
                     <!-- Results -->
-                    <div id="results" class="card card-slide-right rounded-lg p-4 hidden">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-base font-medium text-primary" data-translate="results">Results</h3>
-                            <button id="aiAnalyzeBtn" class="relative px-6 py-2 bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 text-white text-sm rounded-xl font-semibold transition-all duration-500 transform hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/25 ripple-effect shimmer-effect overflow-hidden group" data-translate="aiAnalyze">
-                                <div class="absolute inset-0 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                                <div class="relative flex items-center space-x-2">
-                                    <span class="text-lg animate-pulse">🧠</span>
-                                    <span>AI Analysis</span>
-                                    <div class="w-2 h-2 bg-white rounded-full animate-ping"></div>
-                                </div>
-                            </button>
-                        </div>
+                    <div id="results" class="card rounded-lg p-4 hidden">
+                        <h3 class="text-base font-medium text-primary mb-4 text-center" data-translate="results">Results</h3>
                         <div class="space-y-2">
-                            <div class="flex justify-between items-center p-2 card rounded border result-item">
+                            <div class="flex justify-between items-center p-2 card rounded border">
                                 <span class="text-secondary text-sm" data-translate="riskReward">Risk/Reward Ratio:</span>
                                 <span id="riskReward" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 card rounded border result-item">
+                            <div class="flex justify-between items-center p-2 card rounded border">
                                 <span class="text-secondary text-sm" data-translate="totalPL">Total P&L:</span>
                                 <span id="totalProfitLoss" class="font-medium">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 card rounded border result-item">
+                            <div class="flex justify-between items-center p-2 card rounded border">
                                 <span class="text-secondary text-sm" data-translate="winningTrades">Winning Trades:</span>
                                 <span id="winningTrades" class="font-medium text-success">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 card rounded border result-item">
+                            <div class="flex justify-between items-center p-2 card rounded border">
                                 <span class="text-secondary text-sm" data-translate="losingTrades">Losing Trades:</span>
                                 <span id="losingTrades" class="font-medium text-danger">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 card rounded border result-item">
+                            <div class="flex justify-between items-center p-2 card rounded border">
                                 <span class="text-secondary text-sm" data-translate="netProfitRate">Net Profit Rate:</span>
                                 <span id="netProfitRate" class="font-medium text-info">-</span>
                             </div>
-                            <div class="flex justify-between items-center p-2 bg-info-light rounded border result-item">
+                            <div class="flex justify-between items-center p-2 bg-info-light rounded border">
                                 <span class="text-primary font-medium text-sm" data-translate="finalBalance">Final Balance:</span>
                                 <span id="finalBalance" class="font-medium text-info">-</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- AI Analysis Section -->
-                <div id="aiAnalysisSection" class="mt-8 hidden">
-                    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-1">
-                        <!-- Animated border gradient -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl opacity-75 animate-pulse"></div>
-                        
-                        <!-- Inner content container -->
-                        <div class="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-xl p-6">
-                            <!-- Header with animated elements -->
-                            <div class="flex items-center justify-between mb-6">
-                                <div class="flex items-center space-x-4">
-                                    <!-- Animated AI Avatar -->
-                                    <div class="relative">
-                                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-600 rounded-xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-all duration-300">
-                                            <span class="text-white text-lg animate-bounce">🤖</span>
-                                        </div>
-                                        <!-- Pulse rings -->
-                                        <div class="absolute inset-0 rounded-xl bg-blue-400 opacity-20 animate-ping"></div>
-                                        <div class="absolute inset-0 rounded-xl bg-purple-400 opacity-20 animate-ping" style="animation-delay: 0.5s;"></div>
-                                    </div>
-                                    
-                                    <!-- Title with gradient text -->
-                                    <div>
-                                        <h3 class="text-xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" data-translate="aiAnalysisTitle">
-                                            AI Strategy Analysis
-                                        </h3>
-                                        <p class="text-slate-400 text-sm">Advanced Trading Intelligence</p>
-                                    </div>
-                                </div>
-                                
-                                <!-- Loading Spinner -->
-                                <div id="aiLoadingSpinner" class="hidden">
-                                    <div class="relative">
-                                        <div class="w-8 h-8 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin"></div>
-                                        <div class="absolute inset-0 w-8 h-8 border-4 border-transparent border-r-blue-500 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                               <!-- Content Area -->
-                            <div class="relative">
-                                <!-- Background pattern -->
-                                <div class="absolute inset-0 opacity-5">
-                                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 transform rotate-12 scale-150 blur-3xl"></div>
-                                </div>
-                                
-                                <!-- Analysis Content -->
-                                <div id="aiAnalysisContent" class="relative bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-slate-700/50 min-h-[200px]">
-                                    <div class="text-center py-8" data-translate="aiAnalysisPlaceholder">
-                                        <div class="mb-4">
-                                            <div class="w-16 h-16 mx-auto bg-gradient-to-br from-slate-700 to-slate-600 rounded-full flex items-center justify-center mb-4">
-                                                <span class="text-2xl opacity-50">🧠</span>
-                                            </div>
-                                        </div>
-                                        <p class="text-slate-400 text-base leading-relaxed max-w-md mx-auto">
-                                            Click "AI Analysis" button to get professional insights about your trading strategy
-                                        </p>
-                                        <div class="mt-4 flex justify-center space-x-2">
-                                            <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-                                            <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
-                                            <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Error State -->
-                                <div id="aiError" class="hidden mt-4 p-4 bg-red-900/20 border border-red-500/30 rounded-xl">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center">
-                                            <span class="text-red-400">⚠️</span>
-                                        </div>
-                                        <div>
-                                            <p class="text-red-400 font-medium" data-translate="aiError">
-                                                AI analysis failed. Please check your API configuration.
-                                            </p>
-                                            <p class="text-red-300/70 text-sm mt-1">
-                                                Make sure your OpenRouter API key is properly configured.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Footer with stats -->
-                            <div class="mt-6 pt-4 border-t border-slate-700/50">
-                                <div class="flex items-center justify-between text-xs text-slate-400">
-                                    <div class="flex items-center space-x-4">
-                                        <span class="flex items-center space-x-1">
-                                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                                            <span>Real-time Analysis</span>
-                                        </span>
-                                        <span class="flex items-center space-x-1">
-                                            <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
-                                            <span>Professional Insights</span>
-                                        </span>
-                                    </div>
-                                    <span class="opacity-60">v2.1.0</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Trade History -->
-                <div id="tradeList" class="mt-6 hidden">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-base font-medium text-primary" data-translate="tradeHistory">
-                            Trade History
-                        </h3>
-                        <div class="text-xs text-secondary card px-2 py-1 rounded" data-translate="compoundInterest">
-                            Compound Interest Applied
-                        </div>
-                    </div>
-                    <div class="card rounded-lg p-3 max-h-80 overflow-y-auto">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm">
-                                <thead>
-                                    <tr class="border-b border-gray-200">
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="tradeNumber">Trade #</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="type">Type</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="entryBalance">Entry Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="exitBalance">Exit Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="pl">P&L</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="plPercent">P&L %</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tradesContainer">
-                                    <!-- Trades will be generated here -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
                 
                 <!-- Trade History -->
                 <div id="tradeList" class="mt-6 hidden">
@@ -1375,132 +1209,6 @@
             document.getElementById('winRateTab').classList.add('text-secondary');
         });
 
-  // AI Analysis functionality
-        document.getElementById('aiAnalyzeBtn').addEventListener('click', async function() {
-            const results = document.getElementById('results');
-            const aiSection = document.getElementById('aiAnalysisSection');
-            const aiContent = document.getElementById('aiAnalysisContent');
-            const aiError = document.getElementById('aiError');
-            const aiSpinner = document.getElementById('aiLoadingSpinner');
-            
-            // Show AI section and loading
-            aiSection.classList.remove('hidden');
-            aiSpinner.classList.remove('hidden');
-            aiError.classList.add('hidden');
-            aiContent.innerHTML = '<div class="text-center py-4 text-purple-500">🤖 AI is analyzing your trading strategy...</div>';
-            
-            // Get current strategy data
-            const strategyData = {
-                startingBalance: parseFloat(document.getElementById('startingBalance').value),
-                takeProfit: parseFloat(document.getElementById('takeProfit').value),
-                stopLoss: parseFloat(document.getElementById('stopLoss').value),
-                winRate: parseFloat(document.getElementById('winRate').value),
-                numberOfTrades: parseInt(document.getElementById('numberOfTrades').value),
-                leverage: parseFloat(document.getElementById('leverage').value),
-                riskReward: document.getElementById('riskReward').textContent,
-                totalPL: document.getElementById('totalProfitLoss').textContent,
-                finalBalance: document.getElementById('finalBalance').textContent,
-                netProfitRate: document.getElementById('netProfitRate').textContent
-            };
-            
-            try {
-                // Call AI API
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer <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>',
-                        'HTTP-Referer': window.location.href,
-                        'X-Title': 'RAWLINS Trading Calculator'
-                    },
-                    body: JSON.stringify({
-                        model: "deepseek/deepseek-chat-v3.1:free",
-                        messages: [{
-                            role: "user",
-                            content: `Analyze this trading strategy and provide professional insights:
-
-Strategy Details:
-- Starting Balance: $${strategyData.startingBalance}
-- Take Profit: ${strategyData.takeProfit}%
-- Stop Loss: ${strategyData.stopLoss}%
-- Win Rate: ${strategyData.winRate}%
-- Number of Trades: ${strategyData.numberOfTrades}
-- Leverage: ${strategyData.leverage}x
-- Risk/Reward Ratio: ${strategyData.riskReward}
-- Net Profit Rate: ${strategyData.netProfitRate}
-- Final Balance: ${strategyData.finalBalance}
-
-Please provide:
-1. Strategy assessment (strengths/weaknesses)
-2. Risk analysis
-3. Recommendations for improvement
-4. Market suitability
-5. Overall rating (1-10)
-
-Keep the response concise but professional, around 200-300 words.`
-                        }]
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('API request failed');
-                }
-                
-                const data = await response.json();
-                const analysis = data.choices[0].message.content;
-                
-                // Display AI analysis with enhanced styling and typing effect
-                aiSpinner.classList.add('hidden');
-                aiContent.innerHTML = `
-                    <div class="space-y-4">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                            <span class="text-green-400 text-sm font-medium">Analysis Complete</span>
-                        </div>
-                        <div id="typingText" class="text-slate-200 leading-relaxed space-y-3"></div>
-                    </div>
-                `;
-                
-                const typingContainer = document.getElementById('typingText');
-                const paragraphs = analysis.split('\n\n');
-                let currentParagraph = 0;
-                
-                const typeWriter = () => {
-                    if (currentParagraph < paragraphs.length) {
-                        const paragraph = paragraphs[currentParagraph].trim();
-                        if (paragraph) {
-                            const p = document.createElement('div');
-                            p.className = 'mb-3 p-3 bg-slate-700/30 rounded-lg border-l-4 border-purple-400/50';
-                            typingContainer.appendChild(p);
-                            
-                            let i = 0;
-                            const typeParagraph = () => {
-                                if (i < paragraph.length) {
-                                    p.innerHTML += paragraph.charAt(i);
-                                    i++;
-                                    setTimeout(typeParagraph, 15);
-                                } else {
-                                    currentParagraph++;
-                                    setTimeout(typeWriter, 300);
-                                }
-                            };
-                            typeParagraph();
-                        } else {
-                            currentParagraph++;
-                            setTimeout(typeWriter, 100);
-                        }
-                    }
-                };
-                typeWriter();
-                
-            } catch (error) {
-                console.error('AI Analysis Error:', error);
-                aiSpinner.classList.add('hidden');
-                aiError.classList.remove('hidden');
-                aiContent.innerHTML = '<div class="text-center py-4 text-gray-400">AI analysis is currently unavailable. Please configure your API key.</div>';
-            }
-        });
-        
         // Win Rate Calculator
         document.getElementById('runStrategy').addEventListener('click', function() {
             const startingBalance = parseFloat(document.getElementById('startingBalance').value);
