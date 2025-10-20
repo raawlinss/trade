@@ -1872,7 +1872,7 @@
         });
 
         // AI Analysis System
-        const OPENROUTER_API_KEY = "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"; // API anahtarınızı buraya yazın
+        const OPENROUTER_API_KEY = "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"; // API anahtarınızı buraya yazın
         
         async function analyzeStrategyWithAI(strategyData) {
             const aiAnalysisSection = document.getElementById('aiAnalysis');
@@ -1897,7 +1897,7 @@
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        "model": "deepseek/deepseek-chat-v3.1:free",
+                        "model": "google/gemini-2.0-flash-exp:free",
                         "messages": [
                             {
                                 "role": "user",
