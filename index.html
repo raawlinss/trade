@@ -12,7 +12,7 @@
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             box-sizing: border-box;
         }
-        
+
         * {
             transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
                         color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -108,6 +108,10 @@
         .dark-mode .input:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1); transform: scale(1.02); animation: pulseGlow 1s infinite; }
         button[data-translate] { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; min-height: 44px; cursor: pointer; user-select: none; }
         button[data-translate]:hover { transform: scale(1.08) translateY(-2px); }
+
+        /* Dark mode toggle button animation */
+        @keyframes togglePulse { 0% { transform: scale(1) rotate(0deg); } 40% { transform: scale(0.92) rotate(-8deg); } 70% { transform: scale(1.08) rotate(6deg); } 100% { transform: scale(1) rotate(0deg); } }
+        .btn-dark-toggle.toggle-anim { animation: togglePulse 380ms ease-out; }
         .tab-navigation { animation: slideInFromBottom 0.8s ease-out 1s both; }
         .tab-button-active { animation: bounceIn 0.5s ease-out both; }
         #results, #leverageResults { animation: slideInFromRight 0.8s ease-out forwards; opacity: 0; }
@@ -179,8 +183,55 @@
         .tv-legend { font-size: 11px; }
         .dark-mode .tv-grid { stroke: #334155; }
         .tv-grid { stroke: #e5e7eb; }
-        .tv-tooltip { position: absolute; display: none; pointer-events: none; padding: 4px 8px; font-size: 11px; border-radius: 6px; background: rgba(30,41,59,0.92); color: #e2e8f0; border: 1px solid rgba(148,163,184,0.25); box-shadow: 0 6px 16px rgba(0,0,0,0.15); transform: translate(-50%, -120%); white-space: nowrap; }
+        .tv-tooltip { position: absolute; display: none; pointer-events: none; padding: 4px 8px; font-size: 11px; border-radius: 6px; background: rgba(30,41,59,0.92); color: #e2e8f0; border: 1px solid rgba(148,163,184,0.25); box-shadow: 0 6px 16px rgba(0,0,0,0.15); transform: translate(-50%, -120%); white-space: nowrap; transition: opacity .12s ease, transform .12s ease; opacity: 0; }
         .light-mode .tv-tooltip { background: rgba(255,255,255,0.96); color: #0f172a; border-color: rgba(148,163,184,0.35); }
+
+        /* Subtle tab underline animation */
+        .btn-tab { position: relative; overflow: visible; }
+        .btn-tab::after { content: ""; position: absolute; left: 50%; bottom: -2px; height: 2px; width: 0; background: #3b82f6; border-radius: 2px; transform: translateX(-50%); transition: width .25s ease; }
+        .btn-tab:hover::after, .btn-tab.active::after { width: 60%; }
+
+        /* Trade-like aesthetics */
+        .num, .text-right { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1, 'ss01' 1; }
+        .market-ticker { display: flex; gap: 12px; align-items: center; white-space: nowrap; overflow: hidden; border: 1px dashed rgba(148,163,184,0.35); border-radius: 10px; padding: 6px 10px; background: linear-gradient(180deg, rgba(148,163,184,0.08), rgba(148,163,184,0.04)); }
+        .dark-mode .market-ticker { border-color: rgba(148,163,184,0.25); background: linear-gradient(180deg, rgba(30,41,59,0.6), rgba(30,41,59,0.4)); }
+        .ticker-item { display: inline-flex; align-items: baseline; gap: 6px; font-size: 12px; color: #475569; }
+        .ticker-item .pair { font-weight: 600; color: #0f172a; }
+        .ticker-item .price { font-weight: 700; letter-spacing: 0.1px; }
+        .ticker-item .chg { font-size: 11px; padding: 1px 6px; border-radius: 999px; }
+        .chg.up { color: #065f46; background: rgba(16,185,129,0.16); }
+        .chg.down { color: #7f1d1d; background: rgba(239,68,68,0.16); }
+        .dark-mode .ticker-item { color: #cbd5e1; }
+        .dark-mode .ticker-item .pair { color: #e2e8f0; }
+
+        /* Right align numeric columns in history table */
+        #tradeList table thead th:nth-child(3),
+        #tradeList table thead th:nth-child(4),
+        #tradeList table thead th:nth-child(5),
+        #tradeList table thead th:nth-child(6),
+        #tradeList table thead th:nth-child(7) { text-align: right; }
+        #tradeList table tbody td:nth-child(3),
+        #tradeList table tbody td:nth-child(4),
+        #tradeList table tbody td:nth-child(5),
+        #tradeList table tbody td:nth-child(6),
+        #tradeList table tbody td:nth-child(7) { text-align: right; }
+
+        /* Subtle grid background for visualizer card */
+        .trade-visualizer::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(148,163,184,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,0.10) 1px, transparent 1px); background-size: 24px 24px, 24px 24px; opacity: 0.25; }
+        .dark-mode .trade-visualizer::before { background-image: linear-gradient(rgba(51,65,85,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(51,65,85,0.55) 1px, transparent 1px); opacity: 0.25; }
+
+        /* Custom sliders (visual) */
+        .cs-slider { position: relative; width: 100%; height: 28px; display: flex; align-items: center; }
+        .cs-track { position: relative; width: 100%; height: 6px; border-radius: 999px; background: #e5e7eb; }
+        .dark-mode .cs-track { background: #334155; }
+        .cs-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .dark-mode .cs-fill { background: linear-gradient(90deg, #60a5fa, #93c5fd); }
+        .cs-thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 18px; height: 18px; border-radius: 50%; background: #ffffff; border: 2px solid #3b82f6; box-shadow: 0 2px 10px rgba(59,130,246,0.35); cursor: pointer; transition: transform .12s ease; }
+        .dark-mode .cs-thumb { background: #0b1220; border-color: #60a5fa; box-shadow: 0 2px 10px rgba(96,165,250,0.45); }
+        .cs-thumb:active { transform: translate(-50%, -50%) scale(1.06); }
+        .cs-bubble { position: absolute; top: -8px; transform: translate(-50%, -110%); background: #111827; color: #f8fafc; padding: 4px 8px; border-radius: 8px; font-size: 11px; border: 1px solid rgba(148,163,184,0.35); box-shadow: 0 8px 16px rgba(0,0,0,0.15); pointer-events: none; opacity: 0; transition: opacity .15s ease, transform .15s ease; white-space: nowrap; }
+        .light-mode .cs-bubble { background: #ffffff; color: #0f172a; }
+        .cs-bubble.show { opacity: 1; transform: translate(-50%, -115%); }
     </style>
 </head>
 <body class="min-h-screen light-mode fade-in-page">
@@ -524,6 +575,60 @@
         function typeWriterEffect(element,text){ element.textContent=''; element.className='text-white text-sm leading-relaxed min-h-20'; let i=0; (function type(){ if(i<text.length){ element.textContent+=text.charAt(i); i++; setTimeout(type,20);} })(); }
 
         // NEW: Trade Visualizer renderer
+        // ---- UI Enhancements: Dark mode toggle animation + i18n fallback + auto-dark ----
+        (function(){
+            const toggleBtn = document.getElementById('darkModeToggle');
+            if(toggleBtn){
+                toggleBtn.addEventListener('click', ()=>{
+                    toggleBtn.classList.remove('toggle-anim');
+                    // force reflow to restart animation
+                    void toggleBtn.offsetWidth;
+                    toggleBtn.classList.add('toggle-anim');
+                });
+            }
+
+            // Auto dark-mode on first load based on system preference
+            try{
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if(prefersDark && document.body.classList.contains('light-mode')){
+                    document.body.classList.remove('light-mode');
+                    document.body.classList.add('dark-mode');
+                    const modeIcon = document.getElementById('modeIcon'); if(modeIcon) modeIcon.textContent = '☀️';
+                }
+            }catch(_e){}
+
+            // i18n fallback: ensure currentLanguage always points to a supported map
+            try{
+                const fallbackLang = (translations && translations.en) ? 'en' : (translations.tr ? 'tr' : (translations ? Object.keys(translations)[0] : 'en'));
+                if(typeof currentLanguage !== 'undefined'){
+                    let _lang = currentLanguage;
+                    Object.defineProperty(window, 'currentLanguage', {
+                        configurable: true,
+                        get(){ return (translations && translations[_lang]) ? _lang : fallbackLang; },
+                        set(v){ _lang = v; }
+                    });
+                }
+                // keep language selector in sync if unsupported selected
+                const langSelect = document.querySelector('select#languageSelect, select[data-language]');
+                if(langSelect){
+                    langSelect.addEventListener('change', ()=>{
+                        const v = langSelect.value;
+                        if(!(translations && translations[v])){
+                            langSelect.value = fallbackLang;
+                            if(typeof window.currentLanguage !== 'undefined') window.currentLanguage = fallbackLang;
+                        } else {
+                            if(typeof window.currentLanguage !== 'undefined') window.currentLanguage = v;
+                        }
+                        // attempt to retrigger any existing translation refresh if present
+                        if(typeof window.updateTranslations === 'function'){
+                            window.updateTranslations();
+                        }
+                    });
+                }
+            }catch(e){ console.warn('i18n fallback setup warning:', e); }
+        })();
+
+        // ---- End UI Enhancements ----
         // cache last chart data for responsive redraw
         let lastChartState = { seq: null, start: 0 };
 
@@ -708,9 +813,28 @@
                     // position tooltip
                     tooltip.style.display = 'block';
                     tooltip.textContent = 'Trade #' + clamped + '  ·  $' + (bal).toLocaleString('tr-TR', { maximumFractionDigits: 2 });
-                    const rect = canvas.getBoundingClientRect();
-                    tooltip.style.left = (rect.left + x) + 'px';
-                    tooltip.style.top = (rect.top + y) + 'px';
+                    const container = canvas.parentElement; // .trade-visualizer
+                    const offsetLeft = canvas.offsetLeft;
+                    const offsetTop = canvas.offsetTop;
+                    // preliminary position relative to container
+                    let ttLeft = offsetLeft + x;
+                    let ttTop = offsetTop + y;
+                    // clamp inside container bounds with small padding
+                    const padPx = 8;
+                    // set first to measure width/height
+                    tooltip.style.left = ttLeft + 'px';
+                    tooltip.style.top = ttTop + 'px';
+                    tooltip.style.opacity = '1';
+                    const tw = tooltip.offsetWidth || 0;
+                    const th = tooltip.offsetHeight || 0;
+                    const minL = padPx + tw/2;
+                    const maxL = (container.clientWidth - padPx) - tw/2;
+                    ttLeft = Math.max(minL, Math.min(maxL, ttLeft));
+                    const minT = padPx + th; // keep inside top
+                    const maxT = (container.clientHeight - padPx);
+                    ttTop = Math.max(minT, Math.min(maxT, ttTop));
+                    tooltip.style.left = ttLeft + 'px';
+                    tooltip.style.top = ttTop + 'px';
                 }
 
                 function onMove(e){
@@ -722,7 +846,9 @@
                     renderHover(mx);
                 }
                 function onLeave(){
-                    tooltip.style.display = 'none';
+                    tooltip.style.opacity = '0';
+                    // delay hiding to allow fade-out
+                    setTimeout(()=>{ tooltip.style.display = 'none'; }, 120);
                     drawFull();
                 }
 
