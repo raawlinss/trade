@@ -1,0 +1,19 @@
+{
+  "name": "rawlins-trading-calculator",
+  "version": "1.0.0",
+  "description": "RAWLINS - Professional Trading Analytics: Win Rate and Leverage calculators with AI analysis",
+  "private": false,
+  "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "node server/server.js",
+    "start": "node server/server.js",
+    "build": "echo 'Static app, no build step'"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  }
+}
