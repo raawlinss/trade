@@ -364,7 +364,7 @@
                     <div class="card rounded-lg p-4 mb-4 trade-visualizer">
                         <div class="flex items-center justify-between mb-2">
                             <div class="tv-legend text-secondary">
-                                <span class="inline-flex items-center mr-3"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block mr-1"></span><span class="text-xs">Trades</span></span>
+                                <span class="inline-flex items-center mr-3"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block mr-1"></span><span class="text-xs">Equity</span></span>
                             </div>
                         </div>
                         <canvas id="tradeChart" class="w-full" height="120"></canvas>
@@ -586,6 +586,25 @@
                 ctx.fillText(fmt(mid), pad + 4, pad + chartH/2 - 2);
                 // max
                 ctx.fillText(fmt(maxY), pad + 4, pad + 10);
+
+                // vertical grid (x-axis) and simple ticks: 0, mid, last
+                const xLabelColor = isDark ? '#94a3b8' : '#64748b';
+                ctx.fillStyle = xLabelColor;
+                ctx.textAlign = 'center';
+                const n = sequence.length;
+                if(n>0){
+                    const x0 = xScale(0);
+                    const xm = xScale(Math.floor(n/2));
+                    const xl = xScale(n);
+                    ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.18)' : 'rgba(100,116,139,0.18)';
+                    ctx.lineWidth = 1; ctx.setLineDash([2,4]);
+                    [x0,xm,xl].forEach(x=>{ ctx.beginPath(); ctx.moveTo(x,pad); ctx.lineTo(x,pad+chartH); ctx.stroke(); });
+                    ctx.setLineDash([]);
+                    ctx.fillText('0', x0, pad+chartH+12);
+                    ctx.fillText(Math.floor(n/2).toString(), xm, pad+chartH+12);
+                    ctx.fillText(n.toString(), xl, pad+chartH+12);
+                    ctx.textAlign = 'start';
+                }
             }
 
             function draw(){
@@ -607,7 +626,7 @@
                 let lastX = xScale(0);
                 let lastY = yScale(startBalance);
                 const color = '#3b82f6';
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
                 for(let i=0;i<n;i++){
                     const seg = sequence[i];
                     const x = xScale(i+1);
@@ -644,7 +663,7 @@
                 ctx.clearRect(0,0,width,height);
                 drawBase();
                 let lx = xScale(0), ly = yScale(startBalance);
-                ctx.lineWidth = 2; ctx.strokeStyle = '#3b82f6';
+                ctx.lineWidth = 2; ctx.strokeStyle = '#3b82f6'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
                 for(let i=0;i<sequence.length;i++){
                     const x = xScale(i+1); const y = yScale(sequence[i].exitBalance);
                     ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(x,y); ctx.stroke();
@@ -688,7 +707,7 @@
 
                     // position tooltip
                     tooltip.style.display = 'block';
-                    tooltip.textContent = '$' + (bal).toLocaleString('tr-TR', { maximumFractionDigits: 2 });
+                    tooltip.textContent = 'Trade #' + clamped + '  ·  $' + (bal).toLocaleString('tr-TR', { maximumFractionDigits: 2 });
                     const rect = canvas.getBoundingClientRect();
                     tooltip.style.left = (rect.left + x) + 'px';
                     tooltip.style.top = (rect.top + y) + 'px';
