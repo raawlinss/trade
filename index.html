@@ -13,7 +13,6 @@
             box-sizing: border-box;
         }
         
-        /* Smooth transitions for all elements */
         * {
             transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
                         color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
@@ -21,566 +20,96 @@
                         box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* YENİ BUTON SİSTEMİ - MÜKEMMEL HOVER */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-            min-height: 48px;
-            outline: none;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            z-index: 10;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .btn:active {
-            transform: translateY(0px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
-        }
-        
-        .btn-secondary {
-            background: #f1f5f9;
-            color: #64748b;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .btn-secondary:hover {
-            background: #e2e8f0;
-            color: #475569;
-            border-color: #cbd5e1;
-        }
-        
-        .btn-success {
-            background: #10b981;
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #059669;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
-        }
-        
-        .btn-danger {
-            background: #ef4444;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #dc2626;
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
-        }
-        
-        .btn-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        
-        .btn-gradient:hover {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        /* Dark Mode Buton Stilleri */
-        .dark-mode .btn-secondary {
-            background: #374151;
-            color: #d1d5db;
-            border-color: #4b5563;
-        }
-        
-        .dark-mode .btn-secondary:hover {
-            background: #4b5563;
-            color: #f3f4f6;
-            border-color: #6b7280;
-        }
-        
-        /* Özel Buton Tipleri */
-        .btn-tab {
-            flex: 1;
-            margin: 0 2px;
-            z-index: 50;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        .btn-tab.active {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-        }
-        
-        .btn-tab.active:hover {
-            background: linear-gradient(135deg, #2563eb, #1e40af);
-        }
-        
-        .btn-position {
-            width: 100%;
-            font-weight: 600;
-            z-index: 30;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        .btn-position.long {
-            background: #10b981;
-            color: white;
-        }
-        
-        .btn-position.long:hover {
-            background: #059669;
-        }
-        
-        .btn-position.short {
-            background: #ef4444;
-            color: white;
-        }
-        
-        .btn-position.short:hover {
-            background: #dc2626;
-        }
-        
-        .btn-position.inactive {
-            background: #e5e7eb;
-            color: #6b7280;
-        }
-        
-        .btn-position.inactive:hover {
-            background: #d1d5db;
-            color: #374151;
-        }
-        
-        /* Dark Mode Toggle Butonu */
-        .btn-dark-toggle {
-            padding: 12px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        .btn-dark-toggle:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-        
-        .dark-mode .btn-dark-toggle {
-            background: #1e293b;
-            border-color: #334155;
-        }
-        
-        .dark-mode .btn-dark-toggle:hover {
-            background: #334155;
-            border-color: #475569;
-        }
-        
-        /* Dil Seçici Butonu */
-        .btn-language {
-            padding: 8px 12px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 200;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-            min-height: 48px;
-        }
-        
-        .btn-language:hover {
-            background: #f8fafc;
-            border-color: #cbd5e1;
-        }
-        
-        .dark-mode .btn-language {
-            background: #1e293b;
-            border-color: #334155;
-            color: #f1f5f9;
-        }
-        
-        .dark-mode .btn-language:hover {
-            background: #334155;
-            border-color: #475569;
-        }
-        
-        /* Language Option Hover */
-        .language-option {
-            padding: 12px 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 300;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-            min-height: 48px;
-            width: 100%;
-        }
-        
-        .language-option:hover {
-            background: #f1f5f9;
-            transform: translateX(4px);
-        }
-        
-        .dark-mode .language-option:hover {
-            background: #374151;
-        }
-        
-        /* Enhanced Language Dropdown */
-        .blur-to-sharp {
-            filter: blur(2px);
-            opacity: 0;
-            transform: translateY(-10px) scale(0.95);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 9999;
-            position: absolute;
-            pointer-events: auto;
-        }
-        
-        .blur-to-sharp.show {
-            filter: blur(0px);
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            z-index: 9999;
-            pointer-events: auto;
-        }
-        
-        /* Enhanced Dark Mode Toggle */
-        .dark-toggle {
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            transform: rotate(0deg) scale(1);
-        }
-        
-        .dark-toggle:hover {
-            transform: rotate(15deg) scale(1.15);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-        
-        .dark-toggle:active {
-            transform: rotate(-15deg) scale(0.9);
-        }
-        
-        /* Enhanced Sliders */
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            height: 8px;
-            border-radius: 5px;
-            background: linear-gradient(to right, #3b82f6 0%, #60a5fa 100%);
-            outline: none;
-            transition: all 0.3s ease;
-            z-index: 20;
-            position: relative;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        input[type="range"]:hover {
-            transform: scaleY(1.2);
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
-        }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 3px solid #3b82f6;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-        }
-        
-        input[type="range"]::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 3px solid #3b82f6;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        input[type="range"]::-moz-range-thumb:hover {
-            transform: scale(1.3);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-        }
-        
-        /* Animasyon Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInFromLeft {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes slideInFromRight {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        
-        @keyframes slideInFromTop {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideInFromBottom {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            50% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
-        }
-        
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.1); }
-            70% { transform: scale(0.95); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        @keyframes staggerIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes rotateIn {
-            from { opacity: 0; transform: rotate(-10deg) scale(0.9); }
-            to { opacity: 1; transform: rotate(0deg) scale(1); }
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -200px 0; }
-            100% { background-position: calc(200px + 100%) 0; }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes wiggle {
-            0%, 7%, 14%, 21%, 28%, 35%, 42%, 49%, 56%, 63%, 70%, 77%, 84%, 91%, 98%, 100% { transform: rotate(0deg); }
-            3.5%, 10.5%, 17.5%, 24.5%, 31.5%, 38.5%, 45.5%, 52.5%, 59.5%, 66.5%, 73.5%, 80.5%, 87.5%, 94.5% { transform: rotate(2deg); }
-        }
-        
-        @keyframes heartbeat {
-            0%, 50%, 100% { transform: scale(1); }
-            25%, 75% { transform: scale(1.1); }
-        }
-        
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes zoomIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        @keyframes flipIn {
-            from { opacity: 0; transform: rotateY(-90deg); }
-            to { opacity: 1; transform: rotateY(0deg); }
-        }
-        
-        /* Sayfa yüklenme animasyonu */
-        .fade-in-page {
-            animation: fadeIn 1.2s ease-out forwards;
-        }
-        
-        /* Header animasyonları */
-        .header-title {
-            animation: slideInFromTop 1s ease-out 0.2s both;
-        }
-        
-        .header-subtitle {
-            animation: slideInFromTop 1s ease-out 0.4s both;
-        }
-        
-        .header-version {
-            animation: slideInFromTop 1s ease-out 0.6s both;
-        }
-        
-        .dark-mode-toggle {
-            animation: rotateIn 0.8s ease-out 0.6s both;
-        }
-        
-        .language-selector {
-            animation: slideInFromRight 0.8s ease-out 0.8s both;
-        }
-        
-        /* Card hover efekti */
-        .card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: scaleIn 0.6s ease-out both;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card-animated {
-            animation: bounceIn 0.8s ease-out both;
-        }
-        
-        .card-slide-left {
-            animation: slideInFromLeft 0.8s ease-out both;
-        }
-        
-        .card-slide-right {
-            animation: slideInFromRight 0.8s ease-out both;
-        }
-        
-        /* Dark mode card */
-        .dark-mode .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .dark-mode .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-        
-        /* Input animasyonları */
-        .input {
-            background: white;
-            border: 1px solid #d1d5db;
-            color: #374151;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            min-height: 44px;
-            z-index: 5;
-            pointer-events: auto;
-            touch-action: manipulation;
-        }
-        
-        .input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
-            transform: scale(1.03);
-            animation: pulseGlow 2s infinite;
-        }
-        
-        .input:hover {
-            border-color: #6b7280;
-            transform: translateY(-1px);
-        }
-        
-        .input-animated {
-            animation: slideUp 0.6s ease-out both;
-        }
-        
-        .dark-mode .input {
-            background: #374151;
-            border: 1px solid #4b5563;
-            color: #f9fafb;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-mode .input:focus {
-            border-color: #60a5fa;
-            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
-            transform: scale(1.02);
-            animation: pulseGlow 1s infinite;
-        }
-        
-        /* Tab buton animasyonları */
-        button[data-translate] {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            min-height: 44px;
-            cursor: pointer;
-            user-select: none;
-        }
-        
-        button[data-translate]:hover {
-            transform: scale(1.08) translateY(-2px);
-        }
-        
-        .tab-navigation {
-            animation: slideInFromBottom 0.8s ease-out 1s both;
-        }
-        
-        .tab-button-active {
-            animation: bounceIn 0.5s ease-out both;
-        }
-        
-        /* Results slide-in animasyonu */
-        #results, #leverageResults {
-            animation: slideInFromRight 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        
-        #results.show, #leverageResults.show {
-            opacity: 1;
-            animation: zoomIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        
-        .result-item {
-            animation: slideUp 0.6s ease-out both;
-        }
-        
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 500; cursor: pointer; transition: all 0.3s ease; user-select: none; min-height: 48px; outline: none; text-decoration: none; position: relative; overflow: hidden; z-index: 10; pointer-events: auto; touch-action: manipulation; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+        .btn:active { transform: translateY(0px); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #2563eb, #1e40af); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4); }
+        .btn-secondary { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: #e2e8f0; color: #475569; border-color: #cbd5e1; }
+        .btn-success { background: #10b981; color: white; }
+        .btn-success:hover { background: #059669; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4); }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-danger:hover { background: #dc2626; box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4); }
+        .btn-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-gradient:hover { background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%); box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4); }
+        .dark-mode .btn-secondary { background: #374151; color: #d1d5db; border-color: #4b5563; }
+        .dark-mode .btn-secondary:hover { background: #4b5563; color: #f3f4f6; border-color: #6b7280; }
+        .btn-tab { flex: 1; margin: 0 2px; z-index: 50; position: relative; pointer-events: auto; touch-action: manipulation; }
+        .btn-tab.active { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .btn-tab.active:hover { background: linear-gradient(135deg, #2563eb, #1e40af); }
+        .btn-position { width: 100%; font-weight: 600; z-index: 30; position: relative; pointer-events: auto; touch-action: manipulation; }
+        .btn-position.long { background: #10b981; color: white; }
+        .btn-position.long:hover { background: #059669; }
+        .btn-position.short { background: #ef4444; color: white; }
+        .btn-position.short:hover { background: #dc2626; }
+        .btn-position.inactive { background: #e5e7eb; color: #6b7280; }
+        .btn-position.inactive:hover { background: #d1d5db; color: #374151; }
+        .btn-dark-toggle { padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); z-index: 100; position: relative; pointer-events: auto; touch-action: manipulation; }
+        .btn-dark-toggle:hover { background: #f8fafc; border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+        .dark-mode .btn-dark-toggle { background: #1e293b; border-color: #334155; }
+        .dark-mode .btn-dark-toggle:hover { background: #334155; border-color: #475569; }
+        .btn-language { padding: 8px 12px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; align-items: center; gap: 8px; z-index: 200; position: relative; pointer-events: auto; touch-action: manipulation; min-height: 48px; }
+        .btn-language:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .dark-mode .btn-language { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        .dark-mode .btn-language:hover { background: #334155; border-color: #475569; }
+        .language-option { padding: 12px 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; z-index: 300; position: relative; pointer-events: auto; touch-action: manipulation; min-height: 48px; width: 100%; }
+        .language-option:hover { background: #f1f5f9; transform: translateX(4px); }
+        .dark-mode .language-option:hover { background: #374151; }
+        .blur-to-sharp { filter: blur(2px); opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 9999; position: absolute; pointer-events: auto; }
+        .blur-to-sharp.show { filter: blur(0px); opacity: 1; transform: translateY(0) scale(1); z-index: 9999; pointer-events: auto; }
+        .dark-toggle { transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); transform: rotate(0deg) scale(1); }
+        .dark-toggle:hover { transform: rotate(15deg) scale(1.15); box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+        .dark-toggle:active { transform: rotate(-15deg) scale(0.9); }
+        input[type="range"] { -webkit-appearance: none; appearance: none; height: 8px; border-radius: 5px; background: linear-gradient(to right, #3b82f6 0%, #60a5fa 100%); outline: none; transition: all 0.3s ease; z-index: 20; position: relative; pointer-events: auto; touch-action: manipulation; }
+        input[type="range"]:hover { transform: scaleY(1.2); box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #ffffff; border: 3px solid #3b82f6; cursor: pointer; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+        input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.3); box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #ffffff; border: 3px solid #3b82f6; cursor: pointer; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+        input[type="range"]::-moz-range-thumb:hover { transform: scale(1.3); box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInFromLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInFromRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInFromTop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInFromBottom { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } }
+        @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.1); } 70% { transform: scale(0.95); } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes staggerIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes rotateIn { from { opacity: 0; transform: rotate(-10deg) scale(0.9); } to { opacity: 1; transform: rotate(0deg) scale(1); } }
+        @keyframes shimmer { 0% { background-position: -200px 0; } 100% { background-position: calc(200px + 100%) 0; } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 7%, 14%, 21%, 28%, 35%, 42%, 49%, 56%, 63%, 70%, 77%, 84%, 91%, 98%, 100% { transform: rotate(0deg); } 3.5%, 10.5%, 17.5%, 24.5%, 31.5%, 38.5%, 45.5%, 52.5%, 59.5%, 66.5%, 73.5%, 80.5%, 87.5%, 94.5% { transform: rotate(2deg); } }
+        @keyframes heartbeat { 0%, 50%, 100% { transform: scale(1); } 25%, 75% { transform: scale(1.1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes flipIn { from { opacity: 0; transform: rotateY(-90deg); } to { opacity: 1; transform: rotateY(0deg); } }
+        .fade-in-page { animation: fadeIn 1.2s ease-out forwards; }
+        .header-title { animation: slideInFromTop 1s ease-out 0.2s both; }
+        .header-subtitle { animation: slideInFromTop 1s ease-out 0.4s both; }
+        .header-version { animation: slideInFromTop 1s ease-out 0.6s both; }
+        .dark-mode-toggle { animation: rotateIn 0.8s ease-out 0.6s both; }
+        .language-selector { animation: slideInFromRight 0.8s ease-out 0.8s both; }
+        .card { background: white; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation: scaleIn 0.6s ease-out both; }
+        .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+        .card-animated { animation: bounceIn 0.8s ease-out both; }
+        .card-slide-left { animation: slideInFromLeft 0.8s ease-out both; }
+        .card-slide-right { animation: slideInFromRight 0.8s ease-out both; }
+        .dark-mode .card { background: #1e293b; border: 1px solid #334155; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3); transition: all 0.3s ease; }
+        .dark-mode .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); }
+        .input { background: white; border: 1px solid #d1d5db; color: #374151; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; min-height: 44px; z-index: 5; pointer-events: auto; touch-action: manipulation; }
+        .input:focus { border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); transform: scale(1.03); animation: pulseGlow 2s infinite; }
+        .input:hover { border-color: #6b7280; transform: translateY(-1px); }
+        .input-animated { animation: slideUp 0.6s ease-out both; }
+        .dark-mode .input { background: #374151; border: 1px solid #4b5563; color: #f9fafb; transition: all 0.3s ease; }
+        .dark-mode .input:focus { border-color: #60a5fa; box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1); transform: scale(1.02); animation: pulseGlow 1s infinite; }
+        button[data-translate] { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; min-height: 44px; cursor: pointer; user-select: none; }
+        button[data-translate]:hover { transform: scale(1.08) translateY(-2px); }
+        .tab-navigation { animation: slideInFromBottom 0.8s ease-out 1s both; }
+        .tab-button-active { animation: bounceIn 0.5s ease-out both; }
+        #results, #leverageResults { animation: slideInFromRight 0.8s ease-out forwards; opacity: 0; }
+        #results.show, #leverageResults.show { opacity: 1; animation: zoomIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        .result-item { animation: slideUp 0.6s ease-out both; }
         .result-item:nth-child(1) { animation-delay: 0.1s; }
         .result-item:nth-child(2) { animation-delay: 0.2s; }
         .result-item:nth-child(3) { animation-delay: 0.3s; }
@@ -588,126 +117,57 @@
         .result-item:nth-child(5) { animation-delay: 0.5s; }
         .result-item:nth-child(6) { animation-delay: 0.6s; }
         .result-item:nth-child(7) { animation-delay: 0.7s; }
-        
-        /* Trade history stagger animasyonu */
-        #tradesContainer tr {
-            opacity: 0;
-            animation: staggerIn 0.3s ease-out forwards;
-        }
-        
+        #tradesContainer tr { opacity: 0; animation: staggerIn 0.3s ease-out forwards; }
         #tradesContainer tr:nth-child(1) { animation-delay: 0.1s; }
         #tradesContainer tr:nth-child(2) { animation-delay: 0.2s; }
         #tradesContainer tr:nth-child(3) { animation-delay: 0.3s; }
         #tradesContainer tr:nth-child(4) { animation-delay: 0.4s; }
         #tradesContainer tr:nth-child(5) { animation-delay: 0.5s; }
-        
-        /* Language dropdown animasyonu */
-        #languageMenu {
-            transform: translateY(-10px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 9999;
-        }
-        
-        #languageMenu.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        /* Loading shimmer effect */
-        .shimmer {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200px 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        
-        /* Success/Error animations */
-        .success-flash {
-            animation: heartbeat 0.8s ease-out;
-        }
-        
-        .error-shake {
-            animation: wiggle 0.6s ease-in-out;
-        }
-        
-        /* Light Mode */
-        .light-mode {
-            background: #f8fafc;
-            color: #1e293b;
-        }
-        
-        /* Dark Mode */
-        .dark-mode {
-            background: #0f172a;
-            color: #f1f5f9;
-        }
-        
-        /* Text Colors */
+        #languageMenu { transform: translateY(-10px); opacity: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 9999; }
+        #languageMenu.show { transform: translateY(0); opacity: 1; }
+        .shimmer { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200px 100%; animation: shimmer 1.5s infinite; }
+        .success-flash { animation: heartbeat 0.8s ease-out; }
+        .error-shake { animation: wiggle 0.6s ease-in-out; }
+        .light-mode { background: #f8fafc; color: #1e293b; }
+        .dark-mode { background: #0f172a; color: #f1f5f9; }
         .text-primary { color: #1e293b; }
         .text-secondary { color: #64748b; }
-        
         .dark-mode .text-primary { color: #f1f5f9; }
         .dark-mode .text-secondary { color: #94a3b8; }
-        
-        /* Results Colors */
         .text-success { color: #059669; }
         .text-danger { color: #dc2626; }
         .text-info { color: #0284c7; }
-        
         .dark-mode .text-success { color: #10b981; }
         .dark-mode .text-danger { color: #ef4444; }
         .dark-mode .text-info { color: #06b6d4; }
-        
-        /* Background Colors */
         .bg-success-light { background: #f0fdf4; border-color: #bbf7d0; }
         .bg-danger-light { background: #fef2f2; border-color: #fecaca; }
         .bg-info-light { background: #f0f9ff; border-color: #bae6fd; }
-        
         .dark-mode .bg-success-light { background: #064e3b; border-color: #065f46; }
         .dark-mode .bg-danger-light { background: #7f1d1d; border-color: #991b1b; }
         .dark-mode .bg-info-light { background: #0c4a6e; border-color: #0369a1; }
-        
-        /* Tab geçiş animasyonu */
-        .tab-transition {
-            transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-        
-        .hidden {
-            opacity: 0;
-            transform: translateX(20px);
-        }
-        
-        /* AI Analysis Styles */
-        .ai-gradient {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .dark-mode .ai-gradient {
-            background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
-        }
-        
-        .typing-effect {
-            border-right: 2px solid #667eea;
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { border-color: transparent; }
-            51%, 100% { border-color: #667eea; }
-        }
+        .tab-transition { transition: opacity 0.3s ease, transform 0.3s ease; }
+        .hidden { opacity: 0; transform: translateX(20px); }
+        .ai-gradient { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .dark-mode .ai-gradient { background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%); }
+        .typing-effect { border-right: 2px solid #667eea; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 50% { border-color: transparent; } 51%, 100% { border-color: #667eea; } }
+
+        /* Trade Visualizer (professional) */
+        .trade-visualizer { position: relative; overflow: hidden; }
+        .tv-legend { font-size: 11px; }
+        .dark-mode .tv-grid { stroke: #334155; }
+        .tv-grid { stroke: #e5e7eb; }
     </style>
 </head>
 <body class="min-h-screen light-mode fade-in-page">
     <div class="container mx-auto px-6 py-12">
-        <!-- Header -->
         <div class="text-center mb-12 relative">
             <div class="absolute left-0 top-0" style="z-index: 1000;">
                 <button id="darkModeToggle" class="btn btn-dark-toggle" style="min-width: 48px; min-height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1001; position: relative; pointer-events: auto;">
                     <span id="modeIcon" class="text-xl pointer-events-none">🌙</span>
                 </button>
             </div>
-            
-            <!-- Language Selector -->
             <div class="absolute right-0 top-0 language-selector" style="z-index: 2000;">
                 <div class="relative">
                     <button id="languageDropdown" class="btn btn-language" style="min-width: 120px; min-height: 48px; cursor: pointer; z-index: 2001; position: relative; pointer-events: auto;">
@@ -767,7 +227,6 @@
                     </div>
                 </div>
             </div>
-            
             <div>
                 <h1 class="text-3xl font-semibold text-primary mb-2 header-title">
                     RAWLINS
@@ -777,51 +236,39 @@
             </div>
         </div>
 
-        <!-- Navigation -->
         <div class="flex justify-center mb-8 tab-navigation">
             <div class="card rounded-lg p-1 flex flex-row space-x-1">
-                <button id="winRateTab" class="btn btn-tab active" data-translate="winRateTab">
-                    Win Rate Calculator
-                </button>
-                <button id="leverageTab" class="btn btn-tab" data-translate="leverageTab">
-                    Leverage Calculator
-                </button>
+                <button id="winRateTab" class="btn btn-tab active" data-translate="winRateTab">Win Rate Calculator</button>
+                <button id="leverageTab" class="btn btn-tab" data-translate="leverageTab">Leverage Calculator</button>
             </div>
         </div>
 
-        <!-- Win Rate Calculator -->
-        <div id="winRateSection" class="max-w-4xl mx-auto tab-transition">
+        <div id="winRateSection" class="max-w-6xl mx-auto tab-transition">
             <div class="card card-slide-left rounded-lg p-6">
                 <h2 class="text-lg font-medium text-primary mb-6 text-center" data-translate="winRateTitle">Win Rate Calculator</h2>
                 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Input Form -->
                     <div class="space-y-4">
                         <div class="input-animated" style="animation-delay: 0.1s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="startingBalance">Starting Balance (USD)</label>
                             <input type="number" id="startingBalance" class="w-full px-3 py-2 input rounded-lg" placeholder="10000" value="10000">
                         </div>
-                        
                         <div class="input-animated" style="animation-delay: 0.2s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="takeProfit">Take Profit (%)</label>
                             <input type="number" id="takeProfit" class="w-full px-3 py-2 input rounded-lg" placeholder="2" value="2" step="0.1">
                         </div>
-                        
                         <div class="input-animated" style="animation-delay: 0.3s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="stopLoss">Stop Loss (%)</label>
                             <input type="number" id="stopLoss" class="w-full px-3 py-2 input rounded-lg" placeholder="1" value="1" step="0.1">
                         </div>
-                        
                         <div class="input-animated" style="animation-delay: 0.4s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="winRate">Win Rate (%)</label>
                             <input type="number" id="winRate" class="w-full px-3 py-2 input rounded-lg" placeholder="65" value="65" min="0" max="100" step="0.1">
                         </div>
-                        
                         <div class="input-animated" style="animation-delay: 0.5s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="numberOfTrades">Number of Trades</label>
                             <input type="number" id="numberOfTrades" class="w-full px-3 py-2 input rounded-lg" placeholder="100" value="100">
                         </div>
-                        
                         <div class="input-animated" style="animation-delay: 0.6s;">
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="leverage">Leverage</label>
                             <select id="leverage" class="w-full px-3 py-2 input rounded-lg">
@@ -834,15 +281,11 @@
                                 <option value="100">100x</option>
                             </select>
                         </div>
-                        
                         <div class="btn-animated" style="animation-delay: 0.7s;">
-                            <button id="runStrategy" class="btn btn-primary w-full" data-translate="calculateStrategy">
-                                Calculate Strategy
-                            </button>
+                            <button id="runStrategy" class="btn btn-primary w-full" data-translate="calculateStrategy">Calculate Strategy</button>
                         </div>
                     </div>
                     
-                    <!-- Results -->
                     <div id="results" class="card card-slide-right rounded-lg p-4 hidden">
                         <h3 class="text-base font-medium text-primary mb-4" data-translate="results">Results</h3>
                         <div class="space-y-2">
@@ -871,13 +314,9 @@
                                 <span id="finalBalance" class="font-medium text-info">-</span>
                             </div>
                         </div>
-                        
-                        <!-- AI Analysis Section -->
                         <div id="aiAnalysis" class="mt-6 card ai-gradient rounded-lg p-4 hidden">
                             <div class="flex items-center justify-between mb-3">
-                                <h4 class="text-white font-medium flex items-center gap-2">
-                                    🤖 <span data-translate="aiAnalysis">AI Strategy Analysis</span>
-                                </h4>
+                                <h4 class="text-white font-medium flex items-center gap-2">🤖 <span data-translate="aiAnalysis">AI Strategy Analysis</span></h4>
                                 <div id="aiLoadingSpinner" class="hidden">
                                     <div class="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
                                 </div>
@@ -887,23 +326,27 @@
                                     <span data-translate="aiAnalyzing">Analyzing your trading strategy...</span>
                                 </div>
                             </div>
-                            <div class="mt-3 text-xs text-white text-opacity-70 text-center" data-translate="aiPowered">
-                                Powered by DeepSeek AI
-                            </div>
+                            <div class="mt-3 text-xs text-white text-opacity-70 text-center" data-translate="aiPowered">Powered by DeepSeek AI</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Trade History -->
                 <div id="tradeList" class="mt-6 hidden">
                     <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-base font-medium text-primary" data-translate="tradeHistory">
-                            Trade History
-                        </h3>
-                        <div class="text-xs text-secondary card px-2 py-1 rounded" data-translate="compoundInterest">
-                            Compound Interest Applied
-                        </div>
+                        <h3 class="text-base font-medium text-primary" data-translate="tradeHistory">Trade History</h3>
+                        <div class="text-xs text-secondary card px-2 py-1 rounded" data-translate="compoundInterest">Compound Interest Applied</div>
                     </div>
+
+                    <!-- NEW: Trade Visualizer card -->
+                    <div class="card rounded-lg p-4 mb-4 trade-visualizer">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="tv-legend text-secondary">
+                                <span class="inline-flex items-center mr-3"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block mr-1"></span><span class="text-xs">Trades</span></span>
+                            </div>
+                        </div>
+                        <canvas id="tradeChart" class="w-full" height="120"></canvas>
+                    </div>
+
                     <div class="card rounded-lg p-3 max-h-80 overflow-y-auto">
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
@@ -917,9 +360,7 @@
                                         <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="plPercent">P&L %</th>
                                     </tr>
                                 </thead>
-                                <tbody id="tradesContainer">
-                                    <!-- Trades will be generated here -->
-                                </tbody>
+                                <tbody id="tradesContainer"></tbody>
                             </table>
                         </div>
                     </div>
@@ -927,28 +368,18 @@
             </div>
         </div>
 
-        <!-- Leverage Calculator -->
-        <div id="leverageSection" class="max-w-4xl mx-auto hidden">
+        <div id="leverageSection" class="max-w-6xl mx-auto hidden">
             <div class="card rounded-lg p-6">
                 <h2 class="text-lg font-medium text-primary mb-6 text-center" data-translate="leverageTitle">Leverage Calculator</h2>
-                
                 <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Input Form -->
                     <div class="space-y-4">
-                        <!-- Position Type -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="positionType">Position Type</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button id="longBtn" class="btn btn-position long" data-translate="long">
-                                    📈 LONG
-                                </button>
-                                <button id="shortBtn" class="btn btn-position inactive" data-translate="short">
-                                    📉 SHORT
-                                </button>
+                                <button id="longBtn" class="btn btn-position long" data-translate="long">📈 LONG</button>
+                                <button id="shortBtn" class="btn btn-position inactive" data-translate="short">📉 SHORT</button>
                             </div>
                         </div>
-                        
-                        <!-- Leverage -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="leverage">Leverage</label>
                             <div class="relative">
@@ -960,26 +391,18 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Entry Price -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="entryPrice">Entry Price (USD)</label>
                             <input type="number" id="entryPrice" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="50000" value="50000" step="0.01">
                         </div>
-                        
-                        <!-- Quantity -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="quantity">Quantity</label>
                             <input type="number" id="quantity" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="0.1" value="0.1" step="0.00000001">
                         </div>
-                        
-                        <!-- Balance -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="balance">Balance (USD)</label>
                             <input type="number" id="balance" class="w-full px-3 py-2 input rounded-lg transition-all duration-200" placeholder="10000" value="10000">
                         </div>
-                        
-                        <!-- Balance Percentage -->
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="balanceUsage">Balance Usage (%)</label>
                             <div class="relative">
@@ -994,13 +417,8 @@
                                 <div class="text-sm text-primary font-medium"><span data-translate="positionSize">Position Size:</span> <span id="positionSizeDisplay" class="text-info font-medium">$1,000.00</span></div>
                             </div>
                         </div>
-                        
-                        <button id="calculateLeverage" class="btn btn-primary w-full" data-translate="calculatePosition">
-                            Calculate Position
-                        </button>
+                        <button id="calculateLeverage" class="btn btn-primary w-full" data-translate="calculatePosition">Calculate Position</button>
                     </div>
-                    
-                    <!-- Results -->
                     <div id="leverageResults" class="card rounded-lg p-4 hidden">
                         <h3 class="text-base font-medium text-primary mb-4 text-center" data-translate="positionAnalysis">Position Analysis</h3>
                         <div class="space-y-2">
@@ -1046,1107 +464,237 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
-        // Translation system
-        const translations = {
-            en: {
-                subtitle: "Professional Trading Analytics",
-                winRateTab: "Win Rate Calculator",
-                leverageTab: "Leverage Calculator",
-                winRateTitle: "Win Rate Calculator",
-                startingBalance: "Starting Balance (USD)",
-                takeProfit: "Take Profit (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Win Rate (%)",
-                numberOfTrades: "Number of Trades",
-                leverage: "Leverage",
-                calculateStrategy: "Calculate Strategy",
-                results: "Results",
-                riskReward: "Risk/Reward Ratio:",
-                totalPL: "Total P&L:",
-                winningTrades: "Winning Trades:",
-                losingTrades: "Losing Trades:",
-                netProfitRate: "Net Profit Rate:",
-                finalBalance: "Final Balance:",
-                tradeHistory: "Trade History",
-                compoundInterest: "Compound Interest Applied",
-                tradeNumber: "Trade #",
-                type: "Type",
-                entryBalance: "Entry Balance",
-                exitBalance: "Exit Balance",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Leverage Calculator",
-                positionType: "Position Type",
-                long: "📈 LONG",
-                short: "📉 SHORT",
-                entryPrice: "Entry Price (USD)",
-                quantity: "Quantity",
-                balance: "Balance (USD)",
-                balanceUsage: "Balance Usage (%)",
-                positionSize: "Position Size:",
-                calculatePosition: "Calculate Position",
-                positionAnalysis: "Position Analysis",
-                usedBalance: "Used Balance:",
-                stopPrice: "Stop Price (USD):",
-                optimalLeverage: "Optimal Leverage:",
-                liquidationPrice: "Liquidation Price:",
-                totalBalance: "Total Balance:",
-                win: "WIN",
-                loss: "LOSS",
-                fillAllFields: "Please fill all fields!",
-                aiAnalysis: "AI Strategy Analysis",
-                aiAnalyzing: "Analyzing your trading strategy...",
-                aiPowered: "Powered by DeepSeek AI"
-            },
-            tr: {
-                subtitle: "Profesyonel Ticaret Analitikleri",
-                winRateTab: "Kazanma Oranı Hesaplayıcısı",
-                leverageTab: "Kaldıraç Hesaplayıcısı",
-                winRateTitle: "Kazanma Oranı Hesaplayıcısı",
-                startingBalance: "Başlangıç Bakiyesi (USD)",
-                takeProfit: "Kar Al (%)",
-                stopLoss: "Zarar Durdur (%)",
-                winRate: "Kazanma Oranı (%)",
-                numberOfTrades: "İşlem Sayısı",
-                leverage: "Kaldıraç",
-                calculateStrategy: "Stratejiyi Hesapla",
-                results: "Sonuçlar",
-                riskReward: "Risk/Ödül Oranı:",
-                totalPL: "Toplam K/Z:",
-                winningTrades: "Kazanan İşlemler:",
-                losingTrades: "Kaybeden İşlemler:",
-                netProfitRate: "Net Kar Oranı:",
-                finalBalance: "Son Bakiye:",
-                tradeHistory: "İşlem Geçmişi",
-                compoundInterest: "Bileşik Faiz Uygulandı",
-                tradeNumber: "İşlem #",
-                type: "Tür",
-                entryBalance: "Giriş Bakiyesi",
-                exitBalance: "Çıkış Bakiyesi",
-                pl: "K/Z",
-                plPercent: "K/Z %",
-                leverageTitle: "Kaldıraç Hesaplayıcısı",
-                positionType: "Pozisyon Türü",
-                long: "📈 ALIM",
-                short: "📉 SATIM",
-                entryPrice: "Giriş Fiyatı (USD)",
-                quantity: "Miktar",
-                balance: "Bakiye (USD)",
-                balanceUsage: "Bakiye Kullanımı (%)",
-                positionSize: "Pozisyon Büyüklüğü:",
-                calculatePosition: "Pozisyonu Hesapla",
-                positionAnalysis: "Pozisyon Analizi",
-                usedBalance: "Kullanılan Bakiye:",
-                stopPrice: "Stop Fiyatı (USD):",
-                optimalLeverage: "Optimal Kaldıraç:",
-                liquidationPrice: "Tasfiye Fiyatı:",
-                totalBalance: "Toplam Bakiye:",
-                win: "KAZANÇ",
-                loss: "KAYIP",
-                fillAllFields: "Lütfen tüm alanları doldurun!",
-                aiAnalysis: "AI Strateji Analizi",
-                aiAnalyzing: "Ticaret stratejiniz analiz ediliyor...",
-                aiPowered: "DeepSeek AI ile desteklenmektedir"
-            },
-            es: {
-                subtitle: "Análisis Profesional de Trading",
-                winRateTab: "Calculadora de Tasa de Ganancia",
-                leverageTab: "Calculadora de Apalancamiento",
-                winRateTitle: "Calculadora de Tasa de Ganancia",
-                startingBalance: "Balance Inicial (USD)",
-                takeProfit: "Tomar Ganancia (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Tasa de Ganancia (%)",
-                numberOfTrades: "Número de Operaciones",
-                leverage: "Apalancamiento",
-                calculateStrategy: "Calcular Estrategia",
-                results: "Resultados",
-                riskReward: "Ratio Riesgo/Recompensa:",
-                totalPL: "P&L Total:",
-                winningTrades: "Operaciones Ganadoras:",
-                losingTrades: "Operaciones Perdedoras:",
-                netProfitRate: "Tasa de Ganancia Neta:",
-                finalBalance: "Balance Final:",
-                tradeHistory: "Historial de Operaciones",
-                compoundInterest: "Interés Compuesto Aplicado",
-                tradeNumber: "Operación #",
-                type: "Tipo",
-                entryBalance: "Balance de Entrada",
-                exitBalance: "Balance de Salida",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Calculadora de Apalancamiento",
-                positionType: "Tipo de Posición",
-                long: "📈 LARGO",
-                short: "📉 CORTO",
-                entryPrice: "Precio de Entrada (USD)",
-                quantity: "Cantidad",
-                balance: "Balance (USD)",
-                balanceUsage: "Uso del Balance (%)",
-                positionSize: "Tamaño de Posición:",
-                calculatePosition: "Calcular Posición",
-                positionAnalysis: "Análisis de Posición",
-                usedBalance: "Balance Utilizado:",
-                stopPrice: "Precio Stop (USD):",
-                optimalLeverage: "Apalancamiento Óptimo:",
-                liquidationPrice: "Precio de Liquidación:",
-                totalBalance: "Balance Total:",
-                win: "GANANCIA",
-                loss: "PÉRDIDA",
-                fillAllFields: "¡Por favor complete todos los campos!",
-                aiAnalysis: "Análisis de Estrategia IA",
-                aiAnalyzing: "Analizando su estrategia de trading...",
-                aiPowered: "Impulsado por DeepSeek AI"
-            },
-            ru: {
-                subtitle: "Профессиональная Торговая Аналитика",
-                winRateTab: "Калькулятор Винрейта",
-                leverageTab: "Калькулятор Плеча",
-                winRateTitle: "Калькулятор Винрейта",
-                startingBalance: "Начальный Баланс (USD)",
-                takeProfit: "Тейк Профит (%)",
-                stopLoss: "Стоп Лосс (%)",
-                winRate: "Винрейт (%)",
-                numberOfTrades: "Количество Сделок",
-                leverage: "Плечо",
-                calculateStrategy: "Рассчитать Стратегию",
-                results: "Результаты",
-                riskReward: "Соотношение Риск/Доход:",
-                totalPL: "Общий P&L:",
-                winningTrades: "Прибыльные Сделки:",
-                losingTrades: "Убыточные Сделки:",
-                netProfitRate: "Чистая Прибыль:",
-                finalBalance: "Итоговый Баланс:",
-                tradeHistory: "История Сделок",
-                compoundInterest: "Сложный Процент Применен",
-                tradeNumber: "Сделка #",
-                type: "Тип",
-                entryBalance: "Входящий Баланс",
-                exitBalance: "Исходящий Баланс",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Калькулятор Плеча",
-                positionType: "Тип Позиции",
-                long: "📈 ЛОНГ",
-                short: "📉 ШОРТ",
-                entryPrice: "Цена Входа (USD)",
-                quantity: "Количество",
-                balance: "Баланс (USD)",
-                balanceUsage: "Использование Баланса (%)",
-                positionSize: "Размер Позиции:",
-                calculatePosition: "Рассчитать Позицию",
-                positionAnalysis: "Анализ Позиции",
-                usedBalance: "Использованный Баланс:",
-                stopPrice: "Стоп Цена (USD):",
-                optimalLeverage: "Оптимальное Плечо:",
-                liquidationPrice: "Цена Ликвидации:",
-                totalBalance: "Общий Баланс:",
-                win: "ПРИБЫЛЬ",
-                loss: "УБЫТОК",
-                fillAllFields: "Пожалуйста, заполните все поля!",
-                aiAnalysis: "ИИ Анализ Стратегии",
-                aiAnalyzing: "Анализируем вашу торговую стратегию...",
-                aiPowered: "Работает на DeepSeek AI"
-            },
-            zh: {
-                subtitle: "专业交易分析",
-                winRateTab: "胜率计算器",
-                leverageTab: "杠杆计算器",
-                winRateTitle: "胜率计算器",
-                startingBalance: "起始余额 (USD)",
-                takeProfit: "止盈 (%)",
-                stopLoss: "止损 (%)",
-                winRate: "胜率 (%)",
-                numberOfTrades: "交易次数",
-                leverage: "杠杆",
-                calculateStrategy: "计算策略",
-                results: "结果",
-                riskReward: "风险/收益比:",
-                totalPL: "总盈亏:",
-                winningTrades: "盈利交易:",
-                losingTrades: "亏损交易:",
-                netProfitRate: "净利润率:",
-                finalBalance: "最终余额:",
-                tradeHistory: "交易历史",
-                compoundInterest: "已应用复利",
-                tradeNumber: "交易 #",
-                type: "类型",
-                entryBalance: "入场余额",
-                exitBalance: "出场余额",
-                pl: "盈亏",
-                plPercent: "盈亏 %",
-                leverageTitle: "杠杆计算器",
-                positionType: "仓位类型",
-                long: "📈 做多",
-                short: "📉 做空",
-                entryPrice: "入场价格 (USD)",
-                quantity: "数量",
-                balance: "余额 (USD)",
-                balanceUsage: "余额使用率 (%)",
-                positionSize: "仓位大小:",
-                calculatePosition: "计算仓位",
-                positionAnalysis: "仓位分析",
-                usedBalance: "使用余额:",
-                stopPrice: "止损价格 (USD):",
-                optimalLeverage: "最优杠杆:",
-                liquidationPrice: "强平价格:",
-                totalBalance: "总余额:",
-                win: "盈利",
-                loss: "亏损",
-                fillAllFields: "请填写所有字段！",
-                aiAnalysis: "AI策略分析",
-                aiAnalyzing: "正在分析您的交易策略...",
-                aiPowered: "由DeepSeek AI提供支持"
-            },
-            az: {
-                subtitle: "Peşəkar Ticarət Analitikası",
-                winRateTab: "Qazanma Nisbəti Kalkulyatoru",
-                leverageTab: "Leverage Kalkulyatoru",
-                winRateTitle: "Qazanma Nisbəti Kalkulyatoru",
-                startingBalance: "Başlanğıc Balans (USD)",
-                takeProfit: "Mənfəət Al (%)",
-                stopLoss: "Zərər Dayandır (%)",
-                winRate: "Qazanma Nisbəti (%)",
-                numberOfTrades: "Əməliyyat Sayı",
-                leverage: "Leverage",
-                calculateStrategy: "Strategiyanı Hesabla",
-                results: "Nəticələr",
-                riskReward: "Risk/Mükafat Nisbəti:",
-                totalPL: "Ümumi M/Z:",
-                winningTrades: "Qazanan Əməliyyatlar:",
-                losingTrades: "Uduzən Əməliyyatlar:",
-                netProfitRate: "Xalis Mənfəət Nisbəti:",
-                finalBalance: "Son Balans:",
-                tradeHistory: "Əməliyyat Tarixçəsi",
-                compoundInterest: "Mürəkkəb Faiz Tətbiq Edildi",
-                tradeNumber: "Əməliyyat #",
-                type: "Növ",
-                entryBalance: "Giriş Balansı",
-                exitBalance: "Çıxış Balansı",
-                pl: "M/Z",
-                plPercent: "M/Z %",
-                leverageTitle: "Leverage Kalkulyatoru",
-                positionType: "Pozisiya Növü",
-                long: "📈 ALIM",
-                short: "📉 SATIM",
-                entryPrice: "Giriş Qiyməti (USD)",
-                quantity: "Miqdar",
-                balance: "Balans (USD)",
-                balanceUsage: "Balans İstifadəsi (%)",
-                positionSize: "Pozisiya Ölçüsü:",
-                calculatePosition: "Poziziyanı Hesabla",
-                positionAnalysis: "Pozisiya Analizi",
-                usedBalance: "İstifadə Edilən Balans:",
-                stopPrice: "Stop Qiyməti (USD):",
-                optimalLeverage: "Optimal Leverage:",
-                liquidationPrice: "Ləğv Qiyməti:",
-                totalBalance: "Ümumi Balans:",
-                win: "QAZANC",
-                loss: "ITKI",
-                fillAllFields: "Zəhmət olmasa bütün sahələri doldurun!",
-                aiAnalysis: "AI Strategiya Analizi",
-                aiAnalyzing: "Ticarət strategiyanız analiz edilir...",
-                aiPowered: "DeepSeek AI tərəfindən dəstəklənir"
-            },
-            pt: {
-                subtitle: "Análise Profissional de Trading",
-                winRateTab: "Calculadora de Taxa de Vitória",
-                leverageTab: "Calculadora de Alavancagem",
-                winRateTitle: "Calculadora de Taxa de Vitória",
-                startingBalance: "Saldo Inicial (USD)",
-                takeProfit: "Take Profit (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Taxa de Vitória (%)",
-                numberOfTrades: "Número de Negociações",
-                leverage: "Alavancagem",
-                calculateStrategy: "Calcular Estratégia",
-                results: "Resultados",
-                riskReward: "Relação Risco/Recompensa:",
-                totalPL: "P&L Total:",
-                winningTrades: "Negociações Vencedoras:",
-                losingTrades: "Negociações Perdedoras:",
-                netProfitRate: "Taxa de Lucro Líquido:",
-                finalBalance: "Saldo Final:",
-                tradeHistory: "Histórico de Negociações",
-                compoundInterest: "Juros Compostos Aplicados",
-                tradeNumber: "Negociação #",
-                type: "Tipo",
-                entryBalance: "Saldo de Entrada",
-                exitBalance: "Saldo de Saída",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Calculadora de Alavancagem",
-                positionType: "Tipo de Posição",
-                long: "📈 COMPRA",
-                short: "📉 VENDA",
-                entryPrice: "Preço de Entrada (USD)",
-                quantity: "Quantidade",
-                balance: "Saldo (USD)",
-                balanceUsage: "Uso do Saldo (%)",
-                positionSize: "Tamanho da Posição:",
-                calculatePosition: "Calcular Posição",
-                positionAnalysis: "Análise da Posição",
-                usedBalance: "Saldo Utilizado:",
-                stopPrice: "Preço Stop (USD):",
-                optimalLeverage: "Alavancagem Ótima:",
-                liquidationPrice: "Preço de Liquidação:",
-                totalBalance: "Saldo Total:",
-                win: "VITÓRIA",
-                loss: "PERDA",
-                fillAllFields: "Por favor, preencha todos os campos!",
-                aiAnalysis: "Análise de Estratégia IA",
-                aiAnalyzing: "Analisando sua estratégia de negociação...",
-                aiPowered: "Desenvolvido por DeepSeek AI"
-            },
-            ja: {
-                subtitle: "プロフェッショナル取引分析",
-                winRateTab: "勝率計算機",
-                leverageTab: "レバレッジ計算機",
-                winRateTitle: "勝率計算機",
-                startingBalance: "開始残高 (USD)",
-                takeProfit: "利確 (%)",
-                stopLoss: "損切り (%)",
-                winRate: "勝率 (%)",
-                numberOfTrades: "取引回数",
-                leverage: "レバレッジ",
-                calculateStrategy: "戦略を計算",
-                results: "結果",
-                riskReward: "リスク/リワード比:",
-                totalPL: "総損益:",
-                winningTrades: "勝ち取引:",
-                losingTrades: "負け取引:",
-                netProfitRate: "純利益率:",
-                finalBalance: "最終残高:",
-                tradeHistory: "取引履歴",
-                compoundInterest: "複利適用済み",
-                tradeNumber: "取引 #",
-                type: "タイプ",
-                entryBalance: "エントリー残高",
-                exitBalance: "エグジット残高",
-                pl: "損益",
-                plPercent: "損益 %",
-                leverageTitle: "レバレッジ計算機",
-                positionType: "ポジションタイプ",
-                long: "📈 ロング",
-                short: "📉 ショート",
-                entryPrice: "エントリー価格 (USD)",
-                quantity: "数量",
-                balance: "残高 (USD)",
-                balanceUsage: "残高使用率 (%)",
-                positionSize: "ポジションサイズ:",
-                calculatePosition: "ポジション計算",
-                positionAnalysis: "ポジション分析",
-                usedBalance: "使用残高:",
-                stopPrice: "ストップ価格 (USD):",
-                optimalLeverage: "最適レバレッジ:",
-                liquidationPrice: "強制決済価格:",
-                totalBalance: "総残高:",
-                win: "勝ち",
-                loss: "負け",
-                fillAllFields: "すべてのフィールドを入力してください！",
-                aiAnalysis: "AI戦略分析",
-                aiAnalyzing: "取引戦略を分析中...",
-                aiPowered: "DeepSeek AIによって提供"
-            },
-            de: {
-                subtitle: "Professionelle Trading-Analyse",
-                winRateTab: "Gewinnrate-Rechner",
-                leverageTab: "Hebel-Rechner",
-                winRateTitle: "Gewinnrate-Rechner",
-                startingBalance: "Startkapital (USD)",
-                takeProfit: "Take Profit (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Gewinnrate (%)",
-                numberOfTrades: "Anzahl Trades",
-                leverage: "Hebel",
-                calculateStrategy: "Strategie berechnen",
-                results: "Ergebnisse",
-                riskReward: "Risiko/Gewinn-Verhältnis:",
-                totalPL: "Gesamt P&L:",
-                winningTrades: "Gewinn-Trades:",
-                losingTrades: "Verlust-Trades:",
-                netProfitRate: "Netto-Gewinnrate:",
-                finalBalance: "Endkapital:",
-                tradeHistory: "Trade-Historie",
-                compoundInterest: "Zinseszins angewendet",
-                tradeNumber: "Trade #",
-                type: "Typ",
-                entryBalance: "Einstiegs-Kapital",
-                exitBalance: "Ausstiegs-Kapital",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Hebel-Rechner",
-                positionType: "Positionstyp",
-                long: "📈 LONG",
-                short: "📉 SHORT",
-                entryPrice: "Einstiegspreis (USD)",
-                quantity: "Menge",
-                balance: "Kapital (USD)",
-                balanceUsage: "Kapitalnutzung (%)",
-                positionSize: "Positionsgröße:",
-                calculatePosition: "Position berechnen",
-                positionAnalysis: "Positions-Analyse",
-                usedBalance: "Genutztes Kapital:",
-                stopPrice: "Stop-Preis (USD):",
-                optimalLeverage: "Optimaler Hebel:",
-                liquidationPrice: "Liquidationspreis:",
-                totalBalance: "Gesamtkapital:",
-                win: "GEWINN",
-                loss: "VERLUST",
-                fillAllFields: "Bitte alle Felder ausfüllen!",
-                aiAnalysis: "KI-Strategieanalyse",
-                aiAnalyzing: "Ihre Trading-Strategie wird analysiert...",
-                aiPowered: "Unterstützt von DeepSeek AI"
-            },
-            fr: {
-                subtitle: "Analyse Professionnelle de Trading",
-                winRateTab: "Calculateur de Taux de Gain",
-                leverageTab: "Calculateur d'Effet de Levier",
-                winRateTitle: "Calculateur de Taux de Gain",
-                startingBalance: "Solde Initial (USD)",
-                takeProfit: "Prise de Bénéfice (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Taux de Gain (%)",
-                numberOfTrades: "Nombre de Trades",
-                leverage: "Effet de Levier",
-                calculateStrategy: "Calculer la Stratégie",
-                results: "Résultats",
-                riskReward: "Ratio Risque/Récompense:",
-                totalPL: "P&L Total:",
-                winningTrades: "Trades Gagnants:",
-                losingTrades: "Trades Perdants:",
-                netProfitRate: "Taux de Profit Net:",
-                finalBalance: "Solde Final:",
-                tradeHistory: "Historique des Trades",
-                compoundInterest: "Intérêts Composés Appliqués",
-                tradeNumber: "Trade #",
-                type: "Type",
-                entryBalance: "Solde d'Entrée",
-                exitBalance: "Solde de Sortie",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Calculateur d'Effet de Levier",
-                positionType: "Type de Position",
-                long: "📈 LONG",
-                short: "📉 SHORT",
-                entryPrice: "Prix d'Entrée (USD)",
-                quantity: "Quantité",
-                balance: "Solde (USD)",
-                balanceUsage: "Utilisation du Solde (%)",
-                positionSize: "Taille de Position:",
-                calculatePosition: "Calculer la Position",
-                positionAnalysis: "Analyse de Position",
-                usedBalance: "Solde Utilisé:",
-                stopPrice: "Prix Stop (USD):",
-                optimalLeverage: "Effet de Levier Optimal:",
-                liquidationPrice: "Prix de Liquidation:",
-                totalBalance: "Solde Total:",
-                win: "GAIN",
-                loss: "PERTE",
-                fillAllFields: "Veuillez remplir tous les champs!",
-                aiAnalysis: "Analyse de Stratégie IA",
-                aiAnalyzing: "Analyse de votre stratégie de trading...",
-                aiPowered: "Alimenté par DeepSeek AI"
-            },
-            it: {
-                subtitle: "Analisi Professionale di Trading",
-                winRateTab: "Calcolatore Tasso di Vittoria",
-                leverageTab: "Calcolatore Leva",
-                winRateTitle: "Calcolatore Tasso di Vittoria",
-                startingBalance: "Saldo Iniziale (USD)",
-                takeProfit: "Take Profit (%)",
-                stopLoss: "Stop Loss (%)",
-                winRate: "Tasso di Vittoria (%)",
-                numberOfTrades: "Numero di Trade",
-                leverage: "Leva",
-                calculateStrategy: "Calcola Strategia",
-                results: "Risultati",
-                riskReward: "Rapporto Rischio/Ricompensa:",
-                totalPL: "P&L Totale:",
-                winningTrades: "Trade Vincenti:",
-                losingTrades: "Trade Perdenti:",
-                netProfitRate: "Tasso di Profitto Netto:",
-                finalBalance: "Saldo Finale:",
-                tradeHistory: "Storico Trade",
-                compoundInterest: "Interesse Composto Applicato",
-                tradeNumber: "Trade #",
-                type: "Tipo",
-                entryBalance: "Saldo di Entrata",
-                exitBalance: "Saldo di Uscita",
-                pl: "P&L",
-                plPercent: "P&L %",
-                leverageTitle: "Calcolatore Leva",
-                positionType: "Tipo di Posizione",
-                long: "📈 LONG",
-                short: "📉 SHORT",
-                entryPrice: "Prezzo di Entrata (USD)",
-                quantity: "Quantità",
-                balance: "Saldo (USD)",
-                balanceUsage: "Utilizzo Saldo (%)",
-                positionSize: "Dimensione Posizione:",
-                calculatePosition: "Calcola Posizione",
-                positionAnalysis: "Analisi Posizione",
-                usedBalance: "Saldo Utilizzato:",
-                stopPrice: "Prezzo Stop (USD):",
-                optimalLeverage: "Leva Ottimale:",
-                liquidationPrice: "Prezzo di Liquidazione:",
-                totalBalance: "Saldo Totale:",
-                win: "VITTORIA",
-                loss: "PERDITA",
-                fillAllFields: "Si prega di compilare tutti i campi!",
-                aiAnalysis: "Analisi Strategia IA",
-                aiAnalyzing: "Analizzando la tua strategia di trading...",
-                aiPowered: "Alimentato da DeepSeek AI"
-            }
-        };
-
+        const translations = { en: { subtitle: "Professional Trading Analytics", winRateTab: "Win Rate Calculator", leverageTab: "Leverage Calculator", winRateTitle: "Win Rate Calculator", startingBalance: "Starting Balance (USD)", takeProfit: "Take Profit (%)", stopLoss: "Stop Loss (%)", winRate: "Win Rate (%)", numberOfTrades: "Number of Trades", leverage: "Leverage", calculateStrategy: "Calculate Strategy", results: "Results", riskReward: "Risk/Reward Ratio:", totalPL: "Total P&L:", winningTrades: "Winning Trades:", losingTrades: "Losing Trades:", netProfitRate: "Net Profit Rate:", finalBalance: "Final Balance:", tradeHistory: "Trade History", compoundInterest: "Compound Interest Applied", tradeNumber: "Trade #", type: "Type", entryBalance: "Entry Balance", exitBalance: "Exit Balance", pl: "P&L", plPercent: "P&L %", leverageTitle: "Leverage Calculator", positionType: "Position Type", long: "📈 LONG", short: "📉 SHORT", entryPrice: "Entry Price (USD)", quantity: "Quantity", balance: "Balance (USD)", balanceUsage: "Balance Usage (%)", positionSize: "Position Size:", calculatePosition: "Calculate Position", positionAnalysis: "Position Analysis", usedBalance: "Used Balance:", stopPrice: "Stop Price (USD):", optimalLeverage: "Optimal Leverage:", liquidationPrice: "Liquidation Price:", totalBalance: "Total Balance:", win: "WIN", loss: "LOSS", fillAllFields: "Please fill all fields!", aiAnalysis: "AI Strategy Analysis", aiAnalyzing: "Analyzing your trading strategy...", aiPowered: "Powered by DeepSeek AI" }, tr: { subtitle: "Profesyonel Ticaret Analitiği", winRateTab: "Kazanç Oranı Hesaplayıcı", leverageTab: "Kaldıraç Hesaplayıcı", winRateTitle: "Kazanç Oranı Hesaplayıcı", startingBalance: "Başlangıç Bakiyesi (USD)", takeProfit: "Kar Al (%)", stopLoss: "Zarar Durdur (%)", winRate: "Kazanma Oranı (%)", numberOfTrades: "İşlem Sayısı", leverage: "Kaldıraç", calculateStrategy: "Stratejiyi Hesapla", results: "Sonuçlar", riskReward: "Risk/Ödül Oranı:", totalPL: "Toplam K/Z:", winningTrades: "Kazanan İşlemler:", losingTrades: "Kaybeden İşlemler:", netProfitRate: "Net Kar Oranı:", finalBalance: "Son Bakiye:", tradeHistory: "İşlem Geçmişi", compoundInterest: "Bileşik Faiz Uygulandı", tradeNumber: "İşlem #", type: "Tür", entryBalance: "Giriş Bakiyesi", exitBalance: "Çıkış Bakiyesi", pl: "K/Z", plPercent: "K/Z %", leverageTitle: "Kaldıraç Hesaplayıcı", positionType: "Pozisyon Türü", long: "📈 UZUN", short: "📉 KISA", entryPrice: "Giriş Fiyatı (USD)", quantity: "Miktar", balance: "Bakiye (USD)", balanceUsage: "Bakiye Kullanımı (%)", positionSize: "Pozisyon Boyutu:", calculatePosition: "Pozisyonu Hesapla", positionAnalysis: "Pozisyon Analizi", usedBalance: "Kullanılan Bakiye:", stopPrice: "Stop Fiyatı (USD):", optimalLeverage: "Optimal Kaldıraç:", liquidationPrice: "Likidasyon Fiyatı:", totalBalance: "Toplam Bakiye:", win: "KAZANÇ", loss: "KAYIP", fillAllFields: "Lütfen tüm alanları doldurunuz!", aiAnalysis: "AI Strateji Analizi", aiAnalyzing: "Stratejiniz analiz ediliyor...", aiPowered: "DeepSeek AI tarafından desteklenmektedir" } };
         let currentLanguage = 'en';
+        function translatePage(lang){ currentLanguage=lang; document.querySelectorAll('[data-translate]').forEach(el=>{ const key=el.getAttribute('data-translate'); if(translations[lang]&&translations[lang][key]) el.textContent=translations[lang][key]; }); }
 
-        function translatePage(lang) {
-            currentLanguage = lang;
-            const elements = document.querySelectorAll('[data-translate]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+        document.getElementById('languageDropdown').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const menu=document.getElementById('languageMenu'); if(menu.classList.contains('hidden')){ menu.classList.remove('hidden'); menu.style.pointerEvents='auto'; setTimeout(()=>menu.classList.add('show'),10);} else { menu.classList.remove('show'); setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300);} });
+        document.getElementById('languageDropdown').addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); });
+        document.getElementById('languageDropdown').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
+        document.addEventListener('click', function(event){ const dropdown=document.getElementById('languageDropdown'); const menu=document.getElementById('languageMenu'); if(!dropdown.contains(event.target) && !menu.contains(event.target)){ menu.classList.remove('show'); setTimeout(()=>menu.classList.add('hidden'),300);} });
+        document.querySelectorAll('.language-option').forEach(option=>{ option.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const lang=this.getAttribute('data-lang'); const flag=this.getAttribute('data-flag'); const name=this.getAttribute('data-name'); document.getElementById('currentFlag').src=`https://flagcdn.com/${flag}.svg`; document.getElementById('currentLanguage').textContent=name; translatePage(lang); const menu=document.getElementById('languageMenu'); menu.classList.remove('show'); setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300); }); option.addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); }); option.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); }); option.style.pointerEvents='auto'; option.style.cursor='pointer'; });
+
+        let selectedPosition='long';
+        document.getElementById('darkModeToggle').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const modeIcon=document.getElementById('modeIcon'); document.body.classList.toggle('dark-mode'); document.body.classList.toggle('light-mode'); modeIcon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙'; });
+        document.getElementById('darkModeToggle').addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); });
+        document.getElementById('darkModeToggle').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
+        document.getElementById('longBtn').addEventListener('click', function(){ selectedPosition='long'; this.className='btn btn-position long'; document.getElementById('shortBtn').className='btn btn-position inactive'; calculateOptimalLeverage(); });
+        document.getElementById('shortBtn').addEventListener('click', function(){ selectedPosition='short'; this.className='btn btn-position short'; document.getElementById('longBtn').className='btn btn-position inactive'; calculateOptimalLeverage(); });
+        document.getElementById('leverageSlider').addEventListener('input', function(){ const leverage=this.value; document.getElementById('leverageDisplay').textContent = leverage + 'x'; });
+        document.getElementById('balancePercentage').addEventListener('input', function(){ const percentage=this.value; const balance=parseFloat(document.getElementById('balance').value)||0; const positionSize=(balance*percentage)/100; document.getElementById('percentageDisplay').textContent=percentage+'%'; document.getElementById('positionSizeDisplay').textContent='$'+positionSize.toLocaleString('tr-TR',{maximumFractionDigits:2}); });
+        document.getElementById('balance').addEventListener('input', function(){ const percentage=document.getElementById('balancePercentage').value; const balance=parseFloat(this.value)||0; const positionSize=(balance*percentage)/100; document.getElementById('positionSizeDisplay').textContent='$'+positionSize.toLocaleString('tr-TR',{maximumFractionDigits:2}); calculateOptimalLeverage(); });
+        function setupStopPriceCalculation(){ const stopPriceInput=document.getElementById('stopPrice'); if(stopPriceInput){ stopPriceInput.addEventListener('input', calculateOptimalLeverage); } }
+        function calculateOptimalLeverage(){ const entryPrice=parseFloat(document.getElementById('entryPrice').value); const stopPrice=parseFloat(document.getElementById('stopPrice').value); if(!entryPrice||!stopPrice){ document.getElementById('optimalLeverage').textContent='-'; return;} let optimalLeverage; if(selectedPosition==='long'){ optimalLeverage=1/(1-(stopPrice/entryPrice)); } else { optimalLeverage=1/((stopPrice/entryPrice)-1); } if(optimalLeverage>0 && optimalLeverage<=1000){ document.getElementById('optimalLeverage').textContent=optimalLeverage.toFixed(2)+'x'; document.getElementById('optimalLeverage').className='text-orange-600 font-bold text-lg'; } else { document.getElementById('optimalLeverage').textContent='Invalid'; document.getElementById('optimalLeverage').className='text-red-600 font-bold text-lg'; } }
+
+        document.getElementById('calculateLeverage').addEventListener('click', function(){ const leverage=parseFloat(document.getElementById('leverageSlider').value); const entryPrice=parseFloat(document.getElementById('entryPrice').value); const balance=parseFloat(document.getElementById('balance').value); const balancePercentage=parseFloat(document.getElementById('balancePercentage').value); const quantity=parseFloat(document.getElementById('quantity').value); if(!leverage||!entryPrice||!balance||!balancePercentage||!quantity){ alert(translations[currentLanguage].fillAllFields); return;} const usedBalance=(balance*balancePercentage)/100; let liquidationPrice; if(selectedPosition==='long'){ liquidationPrice=entryPrice*(1-(1/leverage)); } else { liquidationPrice=entryPrice*(1+(1/leverage)); } document.getElementById('positionTypeResult').textContent= selectedPosition==='long' ? '📈 LONG' : '📉 SHORT'; document.getElementById('positionTypeResult').className= selectedPosition==='long' ? 'font-bold text-green-600 text-lg' : 'font-bold text-red-600 text-lg'; document.getElementById('leverageResult').textContent=leverage+'x'; document.getElementById('positionSizeResult').textContent='$'+(usedBalance*leverage).toLocaleString('tr-TR',{maximumFractionDigits:2}); document.getElementById('quantityResult').textContent=quantity.toFixed(8)+' Units'; document.getElementById('usedBalanceResult').textContent='$'+usedBalance.toLocaleString('tr-TR',{maximumFractionDigits:2}); document.getElementById('liquidationPrice').textContent='$'+liquidationPrice.toLocaleString('tr-TR',{maximumFractionDigits:2}); document.getElementById('finalBalanceResult').textContent='$'+balance.toLocaleString('tr-TR',{maximumFractionDigits:2}); document.getElementById('finalBalanceResult').className='font-bold text-blue-600 text-xl'; document.getElementById('leverageResults').classList.remove('hidden'); setupStopPriceCalculation(); document.getElementById('leverageResults').scrollIntoView({behavior:'smooth'}); });
+        document.getElementById('winRateTab').addEventListener('click', function(){ document.getElementById('winRateSection').classList.remove('hidden'); document.getElementById('leverageSection').classList.add('hidden'); this.className='btn btn-tab active'; document.getElementById('leverageTab').className='btn btn-tab'; });
+        document.getElementById('leverageTab').addEventListener('click', function(){ document.getElementById('leverageSection').classList.remove('hidden'); document.getElementById('winRateSection').classList.add('hidden'); this.className='btn btn-tab active'; document.getElementById('winRateTab').className='btn btn-tab'; });
+
+        const OPENROUTER_API_KEY = "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"; 
+        async function analyzeStrategyWithAI(strategyData){ const aiAnalysisSection=document.getElementById('aiAnalysis'); const aiLoadingSpinner=document.getElementById('aiLoadingSpinner'); const aiAnalysisText=document.getElementById('aiAnalysisText'); aiAnalysisSection.classList.remove('hidden'); aiLoadingSpinner.classList.remove('hidden'); aiAnalysisText.innerHTML = `<span data-translate="aiAnalyzing">${translations[currentLanguage].aiAnalyzing}</span>`; const prompt=createAIPrompt(strategyData,currentLanguage); try{ const response=await fetch("https://openrouter.ai/api/v1/chat/completions", { method:"POST", headers:{ 'Authorization': 'Bearer ' + OPENROUTER_API_KEY, 'HTTP-Referer': window.location.href, 'X-Title': 'RAWLINS Trading Calculator', 'Content-Type': 'application/json' }, body: JSON.stringify({ model:"google/gemini-2.0-flash-exp:free", messages:[{ role:"user", content: prompt }], max_tokens:500, temperature:0.7 })}); if(!response.ok){ throw new Error(`HTTP error! status: ${response.status}`);} const data=await response.json(); const aiResponse=data.choices?.[0]?.message?.content || ''; aiLoadingSpinner.classList.add('hidden'); typeWriterEffect(aiAnalysisText, aiResponse); } catch(err){ console.error('AI Analysis Error:', err); aiLoadingSpinner.classList.add('hidden'); const errorMessages={ en:"AI analysis temporarily unavailable. Please check your API key and try again.", tr:"AI analizi geçici olarak kullanılamıyor. API anahtarınızı kontrol edin ve tekrar deneyin."}; aiAnalysisText.textContent = errorMessages[currentLanguage] || errorMessages.en; aiAnalysisText.className='text-red-300 text-sm leading-relaxed min-h-20'; } }
+        function createAIPrompt(data, language){ const prompts={ en:`Analyze this trading strategy and provide professional insights:\n\nStarting Balance: $${data.startingBalance}\nTake Profit: ${data.takeProfit}%\nStop Loss: ${data.stopLoss}%\nWin Rate: ${data.winRate}%\nNumber of Trades: ${data.numberOfTrades}\nLeverage: ${data.leverage}x\nRisk/Reward Ratio: ${data.riskReward}\nFinal Balance: $${data.finalBalance}\nTotal P&L: $${data.totalPnL}\nNet Profit Rate: ${data.netProfitRate}%\n\nPlease provide a concise analysis covering: risk assessment, strategy viability, and key recommendations. Keep response under 400 words.`, tr:`Bu ticaret stratejisini analiz edin ve profesyonel görüşler sunun:\n\nBaşlangıç Bakiyesi: $${data.startingBalance}\nKar Al: ${data.takeProfit}%\nZarar Durdur: ${data.stopLoss}%\nKazanma Oranı: ${data.winRate}%\nİşlem Sayısı: ${data.numberOfTrades}\nKaldıraç: ${data.leverage}x\nRisk/Ödül Oranı: ${data.riskReward}\nSon Bakiye: $${data.finalBalance}\nToplam K/Z: $${data.totalPnL}\nNet Kar Oranı: ${data.netProfitRate}%\n\nLütfen risk değerlendirmesi, strateji uygulanabilirliği ve temel önerileri içeren kısa bir analiz sağlayın. Yanıtı 400 kelime altında tutun.` }; return prompts[language] || prompts.en; }
+        function typeWriterEffect(element,text){ element.textContent=''; element.className='text-white text-sm leading-relaxed min-h-20'; let i=0; (function type(){ if(i<text.length){ element.textContent+=text.charAt(i); i++; setTimeout(type,20);} })(); }
+
+        // NEW: Trade Visualizer renderer
+        // cache last chart data for responsive redraw
+        let lastChartState = { seq: null, start: 0 };
+
+        function renderTradeVisualizer(sequence, startBalance){
+            const canvas = document.getElementById('tradeChart');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const width = canvas.clientWidth || canvas.parentElement.clientWidth || 600;
+            const height = canvas.clientHeight || 260;
+            canvas.width = Math.max(1, Math.floor(width * dpr));
+            canvas.height = Math.max(1, Math.floor(height * dpr));
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            // Build y scale from balances
+            const balances = sequence.map(s=>s.exitBalance);
+            balances.unshift(startBalance);
+            const minY = Math.min(...balances);
+            const maxY = Math.max(...balances);
+            const pad = 12;
+            const chartW = width - pad*2;
+            const chartH = height - pad*2;
+
+            function yScale(v){
+                if(maxY===minY) return pad + chartH/2;
+                const t = (v - minY) / (maxY - minY);
+                return pad + (1 - t) * chartH;
+            }
+            function xScale(i){
+                const n = sequence.length;
+                if(n===0) return pad;
+                return pad + (i / n) * chartW;
+            }
+
+            // Easing
+            const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+            // Animated draw
+            let progress = 0; // 0..1
+            const duration = 900 + sequence.length*8;
+            const startTime = performance.now();
+
+            function drawBase(){
+                // grid
+                const isDark = document.body.classList.contains('dark-mode');
+                ctx.strokeStyle = isDark ? '#334155' : '#e5e7eb';
+                ctx.lineWidth = 1; ctx.setLineDash([4,4]);
+                for(let g=0; g<=4; g++){ const y = pad + (g/4)*chartH; ctx.beginPath(); ctx.moveTo(pad,y); ctx.lineTo(pad+chartW,y); ctx.stroke(); }
+                ctx.setLineDash([]);
+
+                // y-axis labels (min, mid, max)
+                const labelColor = isDark ? '#94a3b8' : '#64748b';
+                ctx.fillStyle = labelColor;
+                ctx.font = '10px Inter, sans-serif';
+                const fmt = v => '$' + Math.round(v).toLocaleString('tr-TR');
+                const mid = (minY + maxY) / 2;
+                // min
+                ctx.fillText(fmt(minY), pad + 4, pad + chartH - 4);
+                // mid
+                ctx.fillText(fmt(mid), pad + 4, pad + chartH/2 - 2);
+                // max
+                ctx.fillText(fmt(maxY), pad + 4, pad + 10);
+            }
+
+            function draw(){
+                const now = performance.now();
+                const raw = Math.min(1, (now - startTime)/duration);
+                progress = easeOutCubic(raw);
+
+                ctx.clearRect(0,0,width,height);
+                drawBase();
+
+                // Determine fractional segment
+                const n = sequence.length;
+                const total = n;
+                const p = progress * total;
+                const lastFullIndex = Math.floor(p) - 1; // last fully completed segment index
+                const part = p - Math.floor(p); // 0..1 within current segment
+
+                // Walk and draw a clean single blue line (equity curve)
+                let lastX = xScale(0);
+                let lastY = yScale(startBalance);
+                const color = '#3b82f6';
+                ctx.lineWidth = 2;
+                for(let i=0;i<n;i++){
+                    const seg = sequence[i];
+                    const x = xScale(i+1);
+                    const y = yScale(seg.exitBalance);
+                    let drawToX = x, drawToY = y;
+                    if(i>lastFullIndex+1){ break; }
+                    if(i===lastFullIndex+1){
+                        // partial segment interpolation
+                        const prevX = lastX; const prevY = lastY;
+                        drawToX = prevX + (x - prevX) * part;
+                        drawToY = prevY + (y - prevY) * part;
+                    }
+
+                    ctx.strokeStyle = color;
+                    ctx.beginPath();
+                    ctx.moveTo(lastX,lastY);
+                    ctx.lineTo(drawToX,drawToY);
+                    ctx.stroke();
+
+                    lastX = x; lastY = y;
                 }
-            });
+
+                if(progress<1) requestAnimationFrame(draw);
+            }
+            draw();
+
+            // store last state for responsive redraw
+            lastChartState.seq = sequence;
+            lastChartState.start = startBalance;
         }
 
-        // Language selector dropdown - Enhanced with better event handling
-        document.getElementById('languageDropdown').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const menu = document.getElementById('languageMenu');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                menu.style.pointerEvents = 'auto';
-                setTimeout(() => menu.classList.add('show'), 10);
-            } else {
-                menu.classList.remove('show');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                    menu.style.pointerEvents = 'none';
-                }, 300);
-            }
-        });
-        
-        // Add touch support for language dropdown
-        document.getElementById('languageDropdown').addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            setTimeout(() => this.click(), 10);
-        });
-        
-        // Add mousedown support for better responsiveness
-        document.getElementById('languageDropdown').addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
+        document.getElementById('runStrategy').addEventListener('click', function(){
+            const startingBalance=parseFloat(document.getElementById('startingBalance').value);
+            const takeProfit=parseFloat(document.getElementById('takeProfit').value);
+            const stopLoss=parseFloat(document.getElementById('stopLoss').value);
+            const winRate=parseFloat(document.getElementById('winRate').value);
+            const numberOfTrades=parseInt(document.getElementById('numberOfTrades').value);
+            const leverage=parseFloat(document.getElementById('leverage').value);
+            if(!startingBalance||!takeProfit||!stopLoss||!winRate||!numberOfTrades||!leverage){ alert(translations[currentLanguage].fillAllFields); return; }
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const dropdown = document.getElementById('languageDropdown');
-            const menu = document.getElementById('languageMenu');
-            
-            if (!dropdown.contains(event.target) && !menu.contains(event.target)) {
-                menu.classList.remove('show');
-                setTimeout(() => menu.classList.add('hidden'), 300);
-            }
-        });
+            const riskRewardRatio=takeProfit/stopLoss;
+            const actualResults=generateTradeSequence(numberOfTrades, winRate);
 
-        // Language option selection - Enhanced with better event handling
-        document.querySelectorAll('.language-option').forEach(option => {
-            // Click event
-            option.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const lang = this.getAttribute('data-lang');
-                const flag = this.getAttribute('data-flag');
-                const name = this.getAttribute('data-name');
-                
-                // Update current display
-                document.getElementById('currentFlag').src = `https://flagcdn.com/${flag}.svg`;
-                document.getElementById('currentLanguage').textContent = name;
-                
-                // Translate page
-                translatePage(lang);
-                
-                // Close menu
-                const menu = document.getElementById('languageMenu');
-                menu.classList.remove('show');
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                    menu.style.pointerEvents = 'none';
-                }, 300);
-            });
-            
-            // Touch support
-            option.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                setTimeout(() => this.click(), 10);
-            });
-            
-            // Mousedown support
-            option.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            });
-            
-            // Ensure proper pointer events
-            option.style.pointerEvents = 'auto';
-            option.style.cursor = 'pointer';
-        });
-
-        // Global variables for leverage calculator
-        let selectedPosition = 'long';
-
-        // Dark mode toggle - Enhanced with better event handling
-        document.getElementById('darkModeToggle').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const modeIcon = document.getElementById('modeIcon');
-            
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.toggle('light-mode');
-            
-            if (document.body.classList.contains('dark-mode')) {
-                modeIcon.textContent = '☀️';
-            } else {
-                modeIcon.textContent = '🌙';
-            }
-        });
-        
-        // Add touch support for mobile
-        document.getElementById('darkModeToggle').addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            setTimeout(() => this.click(), 10);
-        });
-        
-        // Add mousedown support
-        document.getElementById('darkModeToggle').addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
-        // Position type selection
-        document.getElementById('longBtn').addEventListener('click', function() {
-            selectedPosition = 'long';
-            this.className = 'btn btn-position long';
-            document.getElementById('shortBtn').className = 'btn btn-position inactive';
-            calculateOptimalLeverage();
-        });
-
-        document.getElementById('shortBtn').addEventListener('click', function() {
-            selectedPosition = 'short';
-            this.className = 'btn btn-position short';
-            document.getElementById('longBtn').className = 'btn btn-position inactive';
-            calculateOptimalLeverage();
-        });
-
-        // Leverage slider
-        document.getElementById('leverageSlider').addEventListener('input', function() {
-            const leverage = this.value;
-            document.getElementById('leverageDisplay').textContent = leverage + 'x';
-        });
-
-        // Balance percentage slider
-        document.getElementById('balancePercentage').addEventListener('input', function() {
-            const percentage = this.value;
-            const balance = parseFloat(document.getElementById('balance').value) || 0;
-            const positionSize = (balance * percentage) / 100;
-            
-            document.getElementById('percentageDisplay').textContent = percentage + '%';
-            document.getElementById('positionSizeDisplay').textContent = '$' + positionSize.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-        });
-
-        // Update position size when balance changes
-        document.getElementById('balance').addEventListener('input', function() {
-            const percentage = document.getElementById('balancePercentage').value;
-            const balance = parseFloat(this.value) || 0;
-            const positionSize = (balance * percentage) / 100;
-            
-            document.getElementById('positionSizeDisplay').textContent = '$' + positionSize.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            calculateOptimalLeverage();
-        });
-
-        // Calculate optimal leverage when stop price changes
-        function setupStopPriceCalculation() {
-            const stopPriceInput = document.getElementById('stopPrice');
-            if (stopPriceInput) {
-                stopPriceInput.addEventListener('input', calculateOptimalLeverage);
-            }
-        }
-
-        function calculateOptimalLeverage() {
-            const entryPrice = parseFloat(document.getElementById('entryPrice').value);
-            const stopPrice = parseFloat(document.getElementById('stopPrice').value);
-            
-            if (!entryPrice || !stopPrice) {
-                document.getElementById('optimalLeverage').textContent = '-';
-                return;
-            }
-            
-            let optimalLeverage;
-            
-            if (selectedPosition === 'long') {
-                optimalLeverage = 1 / (1 - (stopPrice / entryPrice));
-            } else {
-                optimalLeverage = 1 / ((stopPrice / entryPrice) - 1);
-            }
-            
-            if (optimalLeverage > 0 && optimalLeverage <= 1000) {
-                document.getElementById('optimalLeverage').textContent = optimalLeverage.toFixed(2) + 'x';
-                document.getElementById('optimalLeverage').className = 'text-orange-600 font-bold text-lg';
-            } else {
-                document.getElementById('optimalLeverage').textContent = 'Invalid';
-                document.getElementById('optimalLeverage').className = 'text-red-600 font-bold text-lg';
-            }
-        }
-
-        // Leverage Calculator
-        document.getElementById('calculateLeverage').addEventListener('click', function() {
-            const leverage = parseFloat(document.getElementById('leverageSlider').value);
-            const entryPrice = parseFloat(document.getElementById('entryPrice').value);
-            const balance = parseFloat(document.getElementById('balance').value);
-            const balancePercentage = parseFloat(document.getElementById('balancePercentage').value);
-            const quantity = parseFloat(document.getElementById('quantity').value);
-
-            if (!leverage || !entryPrice || !balance || !balancePercentage || !quantity) {
-                alert(translations[currentLanguage].fillAllFields);
-                return;
-            }
-
-            const usedBalance = (balance * balancePercentage) / 100;
-            
-            let liquidationPrice;
-            if (selectedPosition === 'long') {
-                liquidationPrice = entryPrice * (1 - (1 / leverage));
-            } else {
-                liquidationPrice = entryPrice * (1 + (1 / leverage));
-            }
-            
-            // Display results
-            document.getElementById('positionTypeResult').textContent = selectedPosition === 'long' ? '📈 LONG' : '📉 SHORT';
-            document.getElementById('positionTypeResult').className = selectedPosition === 'long' ? 'font-bold text-green-600 text-lg' : 'font-bold text-red-600 text-lg';
-            
-            document.getElementById('leverageResult').textContent = leverage + 'x';
-            document.getElementById('positionSizeResult').textContent = '$' + (usedBalance * leverage).toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('quantityResult').textContent = quantity.toFixed(8) + ' Units';
-            document.getElementById('usedBalanceResult').textContent = '$' + usedBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('liquidationPrice').textContent = '$' + liquidationPrice.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('finalBalanceResult').textContent = '$' + balance.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('finalBalanceResult').className = 'font-bold text-blue-600 text-xl';
-
-            // Show results
-            document.getElementById('leverageResults').classList.remove('hidden');
-            
-            // Setup stop price calculation after results are shown
-            setupStopPriceCalculation();
-            
-            // Smooth scroll to results
-            document.getElementById('leverageResults').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // Tab switching
-        document.getElementById('winRateTab').addEventListener('click', function() {
-            document.getElementById('winRateSection').classList.remove('hidden');
-            document.getElementById('leverageSection').classList.add('hidden');
-            this.className = 'btn btn-tab active';
-            document.getElementById('leverageTab').className = 'btn btn-tab';
-        });
-
-        document.getElementById('leverageTab').addEventListener('click', function() {
-            document.getElementById('leverageSection').classList.remove('hidden');
-            document.getElementById('winRateSection').classList.add('hidden');
-            this.className = 'btn btn-tab active';
-            document.getElementById('winRateTab').className = 'btn btn-tab';
-        });
-
-        // AI Analysis System
-        const OPENROUTER_API_KEY = "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"; // API anahtarınızı buraya yazın
-        
-        async function analyzeStrategyWithAI(strategyData) {
-            const aiAnalysisSection = document.getElementById('aiAnalysis');
-            const aiLoadingSpinner = document.getElementById('aiLoadingSpinner');
-            const aiAnalysisText = document.getElementById('aiAnalysisText');
-            
-            // Show AI section and loading
-            aiAnalysisSection.classList.remove('hidden');
-            aiLoadingSpinner.classList.remove('hidden');
-            aiAnalysisText.innerHTML = `<span data-translate="aiAnalyzing">${translations[currentLanguage].aiAnalyzing}</span>`;
-            
-            // Prepare AI prompt based on current language
-            const prompt = createAIPrompt(strategyData, currentLanguage);
-            
-            try {
-                const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-                        "HTTP-Referer": window.location.href,
-                        "X-Title": "RAWLINS Trading Calculator",
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "model": "google/gemini-2.0-flash-exp:free",
-                        "messages": [
-                            {
-                                "role": "user",
-                                "content": prompt
-                            }
-                        ],
-                        "max_tokens": 500,
-                        "temperature": 0.7
-                    })
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
-                
-                // Hide loading and show AI response with typing effect
-                aiLoadingSpinner.classList.add('hidden');
-                typeWriterEffect(aiAnalysisText, aiResponse);
-                
-            } catch (error) {
-                console.error('AI Analysis Error:', error);
-                aiLoadingSpinner.classList.add('hidden');
-                
-                // Show error message in current language
-                const errorMessages = {
-                    en: "AI analysis temporarily unavailable. Please check your API key and try again.",
-                    tr: "AI analizi geçici olarak kullanılamıyor. API anahtarınızı kontrol edin ve tekrar deneyin.",
-                    es: "Análisis de IA temporalmente no disponible. Verifique su clave API e intente nuevamente.",
-                    ru: "ИИ анализ временно недоступен. Проверьте ваш API ключ и попробуйте снова.",
-                    zh: "AI分析暂时不可用。请检查您的API密钥并重试。",
-                    az: "AI analizi müvəqqəti olaraq əlçatan deyil. API açarınızı yoxlayın və yenidən cəhd edin.",
-                    pt: "Análise de IA temporariamente indisponível. Verifique sua chave de API e tente novamente.",
-                    ja: "AI分析は一時的に利用できません。APIキーを確認して再試行してください。",
-                    de: "KI-Analyse vorübergehend nicht verfügbar. Überprüfen Sie Ihren API-Schlüssel und versuchen Sie es erneut.",
-                    fr: "Analyse IA temporairement indisponible. Vérifiez votre clé API et réessayez.",
-                    it: "Analisi IA temporaneamente non disponibile. Controlla la tua chiave API e riprova."
-                };
-                
-                aiAnalysisText.textContent = errorMessages[currentLanguage] || errorMessages.en;
-                aiAnalysisText.className = 'text-red-300 text-sm leading-relaxed min-h-20';
-            }
-        }
-        
-        function createAIPrompt(data, language) {
-            const prompts = {
-                en: `Analyze this trading strategy and provide professional insights:
-                
-Starting Balance: $${data.startingBalance}
-Take Profit: ${data.takeProfit}%
-Stop Loss: ${data.stopLoss}%
-Win Rate: ${data.winRate}%
-Number of Trades: ${data.numberOfTrades}
-Leverage: ${data.leverage}x
-Risk/Reward Ratio: ${data.riskReward}
-Final Balance: $${data.finalBalance}
-Total P&L: $${data.totalPnL}
-Net Profit Rate: ${data.netProfitRate}%
-
-Please provide a concise analysis covering: risk assessment, strategy viability, and key recommendations. Keep response under 400 words.`,
-
-                tr: `Bu ticaret stratejisini analiz edin ve profesyonel görüşler sunun:
-                
-Başlangıç Bakiyesi: $${data.startingBalance}
-Kar Al: ${data.takeProfit}%
-Zarar Durdur: ${data.stopLoss}%
-Kazanma Oranı: ${data.winRate}%
-İşlem Sayısı: ${data.numberOfTrades}
-Kaldıraç: ${data.leverage}x
-Risk/Ödül Oranı: ${data.riskReward}
-Son Bakiye: $${data.finalBalance}
-Toplam K/Z: $${data.totalPnL}
-Net Kar Oranı: ${data.netProfitRate}%
-
-Lütfen şunları kapsayan özlü bir analiz sağlayın: risk değerlendirmesi, strateji uygulanabilirliği ve temel öneriler. Yanıtı 400 kelime altında tutun.`,
-
-                es: `Analiza esta estrategia de trading y proporciona insights profesionales:
-                
-Balance Inicial: $${data.startingBalance}
-Take Profit: ${data.takeProfit}%
-Stop Loss: ${data.stopLoss}%
-Tasa de Ganancia: ${data.winRate}%
-Número de Operaciones: ${data.numberOfTrades}
-Apalancamiento: ${data.leverage}x
-Ratio Riesgo/Recompensa: ${data.riskReward}
-Balance Final: $${data.finalBalance}
-P&L Total: $${data.totalPnL}
-Tasa de Ganancia Neta: ${data.netProfitRate}%
-
-Proporciona un análisis conciso que cubra: evaluación de riesgo, viabilidad de la estrategia y recomendaciones clave. Mantén la respuesta bajo 400 palabras.`
-            };
-            
-            return prompts[language] || prompts.en;
-        }
-        
-        function typeWriterEffect(element, text) {
-            element.textContent = '';
-            element.className = 'text-white text-sm leading-relaxed min-h-20';
-            let i = 0;
-            
-            function typeChar() {
-                if (i < text.length) {
-                    element.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeChar, 20);
-                }
-            }
-            
-            typeChar();
-        }
-
-        // Win Rate Calculator
-        document.getElementById('runStrategy').addEventListener('click', function() {
-            const startingBalance = parseFloat(document.getElementById('startingBalance').value);
-            const takeProfit = parseFloat(document.getElementById('takeProfit').value);
-            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
-            const winRate = parseFloat(document.getElementById('winRate').value);
-            const numberOfTrades = parseInt(document.getElementById('numberOfTrades').value);
-            const leverage = parseFloat(document.getElementById('leverage').value);
-
-            if (!startingBalance || !takeProfit || !stopLoss || !winRate || !numberOfTrades || !leverage) {
-                alert(translations[currentLanguage].fillAllFields);
-                return;
-            }
-
-            const riskRewardRatio = takeProfit / stopLoss;
-            const winRateDecimal = winRate / 100;
-            const lossRateDecimal = 1 - winRateDecimal;
-            const winTrades = Math.floor(numberOfTrades * winRateDecimal);
-            const lossTrades = numberOfTrades - winTrades;
-            const netProfitPerTrade = (winRateDecimal * takeProfit) - (lossRateDecimal * stopLoss);
-            const leveragedNetProfitPerTrade = netProfitPerTrade * leverage;
-            const netProfitLoss = (leveragedNetProfitPerTrade / 100) * startingBalance * numberOfTrades;
-            const netProfitRate = (netProfitLoss / startingBalance) * 100;
-            const finalBalance = startingBalance + netProfitLoss;
-
-            const actualResults = generateTradeSequence(numberOfTrades, winRate);
-
-            document.getElementById('riskReward').textContent = '1:' + riskRewardRatio.toFixed(2);
-            document.getElementById('totalProfitLoss').textContent = '$' + actualResults.totalPnL.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('totalProfitLoss').className = actualResults.totalPnL >= 0 ? 'font-medium text-success' : 'font-medium text-danger';
-            document.getElementById('winningTrades').textContent = actualResults.actualWins + ' (' + ((actualResults.actualWins / numberOfTrades) * 100).toFixed(1) + '%)';
-            document.getElementById('losingTrades').textContent = actualResults.actualLosses + ' (' + ((actualResults.actualLosses / numberOfTrades) * 100).toFixed(1) + '%)';
-            document.getElementById('netProfitRate').textContent = actualResults.netProfitRate.toFixed(2) + '%';
-            document.getElementById('netProfitRate').className = actualResults.netProfitRate >= 0 ? 'font-medium text-success' : 'font-medium text-danger';
-            document.getElementById('finalBalance').textContent = '$' + actualResults.finalBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2});
-            document.getElementById('finalBalance').className = actualResults.finalBalance >= startingBalance ? 'font-medium text-success' : 'font-medium text-danger';
+            document.getElementById('riskReward').textContent='1:'+riskRewardRatio.toFixed(2);
+            document.getElementById('totalProfitLoss').textContent='$'+actualResults.totalPnL.toLocaleString('tr-TR',{maximumFractionDigits:2});
+            document.getElementById('totalProfitLoss').className= actualResults.totalPnL>=0 ? 'font-medium text-success' : 'font-medium text-danger';
+            document.getElementById('winningTrades').textContent= actualResults.actualWins+' ('+((actualResults.actualWins/numberOfTrades)*100).toFixed(1)+'%)';
+            document.getElementById('losingTrades').textContent= actualResults.actualLosses+' ('+((actualResults.actualLosses/numberOfTrades)*100).toFixed(1)+'%)';
+            document.getElementById('netProfitRate').textContent= actualResults.netProfitRate.toFixed(2)+'%';
+            document.getElementById('netProfitRate').className= actualResults.netProfitRate>=0 ? 'font-medium text-success' : 'font-medium text-danger';
+            document.getElementById('finalBalance').textContent='$'+actualResults.finalBalance.toLocaleString('tr-TR',{maximumFractionDigits:2});
+            document.getElementById('finalBalance').className= actualResults.finalBalance>=startingBalance ? 'font-medium text-success' : 'font-medium text-danger';
 
             document.getElementById('results').classList.remove('hidden');
             document.getElementById('tradeList').classList.remove('hidden');
-            
-            // Prepare data for AI analysis
-            const strategyData = {
-                startingBalance: startingBalance,
-                takeProfit: takeProfit,
-                stopLoss: stopLoss,
-                winRate: winRate,
-                numberOfTrades: numberOfTrades,
-                leverage: leverage,
-                riskReward: riskRewardRatio.toFixed(2),
-                finalBalance: actualResults.finalBalance,
-                totalPnL: actualResults.totalPnL,
-                netProfitRate: actualResults.netProfitRate
-            };
-            
-            // Start AI analysis
+
+            const strategyData = { startingBalance, takeProfit, stopLoss, winRate, numberOfTrades, leverage, riskReward: riskRewardRatio.toFixed(2), finalBalance: actualResults.finalBalance, totalPnL: actualResults.totalPnL, netProfitRate: actualResults.netProfitRate };
             analyzeStrategyWithAI(strategyData);
-            
-            setTimeout(() => {
-                document.getElementById('tradeList').scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }, 800);
+
+            // NEW: render visualizer using the same sequence
+            renderTradeVisualizer(actualResults.sequence, startingBalance);
+
+            setTimeout(()=>{ document.getElementById('tradeList').scrollIntoView({ behavior:'smooth', block:'center' }); },800);
         });
 
-        // Generate trade history table with compound interest
-        function generateTradeSequence(totalTrades, winRate) {
-            const container = document.getElementById('tradesContainer');
-            container.innerHTML = '';
-            
-            const startingBalance = parseFloat(document.getElementById('startingBalance').value);
-            const takeProfit = parseFloat(document.getElementById('takeProfit').value);
-            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
-            const leverage = parseFloat(document.getElementById('leverage').value);
-            
-            const wins = Math.floor(totalTrades * (winRate / 100));
-            const losses = totalTrades - wins;
-            
-            let trades = [];
-            for (let i = 0; i < wins; i++) trades.push(1);
-            for (let i = 0; i < losses; i++) trades.push(0);
-            
-            for (let i = trades.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [trades[i], trades[j]] = [trades[j], trades[i]];
+        // responsive redraw on resize (debounced)
+        (function(){
+            let raf = 0;
+            function onResize(){
+                if(raf) cancelAnimationFrame(raf);
+                raf = requestAnimationFrame(()=>{
+                    if(lastChartState.seq){
+                        renderTradeVisualizer(lastChartState.seq, lastChartState.start);
+                    }
+                });
             }
-            
-            let currentBalance = startingBalance;
-            let actualWins = 0;
-            let actualLosses = 0;
-            
-            trades.forEach((trade, index) => {
-                const isWin = trade === 1;
-                const entryBalance = currentBalance;
-                
-                if (isWin) {
-                    actualWins++;
-                } else {
-                    actualLosses++;
-                }
-                
-                const pnl = isWin ? 
-                    (currentBalance * takeProfit * leverage) / 100 : 
-                    -(currentBalance * stopLoss * leverage) / 100;
-                
-                const pnlPercent = isWin ? takeProfit * leverage : -stopLoss * leverage;
-                currentBalance += pnl;
-                
-                const row = document.createElement('tr');
-                row.className = 'border-b border-gray-100 hover:bg-gray-50 transition-colors';
-                row.innerHTML = `
-                    <td class="py-2 px-2 text-secondary text-xs">#${index + 1}</td>
+            window.addEventListener('resize', onResize);
+        })();
+
+        function generateTradeSequence(totalTrades, winRate){
+            const container=document.getElementById('tradesContainer');
+            container.innerHTML='';
+            const startingBalance=parseFloat(document.getElementById('startingBalance').value);
+            const takeProfit=parseFloat(document.getElementById('takeProfit').value);
+            const stopLoss=parseFloat(document.getElementById('stopLoss').value);
+            const leverage=parseFloat(document.getElementById('leverage').value);
+            const wins=Math.floor(totalTrades*(winRate/100));
+            const losses=totalTrades-wins;
+            let trades=[]; for(let i=0;i<wins;i++) trades.push(1); for(let i=0;i<losses;i++) trades.push(0);
+            for(let i=trades.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [trades[i],trades[j]]=[trades[j],trades[i]]; }
+            let currentBalance=startingBalance; let actualWins=0; let actualLosses=0; let sequence=[];
+            trades.forEach((trade,index)=>{
+                const isWin = trade===1; const entryBalance=currentBalance; if(isWin) actualWins++; else actualLosses++;
+                const pnl = isWin ? (currentBalance*takeProfit*leverage)/100 : -(currentBalance*stopLoss*leverage)/100;
+                const pnlPercent = isWin ? takeProfit*leverage : -stopLoss*leverage; currentBalance += pnl;
+                const row=document.createElement('tr'); row.className='border-b border-gray-100 hover:bg-gray-50 transition-colors';
+                row.innerHTML=`
+                    <td class="py-2 px-2 text-secondary text-xs">#${index+1}</td>
                     <td class="py-2 px-2">
-                        <span class="px-2 py-1 rounded text-xs font-medium ${isWin ? 'bg-success-light text-success' : 'bg-danger-light text-danger'}">
-                            ${isWin ? translations[currentLanguage].win : translations[currentLanguage].loss}
-                        </span>
+                        <span class="px-2 py-1 rounded text-xs font-medium ${isWin ? 'bg-success-light text-success' : 'bg-danger-light text-danger'}">${isWin ? translations[currentLanguage].win : translations[currentLanguage].loss}</span>
                     </td>
-                    <td class="py-2 px-2 text-xs">$${entryBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
-                    <td class="py-2 px-2 text-xs">$${currentBalance.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
-                    <td class="py-2 px-2 text-xs ${pnl >= 0 ? 'text-success' : 'text-danger'}">${pnl >= 0 ? '+' : ''}$${pnl.toLocaleString('tr-TR', {maximumFractionDigits: 2})}</td>
-                    <td class="py-2 px-2 text-xs ${pnlPercent >= 0 ? 'text-success' : 'text-danger'}">${pnlPercent >= 0 ? '+' : ''}${pnlPercent.toFixed(2)}%</td>
-                `;
+                    <td class="py-2 px-2 text-xs">$${entryBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs">$${currentBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs ${pnl>=0 ? 'text-success' : 'text-danger'}">${pnl>=0?'+':''}$${pnl.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs ${pnlPercent>=0 ? 'text-success' : 'text-danger'}">${pnlPercent>=0?'+':''}${pnlPercent.toFixed(2)}%</td>`;
                 container.appendChild(row);
+                sequence.push({ index:index+1, isWin, entryBalance, exitBalance: currentBalance, pnl, pnlPercent });
             });
-            
-            const totalPnL = currentBalance - startingBalance;
-            const netProfitRate = (totalPnL / startingBalance) * 100;
-            
-            return {
-                finalBalance: currentBalance,
-                totalPnL: totalPnL,
-                netProfitRate: netProfitRate,
-                actualWins: actualWins,
-                actualLosses: actualLosses
-            };
+            const totalPnL=currentBalance-startingBalance; const netProfitRate=(totalPnL/startingBalance)*100;
+            return { finalBalance: currentBalance, totalPnL, netProfitRate, actualWins, actualLosses, sequence };
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98c5667625bee0de',t:'MTc2MDA5MTc4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+  </body>
 </html>
