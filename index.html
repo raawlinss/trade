@@ -91,7 +91,10 @@
         .dark-mode-toggle { animation: rotateIn 0.8s ease-out 0.6s both; }
         .language-selector { animation: slideInFromRight 0.8s ease-out 0.8s both; }
         .card { background: white; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation: scaleIn 0.6s ease-out both; }
-        .card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
+        .card:hover {
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
         .card-animated { animation: bounceIn 0.8s ease-out both; }
         .card-slide-left { animation: slideInFromLeft 0.8s ease-out both; }
         .card-slide-right { animation: slideInFromRight 0.8s ease-out both; }
@@ -153,11 +156,31 @@
         .typing-effect { border-right: 2px solid #667eea; animation: blink 1s infinite; }
         @keyframes blink { 0%, 50% { border-color: transparent; } 51%, 100% { border-color: #667eea; } }
 
+        /* Subtle, minimalist micro-interactions */
+        #tradesContainer tr { transition: background-color .25s ease, transform .2s ease, box-shadow .25s ease; }
+        #tradesContainer tr:hover { background-color: rgba(59,130,246,0.06); transform: translateY(-1px); box-shadow: inset 3px 0 0 0 rgba(59,130,246,0.45); }
+        .dark-mode #tradesContainer tr:hover { background-color: rgba(59,130,246,0.08); box-shadow: inset 3px 0 0 0 rgba(96,165,250,0.6); }
+
+        .btn:focus-visible, .input:focus-visible, select:focus-visible { outline: 2px solid rgba(59,130,246,0.5); outline-offset: 2px; }
+        .dark-mode .btn:focus-visible, .dark-mode .input:focus-visible, .dark-mode select:focus-visible { outline: 2px solid rgba(96,165,250,0.6); }
+
+        .btn-tab.active { box-shadow: inset 0 -2px 0 0 rgba(255,255,255,0.0), 0 6px 16px rgba(59,130,246,0.25); }
+        .dark-mode .btn-tab.active { box-shadow: inset 0 -2px 0 0 rgba(255,255,255,0.0), 0 6px 16px rgba(96,165,250,0.25); }
+
+        .result-item { transition: transform .25s ease, box-shadow .25s ease; }
+        .result-item:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+
         /* Trade Visualizer (professional) */
         .trade-visualizer { position: relative; overflow: hidden; }
         .tv-legend { font-size: 11px; }
         .dark-mode .tv-grid { stroke: #334155; }
         .tv-grid { stroke: #e5e7eb; }
+        .tv-tooltip { position: absolute; display: none; pointer-events: none; padding: 4px 8px; font-size: 11px; border-radius: 6px; background: rgba(30,41,59,0.92); color: #e2e8f0; border: 1px solid rgba(148,163,184,0.25); box-shadow: 0 6px 16px rgba(0,0,0,0.15); transform: translate(-50%, -120%); white-space: nowrap; }
+        .light-mode .tv-tooltip { background: rgba(255,255,255,0.96); color: #0f172a; border-color: rgba(148,163,184,0.35); }
     </style>
 </head>
 <body class="min-h-screen light-mode fade-in-page">
@@ -345,6 +368,7 @@
                             </div>
                         </div>
                         <canvas id="tradeChart" class="w-full" height="120"></canvas>
+                        <div id="tvTooltip" class="tv-tooltip"></div>
                     </div>
 
                     <div class="card rounded-lg p-3 max-h-80 overflow-y-auto">
@@ -607,12 +631,89 @@
                 }
 
                 if(progress<1) requestAnimationFrame(draw);
+                else setupHover();
             }
             draw();
 
             // store last state for responsive redraw
             lastChartState.seq = sequence;
             lastChartState.start = startBalance;
+
+            // full draw helper (no hover)
+            function drawFull(){
+                ctx.clearRect(0,0,width,height);
+                drawBase();
+                let lx = xScale(0), ly = yScale(startBalance);
+                ctx.lineWidth = 2; ctx.strokeStyle = '#3b82f6';
+                for(let i=0;i<sequence.length;i++){
+                    const x = xScale(i+1); const y = yScale(sequence[i].exitBalance);
+                    ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(x,y); ctx.stroke();
+                    lx = x; ly = y;
+                }
+            }
+
+            // hover setup
+            function setupHover(){
+                const tooltip = document.getElementById('tvTooltip');
+                if(!tooltip) return;
+
+                // avoid duplicate listeners
+                if(canvas._tvHandlers){
+                    canvas.removeEventListener('mousemove', canvas._tvHandlers.move);
+                    canvas.removeEventListener('mouseleave', canvas._tvHandlers.leave);
+                }
+
+                function renderHover(mx){
+                    // constrain to chart area
+                    const cx = Math.max(pad, Math.min(pad+chartW, mx));
+                    const n = sequence.length;
+                    const t = (cx - pad) / chartW; // 0..1
+                    const idxFloat = t * n;
+                    const idx = Math.round(idxFloat);
+                    const clamped = Math.max(0, Math.min(n, idx));
+                    const x = xScale(clamped);
+                    const bal = clamped===0 ? startBalance : sequence[clamped-1].exitBalance;
+                    const y = yScale(bal);
+
+                    // redraw base + line
+                    drawFull();
+
+                    // draw hover marker
+                    ctx.strokeStyle = 'rgba(59,130,246,0.35)';
+                    ctx.setLineDash([3,3]);
+                    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, pad+chartH); ctx.stroke();
+                    ctx.setLineDash([]);
+                    ctx.fillStyle = '#3b82f6';
+                    ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fill();
+
+                    // position tooltip
+                    tooltip.style.display = 'block';
+                    tooltip.textContent = '$' + (bal).toLocaleString('tr-TR', { maximumFractionDigits: 2 });
+                    const rect = canvas.getBoundingClientRect();
+                    tooltip.style.left = (rect.left + x) + 'px';
+                    tooltip.style.top = (rect.top + y) + 'px';
+                }
+
+                function onMove(e){
+                    const rect = canvas.getBoundingClientRect();
+                    const mx = e.clientX - rect.left;
+                    const my = e.clientY - rect.top;
+                    // only respond within plot area vertically
+                    if(my < pad || my > pad+chartH){ return; }
+                    renderHover(mx);
+                }
+                function onLeave(){
+                    tooltip.style.display = 'none';
+                    drawFull();
+                }
+
+                canvas.addEventListener('mousemove', onMove);
+                canvas.addEventListener('mouseleave', onLeave);
+                canvas._tvHandlers = { move: onMove, leave: onLeave };
+
+                // initial static draw to ensure crisp baseline
+                drawFull();
+            }
         }
 
         document.getElementById('runStrategy').addEventListener('click', function(){
