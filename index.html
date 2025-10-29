@@ -493,15 +493,15 @@
 
                     <div class="card rounded-lg p-3 max-h-80 overflow-y-auto">
                         <div class="overflow-x-auto">
-                            <table class="w-full text-sm">
+                            <table class="table-modern text-sm">
                                 <thead>
-                                    <tr class="border-b border-gray-200">
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="tradeNumber">Trade #</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="type">Type</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="entryBalance">Entry Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="exitBalance">Exit Balance</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="pl">P&L</th>
-                                        <th class="text-left py-2 px-2 font-medium text-primary text-xs" data-translate="plPercent">P&L %</th>
+                                    <tr>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="index" data-numeric="true" data-translate="tradeNumber">Trade #</th>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="type" data-numeric="false" data-translate="type">Type</th>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="entry" data-numeric="true" data-translate="entryBalance">Entry Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="exit" data-numeric="true" data-translate="exitBalance">Exit Balance</th>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="pnl" data-numeric="true" data-translate="pl">P&L</th>
+                                        <th class="text-left py-2 px-2 font-medium text-xs cursor-pointer" data-col="pnlpct" data-numeric="true" data-translate="plPercent">P&L %</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tradesContainer"></tbody>
@@ -1079,15 +1079,16 @@
             const riskRewardRatio=takeProfit/stopLoss;
             const actualResults=generateTradeSequence(numberOfTrades, winRate);
 
-            document.getElementById('riskReward').textContent='1:'+riskRewardRatio.toFixed(2);
-            document.getElementById('totalProfitLoss').textContent='$'+actualResults.totalPnL.toLocaleString('tr-TR',{maximumFractionDigits:2});
-            document.getElementById('totalProfitLoss').className= actualResults.totalPnL>=0 ? 'font-medium text-success' : 'font-medium text-danger';
-            document.getElementById('winningTrades').textContent= actualResults.actualWins+' ('+((actualResults.actualWins/numberOfTrades)*100).toFixed(1)+'%)';
-            document.getElementById('losingTrades').textContent= actualResults.actualLosses+' ('+((actualResults.actualLosses/numberOfTrades)*100).toFixed(1)+'%)';
-            document.getElementById('netProfitRate').textContent= actualResults.netProfitRate.toFixed(2)+'%';
-            document.getElementById('netProfitRate').className= actualResults.netProfitRate>=0 ? 'font-medium text-success' : 'font-medium text-danger';
-            document.getElementById('finalBalance').textContent='$'+actualResults.finalBalance.toLocaleString('tr-TR',{maximumFractionDigits:2});
-            document.getElementById('finalBalance').className= actualResults.finalBalance>=startingBalance ? 'font-medium text-success' : 'font-medium text-danger';
+            // KPI animations
+            setKpiText('riskReward', '1:'+riskRewardRatio.toFixed(2));
+            animateCurrency('totalProfitLoss', actualResults.totalPnL);
+            document.getElementById('totalProfitLoss').className= actualResults.totalPnL>=0 ? 'font-medium kpi-value text-success' : 'font-medium kpi-value text-danger';
+            setKpiText('winningTrades', `${actualResults.actualWins} (${((actualResults.actualWins/numberOfTrades)*100).toFixed(1)}%)`);
+            setKpiText('losingTrades', `${actualResults.actualLosses} (${((actualResults.actualLosses/numberOfTrades)*100).toFixed(1)}%)`);
+            animatePercent('netProfitRate', actualResults.netProfitRate);
+            document.getElementById('netProfitRate').className= actualResults.netProfitRate>=0 ? 'font-medium kpi-value text-success' : 'font-medium kpi-value text-danger';
+            animateCurrency('finalBalance', actualResults.finalBalance);
+            document.getElementById('finalBalance').className= actualResults.finalBalance>=startingBalance ? 'font-medium kpi-value text-success' : 'font-medium kpi-value text-danger';
 
             document.getElementById('results').classList.remove('hidden');
             document.getElementById('tradeList').classList.remove('hidden');
@@ -1095,7 +1096,8 @@
             const strategyData = { startingBalance, takeProfit, stopLoss, winRate, numberOfTrades, leverage, riskReward: riskRewardRatio.toFixed(2), finalBalance: actualResults.finalBalance, totalPnL: actualResults.totalPnL, netProfitRate: actualResults.netProfitRate };
             analyzeStrategyWithAI(strategyData);
 
-            // NEW: render visualizer using the same sequence
+            // Render table + visualizer
+            renderTradesTable(actualResults.sequence);
             renderTradeVisualizer(actualResults.sequence, startingBalance);
 
             setTimeout(()=>{ document.getElementById('tradeList').scrollIntoView({ behavior:'smooth', block:'center' }); },800);
@@ -1115,6 +1117,15 @@
             window.addEventListener('resize', onResize);
         })();
 
+        // KPI helpers
+        function setKpiText(id, text){ const el=document.getElementById(id); if(!el) return; const p=el.parentElement; if(p) { p.classList.remove('kpi-bump'); void p.offsetWidth; p.classList.add('kpi-bump'); } el.textContent=text; }
+        function animateCurrency(id, value, duration=800){ const el=document.getElementById(id); if(!el) return; const p=el.parentElement; let start=0; const from=0; const to=value; const sign = to>=0 ? '' : '-'; const fmt = v=> '$'+Math.abs(v).toLocaleString('tr-TR',{maximumFractionDigits:2}); function step(ts){ if(!start) start=ts; const t=Math.min(1,(ts-start)/duration); const cur=from+(to-from)*t; el.textContent= sign===''? fmt(cur): '-'+fmt(cur); if(t<1) requestAnimationFrame(step); } if(p){ p.classList.remove('kpi-bump'); void p.offsetWidth; p.classList.add('kpi-bump'); } requestAnimationFrame(step); }
+        function animatePercent(id, value, duration=800){ const el=document.getElementById(id); if(!el) return; const p=el.parentElement; let start=0; const from=0; const to=value; function step(ts){ if(!start) start=ts; const t=Math.min(1,(ts-start)/duration); const cur=from+(to-from)*t; el.textContent= (cur>=0?'+':'')+cur.toFixed(2)+'%'; if(t<1) requestAnimationFrame(step); } if(p){ p.classList.remove('kpi-bump'); void p.offsetWidth; p.classList.add('kpi-bump'); } requestAnimationFrame(step); }
+
+        // Table state and generation
+        let tableSort = { col: 'index', dir: 'asc' };
+        let lastSequence = [];
+
         function generateTradeSequence(totalTrades, winRate){
             const container=document.getElementById('tradesContainer');
             container.innerHTML='';
@@ -1131,22 +1142,59 @@
                 const isWin = trade===1; const entryBalance=currentBalance; if(isWin) actualWins++; else actualLosses++;
                 const pnl = isWin ? (currentBalance*takeProfit*leverage)/100 : -(currentBalance*stopLoss*leverage)/100;
                 const pnlPercent = isWin ? takeProfit*leverage : -stopLoss*leverage; currentBalance += pnl;
-                const row=document.createElement('tr'); row.className='border-b border-gray-100 hover:bg-gray-50 transition-colors';
-                row.innerHTML=`
-                    <td class="py-2 px-2 text-secondary text-xs">#${index+1}</td>
-                    <td class="py-2 px-2">
-                        <span class="px-2 py-1 rounded text-xs font-medium ${isWin ? 'bg-success-light text-success' : 'bg-danger-light text-danger'}">${isWin ? translations[currentLanguage].win : translations[currentLanguage].loss}</span>
-                    </td>
-                    <td class="py-2 px-2 text-xs">$${entryBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
-                    <td class="py-2 px-2 text-xs">$${currentBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
-                    <td class="py-2 px-2 text-xs ${pnl>=0 ? 'text-success' : 'text-danger'}">${pnl>=0?'+':''}$${pnl.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
-                    <td class="py-2 px-2 text-xs ${pnlPercent>=0 ? 'text-success' : 'text-danger'}">${pnlPercent>=0?'+':''}${pnlPercent.toFixed(2)}%</td>`;
-                container.appendChild(row);
-                sequence.push({ index:index+1, isWin, entryBalance, exitBalance: currentBalance, pnl, pnlPercent });
+                sequence.push({ index:index+1, type: isWin ? 'WIN' : 'LOSS', isWin, entryBalance, exitBalance: currentBalance, pnl, pnlPercent });
             });
             const totalPnL=currentBalance-startingBalance; const netProfitRate=(totalPnL/startingBalance)*100;
+            lastSequence = sequence.slice();
+            renderTradesTable(lastSequence);
             return { finalBalance: currentBalance, totalPnL, netProfitRate, actualWins, actualLosses, sequence };
         }
+
+        function renderTradesTable(sequence){
+            const container=document.getElementById('tradesContainer');
+            if(!container) return;
+            const seq = sequence.slice().sort((a,b)=>{
+                const dir = tableSort.dir==='asc'?1:-1;
+                switch(tableSort.col){
+                    case 'index': return dir*(a.index-b.index);
+                    case 'type': return dir*(a.type.localeCompare(b.type));
+                    case 'entry': return dir*(a.entryBalance-b.entryBalance);
+                    case 'exit': return dir*(a.exitBalance-b.exitBalance);
+                    case 'pnl': return dir*(a.pnl-b.pnl);
+                    case 'pnlpct': return dir*(a.pnlPercent-b.pnlPercent);
+                    default: return dir*(a.index-b.index);
+                }
+            });
+            container.innerHTML='';
+            seq.forEach(rowData=>{
+                const tr=document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-2 px-2 text-secondary text-xs">#${rowData.index}</td>
+                    <td class="py-2 px-2"><span class="badge ${rowData.isWin?'win':'loss'}">${rowData.isWin?'WIN':'LOSS'}</span></td>
+                    <td class="py-2 px-2 text-xs">$${rowData.entryBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs">$${rowData.exitBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs ${rowData.pnl>=0 ? 'text-success' : 'text-danger'}">${rowData.pnl>=0?'+':''}$${rowData.pnl.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs ${rowData.pnlPercent>=0 ? 'text-success' : 'text-danger'}">${rowData.pnlPercent>=0?'+':''}${rowData.pnlPercent.toFixed(2)}%</td>
+                `;
+                container.appendChild(tr);
+            });
+        }
+
+        // Sorting and CSV export handlers
+        (function(){
+            const thead = document.querySelector('#tradeList thead');
+            if(thead){
+                thead.addEventListener('click', (e)=>{
+                    const th = e.target.closest('th[data-col]');
+                    if(!th) return;
+                    const col = th.getAttribute('data-col');
+                    if(tableSort.col===col){ tableSort.dir = tableSort.dir==='asc'?'desc':'asc'; }
+                    else { tableSort.col=col; tableSort.dir='asc'; }
+                    if(lastSequence && lastSequence.length){ renderTradesTable(lastSequence); }
+                });
+            }
+            // CSV export removed per request
+        })();
     </script>
   </body>
 </html>
