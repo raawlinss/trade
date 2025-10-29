@@ -51,13 +51,14 @@
         .btn-tab { flex: 1; margin: 0 2px; z-index: 50; position: relative; pointer-events: auto; touch-action: manipulation; }
         .btn-tab.active { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
         .btn-tab.active:hover { background: linear-gradient(135deg, #2563eb, #1e40af); }
-        .btn-position { width: 100%; font-weight: 600; z-index: 30; position: relative; pointer-events: auto; touch-action: manipulation; }
+        .btn-position { width: 100%; font-weight: 600; z-index: 30; position: relative; pointer-events: auto; touch-action: manipulation; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-position.long { background: #10b981; color: white; }
         .btn-position.long:hover { background: #059669; }
         .btn-position.short { background: #ef4444; color: white; }
         .btn-position.short:hover { background: #dc2626; }
         .btn-position.inactive { background: #e5e7eb; color: #6b7280; }
         .btn-position.inactive:hover { background: #d1d5db; color: #374151; }
+        .icon-trend { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
         .btn-dark-toggle { padding: 12px; background: white; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); z-index: 100; position: relative; pointer-events: auto; touch-action: manipulation; }
         .btn-dark-toggle:hover { background: #f8fafc; border-color: #cbd5e1; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
         .dark-mode .btn-dark-toggle { background: #1e293b; border-color: #334155; }
@@ -66,8 +67,9 @@
         .btn-language:hover { background: #f8fafc; border-color: #cbd5e1; }
         .dark-mode .btn-language { background: #1e293b; border-color: #334155; color: #f1f5f9; }
         .dark-mode .btn-language:hover { background: #334155; border-color: #475569; }
-        .language-option { padding: 12px 16px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; z-index: 300; position: relative; pointer-events: auto; touch-action: manipulation; min-height: 48px; width: 100%; }
-        .language-option:hover { background: #f1f5f9; transform: translateX(4px); }
+        .language-option { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 12px; z-index: 300; position: relative; pointer-events: auto; touch-action: manipulation; min-height: 48px; width: 100%; opacity: 0; transform: translateY(6px); transition: transform .24s ease, opacity .24s ease, background-color .2s ease; }
+        #languageMenu.show .language-option { opacity: 1; transform: translateY(0); }
+        .language-option:hover { background: #f1f5f9; transform: translateY(-1px); }
         .dark-mode .language-option:hover { background: #374151; }
         .blur-to-sharp { filter: blur(2px); opacity: 0; transform: translateY(-10px) scale(0.95); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 9999; position: absolute; pointer-events: auto; }
         .blur-to-sharp.show { filter: blur(0px); opacity: 1; transform: translateY(0) scale(1); z-index: 9999; pointer-events: auto; }
@@ -151,8 +153,8 @@
         #tradesContainer tr:nth-child(3) { animation-delay: 0.3s; }
         #tradesContainer tr:nth-child(4) { animation-delay: 0.4s; }
         #tradesContainer tr:nth-child(5) { animation-delay: 0.5s; }
-        #languageMenu { transform: translateY(-10px); opacity: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 9999; }
-        #languageMenu.show { transform: translateY(0); opacity: 1; }
+        #languageMenu { transform: translateY(-8px) scale(0.98); opacity: 0; transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease; z-index: 9999; transform-origin: top right; }
+        #languageMenu.show { transform: translateY(0) scale(1); opacity: 1; }
         .shimmer { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200px 100%; animation: shimmer 1.5s infinite; }
         .success-flash { animation: heartbeat 0.8s ease-out; }
         .error-shake { animation: wiggle 0.6s ease-in-out; }
@@ -186,14 +188,30 @@
         #tradesContainer tr:hover { background-color: rgba(59,130,246,0.06); transform: translateY(-1px); box-shadow: inset 3px 0 0 0 rgba(59,130,246,0.45); }
         .dark-mode #tradesContainer tr:hover { background-color: rgba(59,130,246,0.08); box-shadow: inset 3px 0 0 0 rgba(96,165,250,0.6); }
 
+        /* Trade table modern styles */
+        .table-modern { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .table-modern thead th { position: sticky; top: 0; z-index: 5; background: rgba(30,41,59,0.75); backdrop-filter: blur(6px); color: #cbd5e1; font-weight: 600; }
+        .light-mode .table-modern thead th { background: rgba(248,250,252,0.85); color: #334155; }
+        .table-modern thead th, .table-modern tbody td { border-bottom: 1px solid rgba(148,163,184,0.18); }
+        .table-modern tbody tr:nth-child(odd) { background: rgba(148,163,184,0.04); }
+        .dark-mode .table-modern tbody tr:nth-child(odd) { background: rgba(30,41,59,0.35); }
+        .table-modern tbody tr { animation: rowIn .24s ease both; }
+        @keyframes rowIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .badge { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .2px; }
+        .badge.win { background: rgba(16,185,129,0.18); color: #10b981; border: 1px solid rgba(16,185,129,0.35); }
+        .badge.loss { background: rgba(239,68,68,0.18); color: #ef4444; border: 1px solid rgba(239,68,68,0.35); }
+
         .btn:focus-visible, .input:focus-visible, select:focus-visible { outline: 2px solid rgba(59,130,246,0.5); outline-offset: 2px; }
         .dark-mode .btn:focus-visible, .dark-mode .input:focus-visible, .dark-mode select:focus-visible { outline: 2px solid rgba(96,165,250,0.6); }
 
         .btn-tab.active { box-shadow: inset 0 -2px 0 0 rgba(255,255,255,0.0), 0 6px 16px rgba(59,130,246,0.25); }
         .dark-mode .btn-tab.active { box-shadow: inset 0 -2px 0 0 rgba(255,255,255,0.0), 0 6px 16px rgba(96,165,250,0.25); }
 
-        .result-item { transition: transform .25s ease, box-shadow .25s ease; }
-        .result-item:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0,0,0,0.08); }
+        .result-item { transition: transform .22s ease, box-shadow .22s ease, background-color .22s ease, border-color .22s ease; background: linear-gradient(180deg, rgba(148,163,184,0.06), rgba(148,163,184,0.03)); border: 1px solid rgba(148,163,184,0.25); border-radius: 10px; }
+        .dark-mode .result-item { background: linear-gradient(180deg, rgba(30,41,59,0.55), rgba(30,41,59,0.35)); border-color: rgba(51,65,85,0.6); }
+        .result-item:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.12); }
+        .kpi-value { transition: transform .18s ease; display: inline-block; }
+        .kpi-bump .kpi-value { transform: scale(1.06); }
 
         @media (prefers-reduced-motion: reduce) {
             * { animation: none !important; transition: none !important; }
@@ -265,6 +283,23 @@
         .cs-bubble { position: absolute; top: -8px; transform: translate(-50%, -110%); background: #111827; color: #f8fafc; padding: 4px 8px; border-radius: 8px; font-size: 11px; border: 1px solid rgba(148,163,184,0.35); box-shadow: 0 8px 16px rgba(0,0,0,0.15); pointer-events: none; opacity: 0; transition: opacity .15s ease, transform .15s ease; white-space: nowrap; }
         .light-mode .cs-bubble { background: #ffffff; color: #0f172a; }
         .cs-bubble.show { opacity: 1; transform: translate(-50%, -115%); }
+
+        /* Leverage slider - professional minimal */
+        .lev-wrap { position: relative; }
+        .lev-range { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; border-radius: 999px; background:
+            linear-gradient(90deg, #60a5fa 0%, #60a5fa var(--lev-pct, 10%), rgba(148,163,184,0.25) var(--lev-pct, 10%)); outline: none; transition: box-shadow .2s ease, background-color .2s ease; }
+        .dark-mode .lev-range { background:
+            linear-gradient(90deg, #60a5fa 0%, #60a5fa var(--lev-pct, 10%), rgba(51,65,85,0.65) var(--lev-pct, 10%)); }
+        .lev-range:hover { box-shadow: 0 0 0 6px rgba(96,165,250,0.08); }
+        .lev-range:focus { box-shadow: 0 0 0 8px rgba(96,165,250,0.12); }
+        .lev-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 999px; background: #fff; border: 3px solid #60a5fa; box-shadow: 0 4px 14px rgba(96,165,250,0.35); transition: transform .15s ease, box-shadow .2s ease; }
+        .lev-range::-webkit-slider-thumb:hover { transform: scale(1.06); box-shadow: 0 6px 18px rgba(96,165,250,0.45); }
+        .lev-range::-moz-range-thumb { width: 22px; height: 22px; border-radius: 999px; background: #fff; border: 3px solid #60a5fa; box-shadow: 0 4px 14px rgba(96,165,250,0.35); transition: transform .15s ease, box-shadow .2s ease; }
+        .lev-range::-moz-range-thumb:hover { transform: scale(1.06); box-shadow: 0 6px 18px rgba(96,165,250,0.45); }
+        .lev-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+        .lev-center { color: #06b6d4; font-weight: 600; animation: none; }
+        @keyframes countBump { 0% { transform: scale(1); } 35% { transform: scale(1.12); } 100% { transform: scale(1); } }
+        .lev-bump { animation: countBump 260ms ease; }
     </style>
 </head>
 <body class="min-h-screen light-mode fade-in-page">
@@ -413,27 +448,27 @@
                         <div class="space-y-2">
                             <div class="flex justify-between items-center p-2 card rounded border result-item">
                                 <span class="text-secondary text-sm" data-translate="riskReward">Risk/Reward Ratio:</span>
-                                <span id="riskReward" class="font-medium text-info">-</span>
+                                <span id="riskReward" class="font-medium text-info kpi-value">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border result-item">
                                 <span class="text-secondary text-sm" data-translate="totalPL">Total P&L:</span>
-                                <span id="totalProfitLoss" class="font-medium">-</span>
+                                <span id="totalProfitLoss" class="font-medium kpi-value">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border result-item">
                                 <span class="text-secondary text-sm" data-translate="winningTrades">Winning Trades:</span>
-                                <span id="winningTrades" class="font-medium text-success">-</span>
+                                <span id="winningTrades" class="font-medium text-success kpi-value">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border result-item">
                                 <span class="text-secondary text-sm" data-translate="losingTrades">Losing Trades:</span>
-                                <span id="losingTrades" class="font-medium text-danger">-</span>
+                                <span id="losingTrades" class="font-medium text-danger kpi-value">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 card rounded border result-item">
                                 <span class="text-secondary text-sm" data-translate="netProfitRate">Net Profit Rate:</span>
-                                <span id="netProfitRate" class="font-medium text-info">-</span>
+                                <span id="netProfitRate" class="font-medium text-info kpi-value">-</span>
                             </div>
                             <div class="flex justify-between items-center p-2 bg-info-light rounded border result-item">
                                 <span class="text-primary font-medium text-sm" data-translate="finalBalance">Final Balance:</span>
-                                <span id="finalBalance" class="font-medium text-info">-</span>
+                                <span id="finalBalance" class="font-medium text-info kpi-value">-</span>
                             </div>
                         </div>
                     </div>
@@ -452,7 +487,7 @@
                                 <span class="inline-flex items-center mr-3"><span class="w-3 h-3 rounded-full bg-blue-500 inline-block mr-1"></span><span class="text-xs">Equity</span></span>
                             </div>
                         </div>
-                        <canvas id="tradeChart" class="w-full" height="120"></canvas>
+                        <canvas id="tradeChart" class="w-full" height="140"></canvas>
                         <div id="tvTooltip" class="tv-tooltip"></div>
                     </div>
 
@@ -485,17 +520,23 @@
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="positionType">Position Type</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <button id="longBtn" class="btn btn-position long" data-translate="long">📈 LONG</button>
-                                <button id="shortBtn" class="btn btn-position inactive" data-translate="short">📉 SHORT</button>
+                                <button id="longBtn" class="btn btn-position long">
+                                    <svg class="icon-trend" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14l6-6 4 4 8-8"/><path d="M21 4v6h-6"/></svg>
+                                    <span>LONG</span>
+                                </button>
+                                <button id="shortBtn" class="btn btn-position inactive">
+                                    <svg class="icon-trend" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l6 6 4-4 8 8"/><path d="M21 20v-6h-6"/></svg>
+                                    <span>SHORT</span>
+                                </button>
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="leverage">Leverage</label>
-                            <div class="relative">
-                                <input type="range" id="leverageSlider" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
-                                <div class="flex justify-between text-xs text-secondary mt-1">
+                            <div class="lev-wrap">
+                                <input type="range" id="leverageSlider" class="lev-range" min="1" max="100" value="10" step="1">
+                                <div class="lev-scale">
                                     <span>1x</span>
-                                    <span id="leverageDisplay" class="font-medium text-info">10x</span>
+                                    <span id="leverageDisplay" class="lev-center">10x</span>
                                     <span>100x</span>
                                 </div>
                             </div>
@@ -514,11 +555,11 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-primary mb-2" data-translate="balanceUsage">Balance Usage (%)</label>
-                            <div class="relative">
-                                <input type="range" id="balancePercentage" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" min="1" max="100" value="10" step="1">
-                                <div class="flex justify-between text-xs text-secondary mt-1">
+                            <div class="lev-wrap">
+                                <input type="range" id="balancePercentage" class="lev-range" min="1" max="100" value="10" step="1">
+                                <div class="lev-scale">
                                     <span>1%</span>
-                                    <span id="percentageDisplay" class="font-medium text-info">10%</span>
+                                    <span id="percentageDisplay" class="lev-center">10%</span>
                                     <span>100%</span>
                                 </div>
                             </div>
@@ -581,7 +622,23 @@
         let currentLanguage = 'en';
         function translatePage(lang){ currentLanguage=lang; document.querySelectorAll('[data-translate]').forEach(el=>{ const key=el.getAttribute('data-translate'); if(translations[lang]&&translations[lang][key]) el.textContent=translations[lang][key]; }); }
 
-        document.getElementById('languageDropdown').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const menu=document.getElementById('languageMenu'); if(menu.classList.contains('hidden')){ menu.classList.remove('hidden'); menu.style.pointerEvents='auto'; setTimeout(()=>menu.classList.add('show'),10);} else { menu.classList.remove('show'); setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300);} });
+        document.getElementById('languageDropdown').addEventListener('click', function(e){
+            e.preventDefault(); e.stopPropagation();
+            const menu = document.getElementById('languageMenu');
+            const items = menu.querySelectorAll('.language-option');
+            if(menu.classList.contains('hidden')){
+                menu.classList.remove('hidden');
+                // staggered reveal
+                items.forEach((el,i)=>{ el.style.transitionDelay = (i*35)+'ms'; });
+                menu.style.pointerEvents='auto';
+                setTimeout(()=>menu.classList.add('show'),10);
+            } else {
+                // clear delays before hide
+                items.forEach((el)=>{ el.style.transitionDelay = '0ms'; });
+                menu.classList.remove('show');
+                setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300);
+            }
+        });
         document.getElementById('languageDropdown').addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); });
         document.getElementById('languageDropdown').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
         document.addEventListener('click', function(event){ const dropdown=document.getElementById('languageDropdown'); const menu=document.getElementById('languageMenu'); if(!dropdown.contains(event.target) && !menu.contains(event.target)){ menu.classList.remove('show'); setTimeout(()=>menu.classList.add('hidden'),300);} });
@@ -593,8 +650,37 @@
         document.getElementById('darkModeToggle').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
         document.getElementById('longBtn').addEventListener('click', function(){ selectedPosition='long'; this.className='btn btn-position long'; document.getElementById('shortBtn').className='btn btn-position inactive'; calculateOptimalLeverage(); });
         document.getElementById('shortBtn').addEventListener('click', function(){ selectedPosition='short'; this.className='btn btn-position short'; document.getElementById('longBtn').className='btn btn-position inactive'; calculateOptimalLeverage(); });
-        document.getElementById('leverageSlider').addEventListener('input', function(){ const leverage=this.value; document.getElementById('leverageDisplay').textContent = leverage + 'x'; });
-        document.getElementById('balancePercentage').addEventListener('input', function(){ const percentage=this.value; const balance=parseFloat(document.getElementById('balance').value)||0; const positionSize=(balance*percentage)/100; document.getElementById('percentageDisplay').textContent=percentage+'%'; document.getElementById('positionSizeDisplay').textContent='$'+positionSize.toLocaleString('tr-TR',{maximumFractionDigits:2}); });
+        const levEl = document.getElementById('leverageSlider');
+        const levCenter = document.getElementById('leverageDisplay');
+        function updateLev(){
+            const min = parseInt(levEl.min||'1',10);
+            const max = parseInt(levEl.max||'100',10);
+            const val = parseInt(levEl.value||'10',10);
+            const pct = ((val-min)/(max-min))*100;
+            levEl.style.setProperty('--lev-pct', pct+'%');
+            levCenter.textContent = val + 'x';
+            levCenter.classList.remove('lev-bump');
+            void levCenter.offsetWidth; // reflow
+            levCenter.classList.add('lev-bump');
+        }
+        levEl.addEventListener('input', updateLev);
+        updateLev();
+        const pctEl = document.getElementById('balancePercentage');
+        const pctCenter = document.getElementById('percentageDisplay');
+        function updatePct(){
+            const min = parseInt(pctEl.min||'1',10);
+            const max = parseInt(pctEl.max||'100',10);
+            const val = parseInt(pctEl.value||'10',10);
+            const pct = ((val-min)/(max-min))*100;
+            pctEl.style.setProperty('--lev-pct', pct+'%');
+            pctCenter.textContent = val + '%';
+            pctCenter.classList.remove('lev-bump');
+            void pctCenter.offsetWidth; // reflow
+            pctCenter.classList.add('lev-bump');
+            const balance=parseFloat(document.getElementById('balance').value)||0; const positionSize=(balance*val)/100; document.getElementById('positionSizeDisplay').textContent='$'+positionSize.toLocaleString('tr-TR',{maximumFractionDigits:2});
+        }
+        pctEl.addEventListener('input', updatePct);
+        updatePct();
         document.getElementById('balance').addEventListener('input', function(){ const percentage=document.getElementById('balancePercentage').value; const balance=parseFloat(this.value)||0; const positionSize=(balance*percentage)/100; document.getElementById('positionSizeDisplay').textContent='$'+positionSize.toLocaleString('tr-TR',{maximumFractionDigits:2}); calculateOptimalLeverage(); });
         function setupStopPriceCalculation(){ const stopPriceInput=document.getElementById('stopPrice'); if(stopPriceInput){ stopPriceInput.addEventListener('input', calculateOptimalLeverage); } }
         function calculateOptimalLeverage(){ const entryPrice=parseFloat(document.getElementById('entryPrice').value); const stopPrice=parseFloat(document.getElementById('stopPrice').value); if(!entryPrice||!stopPrice){ document.getElementById('optimalLeverage').textContent='-'; return;} let optimalLeverage; if(selectedPosition==='long'){ optimalLeverage=1/(1-(stopPrice/entryPrice)); } else { optimalLeverage=1/((stopPrice/entryPrice)-1); } if(optimalLeverage>0 && optimalLeverage<=1000){ document.getElementById('optimalLeverage').textContent=optimalLeverage.toFixed(2)+'x'; document.getElementById('optimalLeverage').className='text-orange-600 font-bold text-lg'; } else { document.getElementById('optimalLeverage').textContent='Invalid'; document.getElementById('optimalLeverage').className='text-red-600 font-bold text-lg'; } }
@@ -693,7 +779,7 @@
                 btn.addEventListener('pointerleave', ()=>btn.classList.remove('pressing'));
                 btn.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ const rect=btn.getBoundingClientRect(); btn.style.setProperty('--rx', (rect.width/2)+'px'); btn.style.setProperty('--ry', (rect.height/2)+'px'); btn.classList.add('pressing'); setTimeout(()=>btn.classList.remove('pressing'), 240); }});
             }
-            ['runStrategy','calculateLeverage','winRateTab','leverageTab','longBtn','shortBtn','darkModeToggle'].forEach(attachPress);
+            ['runStrategy','calculateLeverage','winRateTab','leverageTab','longBtn','shortBtn','darkModeToggle','languageDropdown'].forEach(attachPress);
         })();
         // cache last chart data for responsive redraw
         let lastChartState = { seq: null, start: 0 };
@@ -740,34 +826,30 @@
             function drawBase(){
                 // grid
                 const isDark = document.body.classList.contains('dark-mode');
-                ctx.strokeStyle = isDark ? '#334155' : '#e5e7eb';
+                ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.12)' : '#e5e7eb';
                 ctx.lineWidth = 1; ctx.setLineDash([4,4]);
                 for(let g=0; g<=4; g++){ const y = pad + (g/4)*chartH; ctx.beginPath(); ctx.moveTo(pad,y); ctx.lineTo(pad+chartW,y); ctx.stroke(); }
                 ctx.setLineDash([]);
 
                 // y-axis labels (min, mid, max)
-                const labelColor = isDark ? '#94a3b8' : '#64748b';
+                const labelColor = isDark ? 'rgba(148,163,184,0.6)' : '#64748b';
                 ctx.fillStyle = labelColor;
                 ctx.font = '10px Inter, sans-serif';
                 const fmt = v => '$' + Math.round(v).toLocaleString('tr-TR');
                 const mid = (minY + maxY) / 2;
-                // min
                 ctx.fillText(fmt(minY), pad + 4, pad + chartH - 4);
-                // mid
                 ctx.fillText(fmt(mid), pad + 4, pad + chartH/2 - 2);
-                // max
                 ctx.fillText(fmt(maxY), pad + 4, pad + 10);
 
                 // vertical grid (x-axis) and simple ticks: 0, mid, last
-                const xLabelColor = isDark ? '#94a3b8' : '#64748b';
-                ctx.fillStyle = xLabelColor;
+                ctx.fillStyle = labelColor;
                 ctx.textAlign = 'center';
                 const n = sequence.length;
                 if(n>0){
                     const x0 = xScale(0);
                     const xm = xScale(Math.floor(n/2));
                     const xl = xScale(n);
-                    ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.18)' : 'rgba(100,116,139,0.18)';
+                    ctx.strokeStyle = isDark ? 'rgba(148,163,184,0.12)' : 'rgba(100,116,139,0.18)';
                     ctx.lineWidth = 1; ctx.setLineDash([2,4]);
                     [x0,xm,xl].forEach(x=>{ ctx.beginPath(); ctx.moveTo(x,pad); ctx.lineTo(x,pad+chartH); ctx.stroke(); });
                     ctx.setLineDash([]);
@@ -793,11 +875,14 @@
                 const lastFullIndex = Math.floor(p) - 1; // last fully completed segment index
                 const part = p - Math.floor(p); // 0..1 within current segment
 
-                // Walk and draw a clean single blue line (equity curve)
+                // Walk and draw line + area (mint theme)
                 let lastX = xScale(0);
                 let lastY = yScale(startBalance);
-                const color = '#3b82f6';
-                ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                const lineColor = 'rgba(110,231,183,1)'; // emerald-300
+                const dotColor = 'rgba(167,243,208,1)'; // emerald-200
+                ctx.lineWidth = 2.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                const pts = [[lastX,lastY]];
+                let curX = lastX, curY = lastY;
                 for(let i=0;i<n;i++){
                     const seg = sequence[i];
                     const x = xScale(i+1);
@@ -811,13 +896,43 @@
                         drawToY = prevY + (y - prevY) * part;
                     }
 
-                    ctx.strokeStyle = color;
+                    ctx.strokeStyle = lineColor;
+                    // soft glow for the line
+                    ctx.shadowColor = 'rgba(16,185,129,0.35)';
+                    ctx.shadowBlur = 6;
                     ctx.beginPath();
                     ctx.moveTo(lastX,lastY);
                     ctx.lineTo(drawToX,drawToY);
                     ctx.stroke();
+                    // reset shadow for non-line elements
+                    ctx.shadowBlur = 0;
 
-                    lastX = x; lastY = y;
+                    pts.push([drawToX,drawToY]);
+                    lastX = x; lastY = y; curX = drawToX; curY = drawToY;
+                }
+
+                // area fill under curve
+                if(pts.length>1){
+                    const grad = ctx.createLinearGradient(0, pad, 0, pad+chartH);
+                    grad.addColorStop(0, 'rgba(16,185,129,0.24)');
+                    grad.addColorStop(1, 'rgba(16,185,129,0.00)');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.moveTo(pts[0][0], pts[0][1]);
+                    for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0], pts[i][1]); }
+                    ctx.lineTo(pts[pts.length-1][0], pad+chartH);
+                    ctx.lineTo(pts[0][0], pad+chartH);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                // endpoint dot
+                if(pts.length>1){
+                    ctx.fillStyle = dotColor;
+                    ctx.shadowColor = 'rgba(16,185,129,0.35)';
+                    ctx.shadowBlur = 6;
+                    ctx.beginPath(); ctx.arc(curX, curY, 3.2, 0, Math.PI*2); ctx.fill();
+                    ctx.shadowBlur = 0;
                 }
 
                 if(progress<1) requestAnimationFrame(draw);
@@ -833,12 +948,37 @@
             function drawFull(){
                 ctx.clearRect(0,0,width,height);
                 drawBase();
+                const lineColor = 'rgba(110,231,183,1)';
                 let lx = xScale(0), ly = yScale(startBalance);
-                ctx.lineWidth = 2; ctx.strokeStyle = '#3b82f6'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                const pts = [[lx, ly]];
+                ctx.lineWidth = 2.5; ctx.strokeStyle = lineColor; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
                 for(let i=0;i<sequence.length;i++){
                     const x = xScale(i+1); const y = yScale(sequence[i].exitBalance);
+                    // soft glow for the line
+                    ctx.shadowColor = 'rgba(16,185,129,0.35)';
+                    ctx.shadowBlur = 6;
                     ctx.beginPath(); ctx.moveTo(lx,ly); ctx.lineTo(x,y); ctx.stroke();
-                    lx = x; ly = y;
+                    ctx.shadowBlur = 0;
+                    lx = x; ly = y; pts.push([x,y]);
+                }
+                if(pts.length>1){
+                    const grad = ctx.createLinearGradient(0, pad, 0, pad+chartH);
+                    grad.addColorStop(0, 'rgba(16,185,129,0.24)');
+                    grad.addColorStop(1, 'rgba(16,185,129,0.00)');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.moveTo(pts[0][0], pts[0][1]);
+                    for(let i=1;i<pts.length;i++){ ctx.lineTo(pts[i][0], pts[i][1]); }
+                    ctx.lineTo(pts[pts.length-1][0], pad+chartH);
+                    ctx.lineTo(pts[0][0], pad+chartH);
+                    ctx.closePath();
+                    ctx.fill();
+                    const last = pts[pts.length-1];
+                    ctx.fillStyle = 'rgba(167,243,208,1)';
+                    ctx.shadowColor = 'rgba(16,185,129,0.35)';
+                    ctx.shadowBlur = 6;
+                    ctx.beginPath(); ctx.arc(last[0], last[1], 3.2, 0, Math.PI*2); ctx.fill();
+                    ctx.shadowBlur = 0;
                 }
             }
 
