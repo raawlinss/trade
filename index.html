@@ -241,16 +241,25 @@
 
         /* Trade-like aesthetics */
         .num, .text-right { font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1, 'ss01' 1; }
-        .market-ticker { display: flex; gap: 12px; align-items: center; white-space: nowrap; overflow: hidden; border: 1px dashed rgba(148,163,184,0.35); border-radius: 10px; padding: 6px 10px; background: linear-gradient(180deg, rgba(148,163,184,0.08), rgba(148,163,184,0.04)); }
-        .dark-mode .market-ticker { border-color: rgba(148,163,184,0.25); background: linear-gradient(180deg, rgba(30,41,59,0.6), rgba(30,41,59,0.4)); }
-        .ticker-item { display: inline-flex; align-items: baseline; gap: 6px; font-size: 12px; color: #475569; }
-        .ticker-item .pair { font-weight: 600; color: #0f172a; }
-        .ticker-item .price { font-weight: 700; letter-spacing: 0.1px; }
-        .ticker-item .chg { font-size: 11px; padding: 1px 6px; border-radius: 999px; }
-        .chg.up { color: #065f46; background: rgba(16,185,129,0.16); }
-        .chg.down { color: #7f1d1d; background: rgba(239,68,68,0.16); }
-        .dark-mode .ticker-item { color: #cbd5e1; }
-        .dark-mode .ticker-item .pair { color: #e2e8f0; }
+        .market-ticker { display: flex; gap: 10px; align-items: center; white-space: nowrap; overflow-x: auto; overflow-y: hidden; padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(148,163,184,0.28); backdrop-filter: blur(6px); background: linear-gradient(180deg, rgba(248,250,252,0.65), rgba(248,250,252,0.45)); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35); }
+        .market-ticker::-webkit-scrollbar { height: 6px; }
+        .market-ticker::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.4); border-radius: 999px; }
+        .dark-mode .market-ticker { border-color: rgba(51,65,85,0.55); background: linear-gradient(180deg, rgba(15,23,42,0.55), rgba(15,23,42,0.35)); }
+        .ticker-item { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #334155; padding: 6px 12px; border-radius: 9999px; border: 1px solid rgba(148,163,184,0.35); background: linear-gradient(180deg, rgba(241,245,249,0.9), rgba(241,245,249,0.65)); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease; text-decoration: none; }
+        .ticker-item:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0,0,0,0.06); border-color: rgba(148,163,184,0.55); }
+        .ticker-item.shimmer { background: linear-gradient(90deg, rgba(226,232,240,0.8) 25%, rgba(203,213,225,0.8) 50%, rgba(226,232,240,0.8) 75%); background-size: 200px 100%; animation: shimmer 1.4s infinite; color: transparent; }
+        .ticker-item .pair { font-weight: 600; color: #0f172a; opacity: 0.82; }
+        .ticker-item .price { font-weight: 700; letter-spacing: 0.2px; color: #0b1220; }
+        .ticker-item .chg { font-size: 11px; padding: 2px 7px; border-radius: 9999px; border: 1px solid transparent; }
+        .chg.up { color: #047857; background: rgba(16,185,129,0.14); border-color: rgba(16,185,129,0.28); }
+        .chg.down { color: #b91c1c; background: rgba(239,68,68,0.14); border-color: rgba(239,68,68,0.28); }
+        /* neutral removed with dominance */
+        .dark-mode .ticker-item { color: #cbd5e1; border-color: rgba(51,65,85,0.6); background: linear-gradient(180deg, rgba(30,41,59,0.82), rgba(30,41,59,0.58)); }
+        .dark-mode .ticker-item:hover { box-shadow: 0 8px 20px rgba(2,6,23,0.45); border-color: rgba(71,85,105,0.8); }
+        .dark-mode .ticker-item .pair, .dark-mode .ticker-item .price { color: #e2e8f0; }
+        .dark-mode .chg.up { color: #10b981; background: rgba(16,185,129,0.16); border-color: rgba(16,185,129,0.35); }
+        .dark-mode .chg.down { color: #ef4444; background: rgba(239,68,68,0.16); border-color: rgba(239,68,68,0.35); }
+        .dark-mode .ticker-item.shimmer { background: linear-gradient(90deg, rgba(30,41,59,0.9) 25%, rgba(51,65,85,0.9) 50%, rgba(30,41,59,0.9) 75%); background-size: 200px 100%; animation: shimmer 1.4s infinite; color: transparent; }
 
         /* Right align numeric columns in history table */
         #tradeList table thead th:nth-child(3),
@@ -402,6 +411,9 @@
             </div>
         </div>
 
+        <div class="mb-6">
+            <div id="marketTicker" class="market-ticker"></div>
+        </div>
         <div class="flex justify-center mb-8 tab-navigation">
             <div class="card rounded-lg p-1 flex flex-row space-x-1">
                 <button id="winRateTab" class="btn btn-tab active" data-translate="winRateTab">Win Rate Calculator</button>
@@ -648,13 +660,21 @@
                 setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300);
             }
         });
+
+        // Enter-to-calculate shortcuts within sections
+        (function(){
+            const wr = document.getElementById('winRateSection');
+            if(wr){ wr.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); const b=document.getElementById('runStrategy'); if(b) b.click(); } }); }
+            const lv = document.getElementById('leverageSection');
+            if(lv){ lv.addEventListener('keydown', function(e){ if(e.key==='Enter'){ e.preventDefault(); const b=document.getElementById('calculateLeverage'); if(b) b.click(); } }); }
+        })();
         document.getElementById('languageDropdown').addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); });
         document.getElementById('languageDropdown').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
         document.addEventListener('click', function(event){ const dropdown=document.getElementById('languageDropdown'); const menu=document.getElementById('languageMenu'); if(!dropdown.contains(event.target) && !menu.contains(event.target)){ menu.classList.remove('show'); setTimeout(()=>menu.classList.add('hidden'),300);} });
-        document.querySelectorAll('.language-option').forEach(option=>{ option.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const lang=this.getAttribute('data-lang'); const flag=this.getAttribute('data-flag'); const name=this.getAttribute('data-name'); document.getElementById('currentFlag').src=`https://flagcdn.com/${flag}.svg`; document.getElementById('currentLanguage').textContent=name; translatePage(lang); const menu=document.getElementById('languageMenu'); menu.classList.remove('show'); setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300); }); option.addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); }); option.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); }); option.style.pointerEvents='auto'; option.style.cursor='pointer'; });
+        document.querySelectorAll('.language-option').forEach(option=>{ option.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); const lang=this.getAttribute('data-lang'); const flag=this.getAttribute('data-flag'); const name=this.getAttribute('data-name'); document.getElementById('currentFlag').src=`https://flagcdn.com/${flag}.svg`; document.getElementById('currentLanguage').textContent=name; try{ localStorage.setItem('lang', lang); }catch(_e){} translatePage(lang); const menu=document.getElementById('languageMenu'); menu.classList.remove('show'); setTimeout(()=>{ menu.classList.add('hidden'); menu.style.pointerEvents='none'; },300); }); option.addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); }); option.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); }); option.style.pointerEvents='auto'; option.style.cursor='pointer'; });
 
         let selectedPosition='long';
-        document.getElementById('darkModeToggle').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); document.body.classList.toggle('dark-mode'); document.body.classList.toggle('light-mode'); });
+        document.getElementById('darkModeToggle').addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); document.body.classList.toggle('dark-mode'); document.body.classList.toggle('light-mode'); try{ localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light'); }catch(_e){} });
         document.getElementById('darkModeToggle').addEventListener('touchstart', function(e){ e.preventDefault(); e.stopPropagation(); setTimeout(()=>this.click(),10); });
         document.getElementById('darkModeToggle').addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); });
         document.getElementById('longBtn').addEventListener('click', function(){ selectedPosition='long'; this.className='btn btn-position long'; document.getElementById('shortBtn').className='btn btn-position inactive'; calculateOptimalLeverage(); });
@@ -728,13 +748,36 @@
                 });
             }
 
-            // Auto dark-mode on first load based on system preference
             try{
-                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if(prefersDark && document.body.classList.contains('light-mode')){
-                    document.body.classList.remove('light-mode');
-                    document.body.classList.add('dark-mode');
-                    const modeIcon = document.getElementById('modeIcon'); if(modeIcon) modeIcon.textContent = '☀️';
+                const stored = localStorage.getItem('theme');
+                if(stored === 'dark'){
+                    if(document.body.classList.contains('light-mode')){ document.body.classList.remove('light-mode'); }
+                    if(!document.body.classList.contains('dark-mode')){ document.body.classList.add('dark-mode'); }
+                } else if(stored === 'light'){
+                    if(document.body.classList.contains('dark-mode')){ document.body.classList.remove('dark-mode'); }
+                    if(!document.body.classList.contains('light-mode')){ document.body.classList.add('light-mode'); }
+                } else {
+                    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    if(prefersDark && document.body.classList.contains('light-mode')){
+                        document.body.classList.remove('light-mode');
+                        document.body.classList.add('dark-mode');
+                    }
+                }
+                // Language persistence
+                const storedLang = localStorage.getItem('lang');
+                if(storedLang && translations && translations[storedLang]){
+                    window.currentLanguage = storedLang;
+                    translatePage(storedLang);
+                    // update flag/name on button if possible
+                    const opt = document.querySelector(`.language-option[data-lang="${storedLang}"]`);
+                    if(opt){
+                        const flag = opt.getAttribute('data-flag');
+                        const name = opt.getAttribute('data-name');
+                        const flagImg = document.getElementById('currentFlag');
+                        if(flagImg) flagImg.src = `https://flagcdn.com/${flag}.svg`;
+                        const nameSpan = document.getElementById('currentLanguage');
+                        if(nameSpan) nameSpan.textContent = name;
+                    }
                 }
             }catch(_e){}
 
@@ -770,6 +813,91 @@
         })();
 
         // ---- End UI Enhancements ----
+        (function(){
+            const tickerEl = document.getElementById('marketTicker');
+            if(!tickerEl) return;
+            tickerEl.setAttribute('role','list');
+            tickerEl.setAttribute('aria-label','Market ticker');
+            const symbols = ['BTCUSDT','ETHUSDT','SOLUSDT','BNBUSDT','UNIUSDT','LINKUSDT'];
+            let data = symbols.map(s=>({ pair:s, price: NaN, chg: NaN }));
+
+            function formatPrice(v){
+                if(!Number.isFinite(v)) return '';
+                const abs = Math.abs(v);
+                let d = 4;
+                if(abs >= 1000) d = 2;          // BTC gibi büyük fiyatlar
+                else if(abs >= 100) d = 3;
+                else if(abs >= 1) d = 4;         // UNI örneği: 5.8845
+                else if(abs >= 0.1) d = 5;
+                else d = 6;                       // çok küçükler için daha fazla
+                return v.toLocaleString('en-US',{minimumFractionDigits:d, maximumFractionDigits:d});
+            }
+
+            function render(loading=false){
+                tickerEl.innerHTML = data.map(p => {
+                    const has = Number.isFinite(p.price) && Number.isFinite(p.chg);
+                    const chgCls = has && p.chg >= 0 ? 'up' : 'down';
+                    const chgText = has ? ((p.chg>=0?'+':'') + p.chg.toFixed(2) + '%') : '';
+                    const priceText = has ? formatPrice(p.price) : '';
+                    const shimmer = loading || !has ? ' shimmer' : '';
+                    const base = p.pair.replace('USDT','');
+                    const url = `https://www.binance.com/en/trade/${base}_USDT?type=spot`;
+                    const aria = has ? `${p.pair} ${priceText} ${chgText}` : `${p.pair} loading`;
+                    return `<a class=\"ticker-item${shimmer}\" role=\"listitem\" href=\"${url}\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"${aria}\"><span class=\"pair\">${p.pair}</span><span class=\"price num\">${priceText}</span><span class=\"chg ${chgCls}\">${chgText}</span></a>`;
+                }).join('');
+            }
+
+            async function fetchTicker(){
+                try{
+                    render(true);
+                    const url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(JSON.stringify(symbols));
+                    const res = await fetch(url, { cache: 'no-store' });
+                    if(!res.ok) throw new Error('HTTP '+res.status);
+                    const arr = await res.json();
+                    const map = new Map(arr.map(x => [x.symbol, x]));
+                    data = symbols.map(sym => {
+                        const it = map.get(sym);
+                        if(it){
+                            const price = parseFloat(it.lastPrice);
+                            const chg = parseFloat(it.priceChangePercent);
+                            return { pair: sym, price, chg };
+                        }
+                        return { pair: sym, price: NaN, chg: NaN };
+                    });
+                    render(false);
+                }catch(e){
+                    render(false);
+                }
+            }
+
+            // initial and polling
+            render(true);
+            fetchTicker();
+            setInterval(fetchTicker, 5000);
+        })();
+
+        (function(){
+            document.addEventListener('keydown', function(e){
+                const t = e.target;
+                if(t && (t.tagName === 'INPUT' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+                if(e.key === 't' || e.key === 'T'){
+                    const btn = document.getElementById('darkModeToggle'); if(btn) btn.click();
+                }
+                if(e.key === '1'){
+                    const btn = document.getElementById('winRateTab'); if(btn) btn.click();
+                }
+                if(e.key === '2'){
+                    const btn = document.getElementById('leverageTab'); if(btn) btn.click();
+                }
+                // Quick adjust hotkeys
+                if(e.key === '+' || e.key === '=' ){ const s=document.getElementById('leverageSlider'); if(s){ s.value = Math.min(parseInt(s.max||'100',10), parseInt(s.value||'10',10)+1); s.dispatchEvent(new Event('input')); } }
+                if(e.key === '-' ){ const s=document.getElementById('leverageSlider'); if(s){ s.value = Math.max(parseInt(s.min||'1',10), parseInt(s.value||'10',10)-1); s.dispatchEvent(new Event('input')); } }
+                if(e.key === '[' ){ const s=document.getElementById('balancePercentage'); if(s){ s.value = Math.max(parseInt(s.min||'1',10), parseInt(s.value||'10',10)-1); s.dispatchEvent(new Event('input')); } }
+                if(e.key === ']' ){ const s=document.getElementById('balancePercentage'); if(s){ s.value = Math.min(parseInt(s.max||'100',10), parseInt(s.value||'10',10)+1); s.dispatchEvent(new Event('input')); } }
+                if(e.key === 'l' || e.key === 'L'){ const tgt = selectedPosition==='long' ? 'shortBtn' : 'longBtn'; const b=document.getElementById(tgt); if(b) b.click(); }
+            });
+        })();
+
         // Press ripple setup for selected buttons
         (function(){
             function attachPress(id){
@@ -1177,32 +1305,30 @@
             container.innerHTML='';
             seq.forEach(rowData=>{
                 const tr=document.createElement('tr');
+                const lbl = (translations && translations[currentLanguage]) ? (rowData.isWin ? translations[currentLanguage].win : translations[currentLanguage].loss) : (rowData.isWin ? 'WIN' : 'LOSS');
                 tr.innerHTML = `
                     <td class="py-2 px-2 text-secondary text-xs">#${rowData.index}</td>
-                    <td class="py-2 px-2"><span class="badge ${rowData.isWin?'win':'loss'}">${rowData.isWin?'WIN':'LOSS'}</span></td>
+                    <td class="py-2 px-2"><span class="badge ${rowData.isWin?'win':'loss'}">${lbl}</span></td>
                     <td class="py-2 px-2 text-xs">$${rowData.entryBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
                     <td class="py-2 px-2 text-xs">$${rowData.exitBalance.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
-                    <td class="py-2 px-2 text-xs ${rowData.pnl>=0 ? 'text-success' : 'text-danger'}">${rowData.pnl>=0?'+':''}$${rowData.pnl.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
-                    <td class="py-2 px-2 text-xs ${rowData.pnlPercent>=0 ? 'text-success' : 'text-danger'}">${rowData.pnlPercent>=0?'+':''}${rowData.pnlPercent.toFixed(2)}%</td>
+                    <td class="py-2 px-2 text-xs ${rowData.pnl>=0?'text-success':'text-danger'}">$${rowData.pnl.toLocaleString('tr-TR',{maximumFractionDigits:2})}</td>
+                    <td class="py-2 px-2 text-xs ${rowData.pnlPercent>=0?'text-success':'text-danger'}">${rowData.pnlPercent.toFixed(2)}%</td>
                 `;
                 container.appendChild(tr);
             });
         }
 
-        // Sorting and CSV export handlers
-        (function(){
+        (function setupTableSorting(){
             const thead = document.querySelector('#tradeList thead');
-            if(thead){
-                thead.addEventListener('click', (e)=>{
-                    const th = e.target.closest('th[data-col]');
-                    if(!th) return;
+            if(!thead) return;
+            thead.querySelectorAll('th[data-col]').forEach(th=>{
+                th.addEventListener('click', ()=>{
                     const col = th.getAttribute('data-col');
-                    if(tableSort.col===col){ tableSort.dir = tableSort.dir==='asc'?'desc':'asc'; }
-                    else { tableSort.col=col; tableSort.dir='asc'; }
-                    if(lastSequence && lastSequence.length){ renderTradesTable(lastSequence); }
+                    if(tableSort.col === col){ tableSort.dir = tableSort.dir==='asc'?'desc':'asc'; }
+                    else { tableSort.col = col; tableSort.dir = (th.getAttribute('data-numeric')==='true') ? 'desc' : 'asc'; }
+                    renderTradesTable(lastSequence);
                 });
-            }
-            // CSV export removed per request
+            });
         })();
     </script>
   </body>
